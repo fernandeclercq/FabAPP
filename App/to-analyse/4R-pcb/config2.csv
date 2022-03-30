@@ -1,0 +1,20 @@
+#Feeder[1],Feeder ID[2],Type[3],Nozzle[4],X[5],Y[6],Angle[7],Footprint[8],Value[9],Pick height[10],Pick delay[11],Placement height[12],Placement delay[13],Vacuum detection[14],Vacuum value[15],Vision alignment[16],Speed[17],
+stack[1],1[2],0[3],1[4],411.36[5],92.29[6],90.00[7],**TQFP100**[8],0805/0[9],0.50[10],0[11],0.00[12],0[13],**Yes**[14],-40[15],**3**[16],**130**[17],4(feeding rate),50(feed strength),80(peel strength),**Yes**(size corr),**Yes**(skip),
+// (8)Footprint: TQFP100
+// (9)Mov-speed: 130
+// (10)Vision align.: Large component = 3
+pcb,Manual,Lock,100,100,350,200,Back,10,10,200,
+mark,**Mirror**,Auto,112.7,66.9734,132.13,67.18,134.159,95.1161,
+markext,0,0.8,**3.6**,**2**,**300**,
+// PCBmarksett->marklist-> (?)Max: 3.6; (3)light source: 2(outer); (4)brightness: 300
+markext,1,0.8,3,1,0,
+markext,2,0.8,3,1,0,
+test,No,
+mirror_create,1,1,105.46,59.35,0,0,0,0,0.778154,
+mirror,115.00,89.74,0,No,
+#Chip,Feeder ID,Nozzle,Name,Vablue,Footprint,X,Y,Rotation,Skip
+comp,1,1,r1,0,0805,115.01,89.72,90.00,No,
+comp,**98**,**4**,r2,0,0805,134.40,90.10,180.00,**Yes**,
+// Chiplist->chip2->(5)feeder:98; (6)nozzle: 4; (7)skip: Yes
+comp,1,1,r3,0,0805,134.59,72.13,-90.00,No,
+comp,1,1,r4,0,0805,115.27,71.97,0.00,No,

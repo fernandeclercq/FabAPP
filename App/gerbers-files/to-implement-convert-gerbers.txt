@@ -1,0 +1,26 @@
+['simple-pc_-no-fiducials-B_Cu.gbr', 
+	'simple-pc_-no-fiducials-B_Mask.gbr', 
+	'simple-pc_-no-fiducials-B_Paste.gbr', 
+	'simple-pc_-no-fiducials-B_Silkscreen.gbr', 
+	'simple-pc_-no-fiducials-Edge_Cuts.gbr', 
+	'simple-pc_-no-fiducials-F_Cu.gbr', 
+	'simple-pc_-no-fiducials-F_Mask.gbr', 
+	'simple-pc_-no-fiducials-F_Paste.gbr', 
+	'simple-pc_-no-fiducials-F_Silkscreen.gbr', 
+	'simple-pc_-no-fiducials-NPTH.drl', 
+	'simple-pc_-no-fiducials-NPTH-drl_map.gbr', 
+	'simple-pc_-no-fiducials-PTH.drl', 
+	'simple-pc_-no-fiducials-PTH-drl_map.gbr']
+	
+	
+['copper_bottom.gbr', 
+	'copper_top.gbr', 'drill_1_16.xln', 
+	'gerber_job.gbrjob', 'profile.gbr', 
+	'silkscreen_bottom.gbr', 'silkscreen_top.gbr', 
+	'soldermask_bottom.gbr', 'soldermask_top.gbr', 
+	'solderpaste_bottom.gbr', 'solderpaste_top.gbr']
+	
+	
+=> -F_Cu.gbr / -B_Cu.gbr | copper_top.gbr / copper_bottom.gbr => .TOP / .BOT
+=> -Edge_Cuts.gbr | profile.gbr => .BOA
+=> PTH.drl / NPTH.drl | drill_<char>.xln => DRD (Plated) / DRL (Non-plated) 
