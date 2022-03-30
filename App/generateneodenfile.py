@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import *
-from generateneodenfile_ui import *
+from ui.generateNeodenFile_ui import *
 
 class GenerateNeodenFile(QDialog, Ui_Dialog):
     def __init__(self):

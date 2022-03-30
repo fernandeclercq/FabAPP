@@ -1,4 +1,4 @@
-from mainwindows_ui import Ui_Dialog as mainwindows_ui
+from ui.mainWindows_ui import Ui_Dialog as mainwindows_ui
 from convertgerbers import *
 from generateneodenfile import *
 
