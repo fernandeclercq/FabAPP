@@ -58,7 +58,28 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         self.myGerbersPath = QFileDialog.getOpenFileName(self, "Import Gerber Files",
                                                          self.myGerbersPath, "Zip file(*.zip)")[0]
 
-        print(self.myGerbersPath)
+        #print(self.myGerbersPath)
+        with zipfile.ZipFile(str(self.myGerbersPath), 'r') as myGerbers:
+        #    print(myGerbers.namelist())
+
+            for file in myGerbers.namelist():
+                lastSlashIndex =  file.rfind("/")
+                if file[(lastSlashIndex + 1):] != "":
+
+                    if file.endswith(".gbr"):
+                        print(file)
+                        with myGerbers.open(file, mode='r') as thefile:
+                            lstStr = []
+                            for x in range(0, 10):
+                                temp = thefile.readline(200)
+                                #print(temp)
+                                if temp != "b'G75*\\n'":
+                                    print(temp)
+                                #     lstStr.append(thefile.readline(200))
+                                # else:
+                                #     break;
+                                # print(lstStr)
+
 
     def gerbersAccepted(self, filename):
         self.ledGerberPath.setText(self.myGerbersPath)
