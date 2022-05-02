@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from ui.convertGerbers_ui import *
 import zipfile
+from modules.PCBLayer import *
 
 class ConvertGerbers(QDialog, Ui_Dialog):
     def __init__(self):
@@ -19,6 +20,11 @@ class ConvertGerbers(QDialog, Ui_Dialog):
 
         self.myGerbersZipPath = os.getcwd()
 
+        #### Relevant PCB Layers
+        self.topLayer = PCBLayer()
+        self.bottomLayer = PCBLayer()
+        self.boardOutlineLayer = PCBLayer()
+        self.drillLayer = PCBLayer()
 
         self.btnRenameGerbers.setEnabled(False)
 
@@ -60,8 +66,9 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                                                          self.myGerbersZipPath, "Zip file(*.zip)")[0]
 
 
-        gerberAbsPaths = self.getGerbersFiles(self.myGerbersZipPath)
-        print(gerberAbsPaths)
+        gerberAbsPaths = self.getGerbersFilePaths(self.myGerbersZipPath)
+        self.sortGerberFiles(self.myGerbersZipPath, gerberAbsPaths)
+        #print(gerberAbsPaths)
 
 
         # #print(self.myGerbersPath)
@@ -84,14 +91,25 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         #                             break
 
 
-    def getGerbersFiles(self, gerber_files) -> list[str]:
+    def sortGerberFiles(self, gerber_zip_path, gerber_paths: list[str]):
+        print(gerber_paths)
+        with zipfile.ZipFile(str(gerber_zip_path), 'r') as gerberZipFiles:
+            for gerberFile in gerber_paths:
+                with gerberZipFiles.open(gerberFile, mode='r') as gerber:
+                    for x in range(0, 10):
+                        temp = gerber.readline().decode('UTF-8')
+                        print(temp)
+
+
+    def getGerbersFilePaths(self, gerber_files) -> list[str]:
         listBuffer = []
         with zipfile.ZipFile(str(gerber_files), 'r') as myGerberFiles:
 
             for gerberFile in myGerberFiles.namelist():
                 currentFileName = self.getFileName(gerberFile)
                 if currentFileName.endswith(".gbr") or currentFileName.endswith(".xln"):
-                    listBuffer.append(os.getcwd() + self.getPlatformDirectorySlash() + gerberFile)
+                    #listBuffer.append(os.getcwd() + self.getPlatformDirectorySlash() + gerberFile)
+                    listBuffer.append(gerberFile)
 
         return listBuffer
 
