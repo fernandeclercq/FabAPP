@@ -13,9 +13,9 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.setAcceptDrops(True)
 
-        self.ledGerberPath.setText(os.getcwd())
+        self.ledExportGerberPath.setText(os.getcwd())
 
-        self.btnImportGrbs.clicked.connect(self.evt_btnImportGerbers_clicked)
+        self.btnExportGerbers.clicked.connect(self.evt_btnExportGerbers_clicked)
         self.btnRenameGerbers.clicked.connect(self.evt_btnRenameGerbers_clicked)
 
         self.myGerbersZipPath = os.getcwd()
@@ -42,17 +42,21 @@ class ConvertGerbers(QDialog, Ui_Dialog):
             event.ignore()
 
     def dropEvent(self, event: QtGui.QDragEnterEvent) -> None:
-        event.accept()
-        event.setDropAction(Qt.CopyAction)
-        fileName = event.mimeData().urls()[0].fileName()
-        self.myGerbersZipPath = event.mimeData().urls()[0].toLocalFile()
+        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+            event.accept()
+            event.setDropAction(Qt.CopyAction)
+            fileName = event.mimeData().urls()[0].fileName()
+            self.myGerbersZipPath = event.mimeData().urls()[0].toLocalFile()
 
-        self.gerbersAccepted(fileName)
+            self.gerbersAccepted(fileName)
+            gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
+            areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
+            if areLayersSorted:
+                print(self.bottomLayer, self.topLayer, sep="\n")
 
+        else:
+            event.ignore()
 
-        with zipfile.ZipFile(str(self.myGerbersZipPath), 'r') as myGerbers:
-            myPCBLayers = myGerbers.namelist()
-            print(myPCBLayers)
 
 
 
@@ -62,41 +66,22 @@ class ConvertGerbers(QDialog, Ui_Dialog):
     def extractFilesToPath(self, gerbers: zipfile, pathToExtract: str) -> None:
         pass
 
-    def evt_btnImportGerbers_clicked(self):
+    def evt_btnExportGerbers_clicked(self):
         self.myGerbersZipPath = QFileDialog.getOpenFileName(self, "Import Gerber Files",
                                                          self.myGerbersZipPath, "Zip file(*.zip)")[0]
 
 
-        if self.myGerbersZipPath != "":
-            gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
-            self.sortGerberFiles(gerberFileHeaders)
-        #print(gerberAbsPaths)
+        # if self.myGerbersZipPath != "":
+        #     gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
+        #     areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
+        #     if areLayersSorted:
+        #         pass
 
 
-        # #print(self.myGerbersPath)
-        # with zipfile.ZipFile(str(self.myGerbersPath), 'r') as myGerbers:
-        # #    print(myGerbers.namelist())
-        #
-        #     for file in myGerbers.namelist():
-        #         lastSlashIndex =  file.rfind("/")
-        #         if file[(lastSlashIndex + 1):] != "":
-        #
-        #             if file.endswith(".gbr"):
-        #                 print(file)
-        #                 with myGerbers.open(file, mode='r') as thefile:
-        #                     lstStr = []
-        #                     for x in range(0, 10):
-        #                         temp = thefile.readline().decode('UTF-8')
-        #                         if temp.find("G75*") == -1:
-        #                             print(temp[:-2])
-        #                         else:
-        #                             break
 
-
-    def sortGerberFiles(self, gerber_file_headers: list[list[str]]):
+    def sortGerberFiles(self, gerber_file_headers: list[list[str]]) -> bool:
 
         for gerber_header in gerber_file_headers:
-            print(gerber_header)
             gerberFilePath = gerber_header[0]
 
             #Drill file starts with command "M48" in its header
@@ -111,7 +96,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                         idx = gerber_header_line.find("CreationDate")
                         self.drillLayer.layerCreationDate = gerber_header_line[(idx + len("CreationDate") + 1):]
 
-                print(self.drillLayer)
+            # All other layers
             else:
                 gerberLayerFunction = ""
                 gerberLayerGenSoft = ""
@@ -119,7 +104,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                 for gerber_header_line in gerber_header:
                     if gerber_header_line.find("FileFunction") != -1:
                         idx = gerber_header_line.find("FileFunction")
-                        gerberLayerFunction = gerber_header_line[idx + len("FileFunction") + 1:]
+                        gerberLayerFunction = gerber_header_line[idx + len("FileFunction") + 1:].split(',')
                     if gerber_header_line.find("GenerationSoftware") != -1:
                         idx = gerber_header_line.find("GenerationSoftware")
                         gerberLayerGenSoft = gerber_header_line[(idx + len("GenerationSoftware") + 1):].replace(',', ' ')
@@ -127,8 +112,55 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                         idx = gerber_header_line.find("CreationDate")
                         gerberLayerCreationDate = gerber_header_line[(idx + len("CreationDate") + 1):]
 
-                print(gerberLayerFunction, gerberLayerGenSoft, gerberLayerCreationDate)
+                if len(gerberLayerFunction) > 0:
 
+                    if gerberLayerFunction[0] == "Profile":
+                        self.boardOutlineLayer.layerFilePath = gerberFilePath
+                        self.boardOutlineLayer.layerGenerationSoftware = gerberLayerGenSoft
+                        self.boardOutlineLayer.layerCreationDate = gerberLayerCreationDate
+                        self.boardOutlineLayer.layerType = "Board Outline"
+
+                    elif gerberLayerGenSoft.lower().find("eagle") != -1:
+                        if gerberLayerFunction[0] == "Copper":
+                            if gerberLayerFunction[2] == "Bot":
+                                self.bottomLayer.layerType = gerberLayerFunction[0]
+                                self.bottomLayer.layerNumber = gerberLayerFunction[1]
+                                self.bottomLayer.layerSide = gerberLayerFunction[2]
+                                self.bottomLayer.layerSignalType = gerberLayerFunction[3]
+                                self.bottomLayer.layerGenerationSoftware = gerberLayerGenSoft
+                                self.bottomLayer.layerCreationDate = gerberLayerCreationDate
+                                self.bottomLayer.layerFilePath = gerberFilePath
+                            elif gerberLayerFunction[2] == "Top":
+                                self.topLayer.layerType = gerberLayerFunction[0]
+                                self.topLayer.layerNumber = gerberLayerFunction[1]
+                                self.topLayer.layerSide = gerberLayerFunction[2]
+                                self.topLayer.layerSignalType = gerberLayerFunction[3]
+                                self.topLayer.layerGenerationSoftware = gerberLayerGenSoft
+                                self.topLayer.layerCreationDate = gerberLayerCreationDate
+                                self.topLayer.layerFilePath = gerberFilePath
+                    elif gerberLayerGenSoft.lower().find("kicad") != -1:
+                        if gerberLayerFunction[0] == "Copper":
+                            print("copper layer kicad")
+                            if gerberLayerFunction[2] == "Bot":
+                                print("bot layer")
+                                self.bottomLayer.layerType = gerberLayerFunction[0]
+                                self.bottomLayer.layerNumber = gerberLayerFunction[1]
+                                self.bottomLayer.layerSide = gerberLayerFunction[2]
+                                self.bottomLayer.layerGenerationSoftware = gerberLayerGenSoft
+                                self.bottomLayer.layerCreationDate = gerberLayerCreationDate
+                                self.bottomLayer.layerFilePath = gerberFilePath
+                            elif gerberLayerFunction[2] == "Top":
+                                self.topLayer.layerType = gerberLayerFunction[0]
+                                self.topLayer.layerNumber = gerberLayerFunction[1]
+                                self.topLayer.layerSide = gerberLayerFunction[2]
+                                self.topLayer.layerGenerationSoftware = gerberLayerGenSoft
+                                self.topLayer.layerCreationDate = gerberLayerCreationDate
+                                self.topLayer.layerFilePath = gerberFilePath
+
+        if self.topLayer.layerFilePath != "" and self.bottomLayer.layerFilePath != "" and self.boardOutlineLayer.layerFilePath != "":
+            return True
+        else:
+            return False
 
 
     def getGerbersFileHeader(self, gerber_files) -> list[list[str]]:
@@ -152,7 +184,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         return listBuffer
 
     def gerbersAccepted(self, filename):
-        self.ledGerberPath.setText(self.myGerbersPath)
+        #self.ledGerberPath.setText(self.myGerbersPath)
         self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed #00E200; }")
         self.lblConvertGerbers.setText(filename)
         self.btnRenameGerbers.setEnabled(True)
