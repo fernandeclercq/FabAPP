@@ -1,7 +1,7 @@
 class PCBLayer:
-    def __init__(self, layer_file_path: str = "", layer_type: str = "", layer_side: str = "", layer_number: str = "",
-                 layer_signal_type: str = "", layer_polarity: str = "",
-                 layer_generation_software: str = "", layer_creation_date: str = ""):
+    def __init__(self, layer_file_path: str = "N/A", layer_type: str = "N/A", layer_side: str = "N/A",
+                 layer_number: str = "N/A", layer_signal_type: str = "N/A", layer_polarity: str = "N/A",
+                 layer_generation_software: str = "N/A", layer_creation_date: str = "N/A"):
         super(PCBLayer, self).__init__()
 
         self.layerFilePath = layer_file_path
@@ -15,12 +15,12 @@ class PCBLayer:
 
 
     def __str__(self):
-        return "Layer name: {},Layer type: {}, Side: {}, Layer filepath: {}".format(
-            self.getFileName(), self.layerType, self.layerSide, self.layerFilePath)
+        return "Layer Generation Software: {}, Layer name: {}, Layer type: {}, Side: {}, Layer filepath: {}".format(
+            self.layerGenerationSoftware, self.getFileName(), self.layerType, self.layerSide, self.layerFilePath)
 
     def __repr__(self):
-        return "Layer name: {},Layer type: {}, Side: {}, Layer filepath: {}\n".format(
-            self.getFileName(), self.layerType, self.layerSide, self.layerFilePath)
+        return "Layer Generation Software: {}, Layer name: {}, Layer type: {}, Side: {}, Layer filepath: {}\n".format(
+            self.layerGenerationSoftware, self.getFileName(), self.layerType, self.layerSide, self.layerFilePath)
 
     def getFileName(self) -> str:
         if self.layerFilePath != "":

@@ -26,6 +26,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         self.boardOutlineLayer = PCBLayer()
         self.drillLayer = PCBLayer()
 
+
         self.btnRenameGerbers.setEnabled(False)
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
@@ -66,8 +67,9 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                                                          self.myGerbersZipPath, "Zip file(*.zip)")[0]
 
 
-        gerberAbsPaths = self.getGerbersFilePaths(self.myGerbersZipPath)
-        self.sortGerberFiles(self.myGerbersZipPath, gerberAbsPaths)
+        if self.myGerbersZipPath != "":
+            gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
+            self.sortGerberFiles(gerberFileHeaders)
         #print(gerberAbsPaths)
 
 
@@ -91,25 +93,61 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         #                             break
 
 
-    def sortGerberFiles(self, gerber_zip_path, gerber_paths: list[str]):
-        print(gerber_paths)
-        with zipfile.ZipFile(str(gerber_zip_path), 'r') as gerberZipFiles:
-            for gerberFile in gerber_paths:
-                with gerberZipFiles.open(gerberFile, mode='r') as gerber:
-                    for x in range(0, 10):
-                        temp = gerber.readline().decode('UTF-8')
-                        print(temp)
+    def sortGerberFiles(self, gerber_file_headers: list[list[str]]):
+
+        for gerber_header in gerber_file_headers:
+            print(gerber_header)
+            gerberFilePath = gerber_header[0]
+
+            #Drill file starts with command "M48" in its header
+            if gerber_header[1].find("M48") != -1:
+                self.drillLayer.layerFilePath = gerberFilePath
+                self.drillLayer.layerType = "Drill"
+                for gerber_header_line in gerber_header:
+                    if gerber_header_line.find("GenerationSoftware") != -1:
+                        idx = gerber_header_line.find("GenerationSoftware")
+                        self.drillLayer.layerGenerationSoftware = gerber_header_line[(idx + len("GenerationSoftware") + 1):].replace(',', ' ')
+                    if gerber_header_line.find("CreationDate") != -1:
+                        idx = gerber_header_line.find("CreationDate")
+                        self.drillLayer.layerCreationDate = gerber_header_line[(idx + len("CreationDate") + 1):]
+
+                print(self.drillLayer)
+            else:
+                gerberLayerFunction = ""
+                gerberLayerGenSoft = ""
+                gerberLayerCreationDate = ""
+                for gerber_header_line in gerber_header:
+                    if gerber_header_line.find("FileFunction") != -1:
+                        idx = gerber_header_line.find("FileFunction")
+                        gerberLayerFunction = gerber_header_line[idx + len("FileFunction") + 1:]
+                    if gerber_header_line.find("GenerationSoftware") != -1:
+                        idx = gerber_header_line.find("GenerationSoftware")
+                        gerberLayerGenSoft = gerber_header_line[(idx + len("GenerationSoftware") + 1):].replace(',', ' ')
+                    if gerber_header_line.find("CreationDate") != -1:
+                        idx = gerber_header_line.find("CreationDate")
+                        gerberLayerCreationDate = gerber_header_line[(idx + len("CreationDate") + 1):]
+
+                print(gerberLayerFunction, gerberLayerGenSoft, gerberLayerCreationDate)
 
 
-    def getGerbersFilePaths(self, gerber_files) -> list[str]:
+
+    def getGerbersFileHeader(self, gerber_files) -> list[list[str]]:
         listBuffer = []
-        with zipfile.ZipFile(str(gerber_files), 'r') as myGerberFiles:
 
+        with zipfile.ZipFile(str(gerber_files), 'r') as myGerberFiles:
             for gerberFile in myGerberFiles.namelist():
+                buffer = []
                 currentFileName = self.getFileName(gerberFile)
-                if currentFileName.endswith(".gbr") or currentFileName.endswith(".xln"):
+                if currentFileName.endswith(".gbr") or currentFileName.endswith(".xln") or currentFileName.endswith(".drl"):
                     #listBuffer.append(os.getcwd() + self.getPlatformDirectorySlash() + gerberFile)
-                    listBuffer.append(gerberFile)
+                    buffer.append(gerberFile)
+                    with myGerberFiles.open(gerberFile, mode='r') as gerber:
+                        # Read the 10 first lines of the gerber file
+                        for x in range(0, 7):
+                            # Read one line(BIN), convert it to 'UTF-8' and strip 'return' and 'newline' characters
+                            temp = gerber.readline().decode('UTF-8').rstrip('\r\n').removesuffix('*%')
+                            buffer.append(temp)
+                    listBuffer.append(buffer)
 
         return listBuffer
 
