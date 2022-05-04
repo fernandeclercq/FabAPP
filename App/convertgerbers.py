@@ -1,24 +1,26 @@
 import os
 import platform
-
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from ui.convertGerbers_ui import *
 import zipfile
 from modules.PCBLayer import *
 
-class ConvertGerbers(QDialog, Ui_Dialog):
+class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
     def __init__(self):
         super(ConvertGerbers, self).__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
+        self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
 
         self.ledExportGerberPath.setText(os.getcwd())
+        self.ledExportGerberPath.setReadOnly(True)
 
         self.btnExportGerbers.clicked.connect(self.evt_btnExportGerbers_clicked)
         self.btnRenameGerbers.clicked.connect(self.evt_btnRenameGerbers_clicked)
 
         self.myGerbersZipPath = os.getcwd()
+        self.myOutputDirectory = os.getcwd()
 
         #### Relevant PCB Layers
         self.topLayer = PCBLayer()
@@ -26,8 +28,9 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         self.boardOutlineLayer = PCBLayer()
         self.drillLayer = PCBLayer()
 
-
+        self.areLayersSorted = False
         self.btnRenameGerbers.setEnabled(False)
+
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
         if event.mimeData().urls()[0].fileName().endswith(".zip"):
@@ -35,48 +38,77 @@ class ConvertGerbers(QDialog, Ui_Dialog):
         else:
             event.ignore()
 
+
     def dragMoveEvent(self, event: QtGui.QDragMoveEvent) -> None:
         if event.mimeData().urls()[0].fileName().endswith(".zip"):
             event.accept()
         else:
             event.ignore()
 
+
     def dropEvent(self, event: QtGui.QDragEnterEvent) -> None:
+        # Check if dropped file has the .zip extension
         if event.mimeData().urls()[0].fileName().endswith(".zip"):
             event.accept()
+            # Set the Drop action to a Copy Action(icon to show)
             event.setDropAction(Qt.CopyAction)
+            # Get the name of the file
             fileName = event.mimeData().urls()[0].fileName()
+            # Get the zip file path
             self.myGerbersZipPath = event.mimeData().urls()[0].toLocalFile()
-
-            self.gerbersAccepted(fileName)
+            # Reset all PCBLayers information
+            self.resetPCBLayers()
+            # Get gerber files names and headers
             gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
-            areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
-            if areLayersSorted:
-                print(self.bottomLayer, self.topLayer, sep="\n")
+            # Read files headers and assign gerber file paths to the correct layer
+            self.areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
+            # If the sorting of these gerber is successful
+            if self.areLayersSorted:
+                # Show geber zip file name on the window
+                self.gerbersAccepted(fileName)
+                # Display changes to be made to the gerber files
+                self.displayChangesToGerbers()
+
+            else:
+                # Else, display reason why these gerbers were not accepted
+                self.gerbersRejected(fileName)
 
         else:
             event.ignore()
 
 
-
-
     def evt_btnRenameGerbers_clicked(self):
-        pass
+        self.extractFilesToPath(self.myGerbersZipPath, self.myOutputDirectory)
 
-    def extractFilesToPath(self, gerbers: zipfile, pathToExtract: str) -> None:
-        pass
+
+    def extractFilesToPath(self, gerbers_zip_path: str, path_to_extract: str) -> None:
+        with zipfile.ZipFile(gerbers_zip_path, 'r') as myGerberZip:
+            # Extract single gerber file from zip file to the specified directory
+            output_path = myGerberZip.extract(self.topLayer.layerFilePath, path_to_extract)
+            # Rename newly extracted file to the extension for further use
+            os.rename(output_path, output_path[:-3] + "TOP")
+
+            output_path = myGerberZip.extract(self.bottomLayer.layerFilePath, path_to_extract)
+            os.rename(output_path, output_path[:-3] + "BOT")
+
+            output_path = myGerberZip.extract(self.drillLayer.layerFilePath, path_to_extract)
+            os.rename(output_path, output_path[:-3] + "DRD")
+
+            output_path = myGerberZip.extract(self.boardOutlineLayer.layerFilePath, path_to_extract)
+            os.rename(output_path, output_path[:-3] + "BOA")
+
 
     def evt_btnExportGerbers_clicked(self):
-        self.myGerbersZipPath = QFileDialog.getOpenFileName(self, "Import Gerber Files",
-                                                         self.myGerbersZipPath, "Zip file(*.zip)")[0]
-
-
-        # if self.myGerbersZipPath != "":
-        #     gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
-        #     areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
-        #     if areLayersSorted:
-        #         pass
-
+        tmp = QFileDialog.getExistingDirectory(self, "Select your output directory", self.myOutputDirectory)
+        if str(tmp) != "":
+            self.myOutputDirectory = tmp
+            self.ledExportGerberPath.setText(self.myOutputDirectory)
+            if self.areLayersSorted:
+                self.enableRenameButton()
+            else:
+                self.disableRenameButton()
+        else:
+            self.ledExportGerberPath.setText(os.getcwd())
 
 
     def sortGerberFiles(self, gerber_file_headers: list[list[str]]) -> bool:
@@ -157,23 +189,26 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                                 self.topLayer.layerCreationDate = gerberLayerCreationDate
                                 self.topLayer.layerFilePath = gerberFilePath
 
-        if self.topLayer.layerFilePath != "" and self.bottomLayer.layerFilePath != "" and self.boardOutlineLayer.layerFilePath != "":
+        if self.topLayer.layerFilePath != "N/A" and self.bottomLayer.layerFilePath != "N/A" and self.boardOutlineLayer.layerFilePath != "N/A":
             return True
         else:
             return False
 
 
-    def getGerbersFileHeader(self, gerber_files) -> list[list[str]]:
+    def getGerbersFileHeader(self, gerber_files: str) -> list[list[str]]:
         listBuffer = []
-
+        # Open gerber files with "ZipFile"
         with zipfile.ZipFile(str(gerber_files), 'r') as myGerberFiles:
-            for gerberFile in myGerberFiles.namelist():
+            # Iterate over all files found
+            for gerberFileName in myGerberFiles.namelist():
                 buffer = []
-                currentFileName = self.getFileName(gerberFile)
+                # get the current file name and save it for later use
+                currentFileName = self.getFileName(gerberFileName)
+                # Check whether the current file ends in ".gbr", ".xln" or ".drl". If so, proceed
                 if currentFileName.endswith(".gbr") or currentFileName.endswith(".xln") or currentFileName.endswith(".drl"):
-                    #listBuffer.append(os.getcwd() + self.getPlatformDirectorySlash() + gerberFile)
-                    buffer.append(gerberFile)
-                    with myGerberFiles.open(gerberFile, mode='r') as gerber:
+                    #append gerber file name to the buffer
+                    buffer.append(gerberFileName)
+                    with myGerberFiles.open(gerberFileName, mode='r') as gerber:
                         # Read the 10 first lines of the gerber file
                         for x in range(0, 7):
                             # Read one line(BIN), convert it to 'UTF-8' and strip 'return' and 'newline' characters
@@ -183,11 +218,54 @@ class ConvertGerbers(QDialog, Ui_Dialog):
 
         return listBuffer
 
+
     def gerbersAccepted(self, filename):
-        #self.ledGerberPath.setText(self.myGerbersPath)
-        self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed #00E200; }")
-        self.lblConvertGerbers.setText(filename)
+        if filename != "":
+            self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed #00E200; }")
+            self.lblConvertGerbers.setText(filename)
+            self.enableRenameButton()
+
+
+    def gerbersRejected(self, filename):
+        self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed red; }")
+        self.lblConvertGerbers.setText("Gerbers from {} are not X2 compatible".format(filename))
+        self.lblConvertGerbersDisplayChanges.setText("<h2>Reason:</h2> <b>Gerbers do not contain the proper header for automatic conversion</b>")
+        self.disableRenameButton()
+
+
+    def enableRenameButton(self):
         self.btnRenameGerbers.setEnabled(True)
+
+
+    def disableRenameButton(self):
+        self.btnRenameGerbers.setEnabled(False)
+
+
+    def resetPCBLayers(self):
+        self.topLayer = PCBLayer()
+        self.bottomLayer = PCBLayer()
+        self.boardOutlineLayer = PCBLayer()
+        self.drillLayer = PCBLayer()
+
+
+    def displayChangesToGerbers(self):
+        if self.areLayersSorted:
+            changesToDisplay = """
+                    <h2>The following changes will be applied:</h2>
+                    <p>
+                        {} Top layer: {}<b> -> will be changed to -> </b> {}<br><br>
+                        {} Bottom layer: {}<b> ->will be changed to -> </b> {}<br><br>
+                        {} Drills layer: {}<b> ->will be changed to -> </b> {}<br><br>
+                        {} Board Outline layer: {}<b> ->will be changed to -> </b> {}
+                    </p>
+            """.format(
+                self.topLayer.layerGenerationSoftware, self.topLayer.getFileName(), self.topLayer.getFileName()[:-3] + "TOP",
+                self.bottomLayer.layerGenerationSoftware, self.bottomLayer.getFileName(), self.bottomLayer.getFileName()[:-3] + "BOT",
+                self.drillLayer.layerGenerationSoftware, self.drillLayer.getFileName(), self.drillLayer.getFileName()[:-3] + "DRD",
+                self.boardOutlineLayer.layerGenerationSoftware, self.boardOutlineLayer.getFileName(), self.boardOutlineLayer.getFileName()[:-3] + "BOA"
+            )
+            self.lblConvertGerbersDisplayChanges.setText(changesToDisplay)
+
 
     def getFileName(self, gerber_file) -> str:
         if gerber_file != "":
@@ -200,6 +278,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
             else:
                 return ""
 
+
     def getFilePathRoot(self, gerber_file) -> str:
         if gerber_file != "":
             if gerber_file.find("/"):
@@ -210,6 +289,7 @@ class ConvertGerbers(QDialog, Ui_Dialog):
                 return gerber_file[0:idx]
             else:
                 return ""
+
 
     def getPlatformDirectorySlash(self) -> str:
         system = platform.system()

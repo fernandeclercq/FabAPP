@@ -1,14 +1,16 @@
-from ui.mainWindows_ui import Ui_Dialog as mainwindows_ui
+from ui.mainWindow_ui import Ui_MainWindowDialog
 from convertgerbers import *
 from generateneodenfile import *
 
-class MainWindow(QDialog, mainwindows_ui):
+class MainWindow(QDialog, Ui_MainWindowDialog):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
 
         self.btnConvertGrb.clicked.connect(self.evt_btnConvertGerbers_clicked)
         self.btnGenerateNeodenFile.clicked.connect(self.evt_btnGenerateNeodenFile_clicked)
+
 
     ### Events Handlers - Main Window
 

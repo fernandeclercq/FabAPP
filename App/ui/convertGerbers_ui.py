@@ -11,23 +11,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(1024, 470)
+class Ui_ConvertGerbersDialog(object):
+    def setupUi(self, ConvertGerbersDialog):
+        ConvertGerbersDialog.setObjectName("ConvertGerbersDialog")
+        ConvertGerbersDialog.resize(1024, 470)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
-        Dialog.setSizePolicy(sizePolicy)
-        Dialog.setMinimumSize(QtCore.QSize(1024, 470))
-        Dialog.setMaximumSize(QtCore.QSize(1024, 470))
-        Dialog.setStyleSheet("QLabel > lblConvertGerbers{\n"
+        sizePolicy.setHeightForWidth(ConvertGerbersDialog.sizePolicy().hasHeightForWidth())
+        ConvertGerbersDialog.setSizePolicy(sizePolicy)
+        ConvertGerbersDialog.setMinimumSize(QtCore.QSize(1024, 470))
+        ConvertGerbersDialog.setMaximumSize(QtCore.QSize(1024, 470))
+        ConvertGerbersDialog.setStyleSheet("QLabel > lblConvertGerbers{\n"
 "\n"
 "border: 4px dashed #aaa;\n"
 "\n"
 "}")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(Dialog)
+        self.horizontalLayoutWidget = QtWidgets.QWidget(ConvertGerbersDialog)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 1001, 101))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
@@ -43,7 +43,7 @@ class Ui_Dialog(object):
         self.lblConvertGerbers.setAlignment(QtCore.Qt.AlignCenter)
         self.lblConvertGerbers.setObjectName("lblConvertGerbers")
         self.horizontalLayout.addWidget(self.lblConvertGerbers)
-        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(Dialog)
+        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(ConvertGerbersDialog)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(10, 330, 1001, 71))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
@@ -70,7 +70,7 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.addWidget(self.btnExportGerbers)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
-        self.horizontalLayoutWidget_3 = QtWidgets.QWidget(Dialog)
+        self.horizontalLayoutWidget_3 = QtWidgets.QWidget(ConvertGerbersDialog)
         self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(10, 400, 1001, 61))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
@@ -86,7 +86,7 @@ class Ui_Dialog(object):
         self.horizontalLayout_3.addWidget(self.btnRenameGerbers)
         spacerItem4 = QtWidgets.QSpacerItem(300, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem4)
-        self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
+        self.verticalLayoutWidget = QtWidgets.QWidget(ConvertGerbersDialog)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 110, 1001, 221))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
@@ -100,14 +100,14 @@ class Ui_Dialog(object):
         self.lblConvertGerbersDisplayChanges.setObjectName("lblConvertGerbersDisplayChanges")
         self.verticalLayout.addWidget(self.lblConvertGerbersDisplayChanges)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(ConvertGerbersDialog)
+        QtCore.QMetaObject.connectSlotsByName(ConvertGerbersDialog)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, ConvertGerbersDialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Convert Gerbers"))
-        self.lblConvertGerbers.setText(_translate("Dialog", "<html><head/><body><p>Drag and drop </p><p>compressed gerber files here</p></body></html>"))
-        self.btnExportGerbers.setText(_translate("Dialog", "Select export folder"))
-        self.btnRenameGerbers.setText(_translate("Dialog", "Rename\n"
+        ConvertGerbersDialog.setWindowTitle(_translate("ConvertGerbersDialog", "Convert Gerbers"))
+        self.lblConvertGerbers.setText(_translate("ConvertGerbersDialog", "<html><head/><body><p>Drag and drop </p><p>compressed gerber files here</p></body></html>"))
+        self.btnExportGerbers.setText(_translate("ConvertGerbersDialog", "Select export folder"))
+        self.btnRenameGerbers.setText(_translate("ConvertGerbersDialog", "Rename\n"
 "Layers"))
-        self.lblConvertGerbersDisplayChanges.setText(_translate("Dialog", "No gerbers were imported yet...."))
+        self.lblConvertGerbersDisplayChanges.setText(_translate("ConvertGerbersDialog", "No gerbers were imported yet...."))

@@ -1,132 +1,522 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>GenerateNeodenConfigDialog</class>
+ <widget class="QDialog" name="GenerateNeodenConfigDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>440</height>
+    <height>768</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Generate Neoden4 Config</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>491</width>
-     <height>201</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QLabel" name="lblGenrateNeodenGerbers">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-	border: 4px dashed #aaa
- }</string>
-      </property>
-      <property name="text">
-       <string>Drag and drop
-gerber files</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>80</y>
-     <width>491</width>
-     <height>201</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1021</width>
+     <height>51</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QLabel" name="lblGenerateNeodenLoadPos">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-	border: 4px dashed #aaa
- }</string>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
       </property>
-      <property name="text">
-       <string>Drag and drop
-component position file</string>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="ledImportPositionFilePath">
+      <property name="placeholderText">
+       <string>Look for your position file or drag and drop position file to this window....</string>
       </property>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>279</y>
-     <width>491</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <widget class="QPushButton" name="btnGenerateNeodenLoadGerbers">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Minimum</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnImportPositionFile">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Load 
-gerber files</string>
+       <string>Import...</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Minimum</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnRemovePositionFile">
+      <property name="text">
+       <string>Remove...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>280</y>
-     <width>491</width>
-     <height>81</height>
+     <x>0</x>
+     <y>730</y>
+     <width>1021</width>
+     <height>31</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
-     <widget class="QPushButton" name="btnGenerateNeodenLoadPos">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="ledFilesOutputDirectory">
+      <property name="placeholderText">
+       <string>Define the output directory for the Neoden Config File...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnOutputFolderDirectory">
+      <property name="text">
+       <string>Output folder...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnGenerateNeodenConfig">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Load
-position file</string>
+       <string>Generate Neoden 4 Config</string>
       </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>50</y>
+     <width>1021</width>
+     <height>681</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="twContainerTabs">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tbFrontComponents">
+       <attribute name="title">
+        <string>Components Top Side</string>
+       </attribute>
+       <widget class="QTableWidget" name="tableTopComponents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1011</width>
+          <height>651</height>
+         </rect>
+        </property>
+        <row>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>Export?</string>
+         </property>
+         <property name="toolTip">
+          <string>Check if component will be included into Neoden4 Config File</string>
+         </property>
+         <property name="whatsThis">
+          <string>Check if component will be included into Neoden4 Config File</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Feeder #</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the feeder number from 1 to 48 for normal feeders.&lt;/p&gt;&lt;p&gt;From 49 to 98 to use Special feeders.&lt;/p&gt;&lt;p&gt;&amp;quot;Special feeders&amp;quot; are:&lt;/p&gt;&lt;p&gt; - Cut reel-tape&lt;/p&gt;&lt;p&gt; - Waffer Trays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the feeder number from 1 to 48 for normal feeders.&lt;/p&gt;&lt;p&gt;From 49 to 98 to use Special feeders.&lt;/p&gt;&lt;p&gt;&amp;quot;Special feeders&amp;quot; are:&lt;/p&gt;&lt;p&gt; - Cut reel-tape&lt;/p&gt;&lt;p&gt; - Waffer Trays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Nozzle #</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the correct Nozzle number for the component size. &lt;/p&gt;&lt;p&gt;Nozzle 1 = 0402,0603, 0805&lt;/p&gt;&lt;p&gt;Nozzle 2 = 1206, 1210, 2512, 3528, 5630&lt;/p&gt;&lt;p&gt;Nozzle 3 = TQFP, IC's&lt;/p&gt;&lt;p&gt;Nozzle 4 = 5050, SOP-8, SOIC, SOT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the correct Nozzle number for the component size. &lt;/p&gt;&lt;p&gt;Nozzle 1 = 0402,0603, 0805&lt;/p&gt;&lt;p&gt;Nozzle 2 = 1206, 1210, 2512, 3528, 5630&lt;/p&gt;&lt;p&gt;Nozzle 3 = TQFP, IC's&lt;/p&gt;&lt;p&gt;Nozzle 4 = 5050, SOP-8, SOIC, SOT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the name of the component. For example:&lt;/p&gt;&lt;p&gt;C1 =&amp;gt; Capacitor 1&lt;/p&gt;&lt;p&gt;R10 =&amp;gt; Resistor 10&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the name of the component. For example:&lt;/p&gt;&lt;p&gt;C1 =&amp;gt; Capacitor 1&lt;/p&gt;&lt;p&gt;R10 =&amp;gt; Resistor 10&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Value</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the value of the component. For example:&lt;/p&gt;&lt;p&gt;100nF, 10k, ESP32, etc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the value of the component. For example:&lt;/p&gt;&lt;p&gt;100nF, 10k, ESP32, etc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Footprint</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the footprint of the Component.&lt;/p&gt;&lt;p&gt;If this footprint is wrong, select the correct footprint from the list. Example:&lt;/p&gt;&lt;p&gt;- SOT223-3&lt;/p&gt;&lt;p&gt;- 0805&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the footprint of the Component.&lt;/p&gt;&lt;p&gt;If this footprint is wrong, select the correct footprint from the list. Example:&lt;/p&gt;&lt;p&gt;- SOT223-3&lt;/p&gt;&lt;p&gt;- 0805&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X Pos</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be X coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;98.62&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be X coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;98.62&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y Pos</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be Y coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;56.21&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be Y coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;56.21&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rotation</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the amount of degrees the component has to be rotated for placement.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the amount of degrees the component has to be rotated for placement.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Skip</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <item row="0" column="0">
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tbBackComponents">
+       <attribute name="title">
+        <string>Components Bottom Side</string>
+       </attribute>
+       <widget class="QTableWidget" name="tableBottomComponents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1011</width>
+          <height>651</height>
+         </rect>
+        </property>
+        <row>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>Export?</string>
+         </property>
+         <property name="toolTip">
+          <string>Check if component will be included into Neoden4 Config File</string>
+         </property>
+         <property name="whatsThis">
+          <string>Check if component will be included into Neoden4 Config File</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Feeder #</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the feeder number from 1 to 48 for normal feeders.&lt;/p&gt;&lt;p&gt;From 49 to 98 to use Special feeders.&lt;/p&gt;&lt;p&gt;&amp;quot;Special feeders&amp;quot; are:&lt;/p&gt;&lt;p&gt; - Cut reel-tape&lt;/p&gt;&lt;p&gt; - Waffer Trays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the feeder number from 1 to 48 for normal feeders.&lt;/p&gt;&lt;p&gt;From 49 to 98 to use Special feeders.&lt;/p&gt;&lt;p&gt;&amp;quot;Special feeders&amp;quot; are:&lt;/p&gt;&lt;p&gt; - Cut reel-tape&lt;/p&gt;&lt;p&gt; - Waffer Trays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Nozzle #</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the correct Nozzle number for the component size. &lt;/p&gt;&lt;p&gt;Nozzle 1 = 0402,0603, 0805&lt;/p&gt;&lt;p&gt;Nozzle 2 = 1206, 1210, 2512, 3528, 5630&lt;/p&gt;&lt;p&gt;Nozzle 3 = TQFP, IC's&lt;/p&gt;&lt;p&gt;Nozzle 4 = 5050, SOP-8, SOIC, SOT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the correct Nozzle number for the component size. &lt;/p&gt;&lt;p&gt;Nozzle 1 = 0402,0603, 0805&lt;/p&gt;&lt;p&gt;Nozzle 2 = 1206, 1210, 2512, 3528, 5630&lt;/p&gt;&lt;p&gt;Nozzle 3 = TQFP, IC's&lt;/p&gt;&lt;p&gt;Nozzle 4 = 5050, SOP-8, SOIC, SOT&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the name of the component. For example:&lt;/p&gt;&lt;p&gt;C1 =&amp;gt; Capacitor 1&lt;/p&gt;&lt;p&gt;R10 =&amp;gt; Resistor 10&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the name of the component. For example:&lt;/p&gt;&lt;p&gt;C1 =&amp;gt; Capacitor 1&lt;/p&gt;&lt;p&gt;R10 =&amp;gt; Resistor 10&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Value</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the value of the component. For example:&lt;/p&gt;&lt;p&gt;100nF, 10k, ESP32, etc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the value of the component. For example:&lt;/p&gt;&lt;p&gt;100nF, 10k, ESP32, etc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Footprint</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the footprint of the Component.&lt;/p&gt;&lt;p&gt;If this footprint is wrong, select the correct footprint from the list. Example:&lt;/p&gt;&lt;p&gt;- SOT223-3&lt;/p&gt;&lt;p&gt;- 0805&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the footprint of the Component.&lt;/p&gt;&lt;p&gt;If this footprint is wrong, select the correct footprint from the list. Example:&lt;/p&gt;&lt;p&gt;- SOT223-3&lt;/p&gt;&lt;p&gt;- 0805&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X Pos</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be X coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;98.62&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be X coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;98.62&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y Pos</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be Y coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;56.21&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the To-Be Y coordinate for the component. For example:&lt;/p&gt;&lt;p&gt;56.21&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rotation</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the amount of degrees the component has to be rotated for placement.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays the amount of degrees the component has to be rotated for placement.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Skip</string>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </column>
+        <item row="0" column="0">
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
