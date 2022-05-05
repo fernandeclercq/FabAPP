@@ -35,7 +35,9 @@ class Ui_ConvertGerbersDialog(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.lblConvertGerbers = QtWidgets.QLabel(self.horizontalLayoutWidget)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.lblConvertGerbers.setFont(font)
         self.lblConvertGerbers.setStyleSheet("QLabel {\n"
 "    border: 4px dashed #aaa\n"
@@ -63,7 +65,7 @@ class Ui_ConvertGerbersDialog(object):
         sizePolicy.setHeightForWidth(self.btnExportGerbers.sizePolicy().hasHeightForWidth())
         self.btnExportGerbers.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(8)
         self.btnExportGerbers.setFont(font)
         self.btnExportGerbers.setStyleSheet("padding: 10px")
         self.btnExportGerbers.setObjectName("btnExportGerbers")
@@ -80,7 +82,9 @@ class Ui_ConvertGerbersDialog(object):
         self.horizontalLayout_3.addItem(spacerItem3)
         self.btnRenameGerbers = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.btnRenameGerbers.setFont(font)
         self.btnRenameGerbers.setObjectName("btnRenameGerbers")
         self.horizontalLayout_3.addWidget(self.btnRenameGerbers)
@@ -107,6 +111,7 @@ class Ui_ConvertGerbersDialog(object):
         _translate = QtCore.QCoreApplication.translate
         ConvertGerbersDialog.setWindowTitle(_translate("ConvertGerbersDialog", "Convert Gerbers"))
         self.lblConvertGerbers.setText(_translate("ConvertGerbersDialog", "<html><head/><body><p>Drag and drop </p><p>compressed gerber files here</p></body></html>"))
+        self.ledExportGerberPath.setPlaceholderText(_translate("ConvertGerbersDialog", "Select a destination folder to export converted gerber files...."))
         self.btnExportGerbers.setText(_translate("ConvertGerbersDialog", "Select export folder"))
         self.btnRenameGerbers.setText(_translate("ConvertGerbersDialog", "Rename\n"
 "Layers"))

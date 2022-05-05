@@ -7,6 +7,7 @@ class MainWindow(QDialog, Ui_MainWindowDialog):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
+        self.setWindowTitle("FabApp")
 
         self.btnConvertGrb.clicked.connect(self.evt_btnConvertGerbers_clicked)
         self.btnGenerateNeodenFile.clicked.connect(self.evt_btnGenerateNeodenFile_clicked)

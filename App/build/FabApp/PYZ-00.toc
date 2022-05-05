@@ -509,11 +509,11 @@
    'PYMODULE'),
   ('posixpath', 'C:\\Program Files\\Python39\\Lib\\posixpath.py', 'PYMODULE'),
   ('stat', 'C:\\Program Files\\Python39\\Lib\\stat.py', 'PYMODULE'),
+  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('tracemalloc',
    'C:\\Program Files\\Python39\\Lib\\tracemalloc.py',
    'PYMODULE'),
   ('_py_abc', 'C:\\Program Files\\Python39\\Lib\\_py_abc.py', 'PYMODULE'),
-  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('mainwindows',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\mainwindows.py',
@@ -544,7 +544,7 @@
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\convertGerbers_ui.py',
    'PYMODULE'),
-  ('ui.mainWindows_ui',
+  ('ui.mainWindow_ui',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
-   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\mainWindows_ui.py',
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\mainWindow_ui.py',
    'PYMODULE')])

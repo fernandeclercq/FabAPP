@@ -1,4 +1,4 @@
-(['__main__.py'],
+(['FabApp.py'],
  ['C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App'],
  ['codecs'],
@@ -40,9 +40,9 @@
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyqt5.py',
    'PYSOURCE'),
-  ('__main__',
+  ('FabApp',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
-   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\__main__.py',
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\FabApp.py',
    'PYSOURCE')],
  [('os', 'C:\\Program Files\\Python39\\Lib\\os.py', 'PYMODULE'),
   ('subprocess', 'C:\\Program Files\\Python39\\Lib\\subprocess.py', 'PYMODULE'),
@@ -553,11 +553,11 @@
    'PYMODULE'),
   ('posixpath', 'C:\\Program Files\\Python39\\Lib\\posixpath.py', 'PYMODULE'),
   ('stat', 'C:\\Program Files\\Python39\\Lib\\stat.py', 'PYMODULE'),
+  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('tracemalloc',
    'C:\\Program Files\\Python39\\Lib\\tracemalloc.py',
    'PYMODULE'),
   ('_py_abc', 'C:\\Program Files\\Python39\\Lib\\_py_abc.py', 'PYMODULE'),
-  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('mainwindows',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\mainwindows.py',
@@ -588,69 +588,37 @@
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\convertGerbers_ui.py',
    'PYMODULE'),
-  ('ui.mainWindows_ui',
+  ('ui.mainWindow_ui',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
-   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\mainWindows_ui.py',
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\mainWindow_ui.py',
    'PYMODULE')],
  [('VCRUNTIME140.dll',
    'C:\\Program Files\\Python39\\VCRUNTIME140.dll',
    'BINARY'),
   ('python39.dll', 'C:\\Program Files\\Python39\\python39.dll', 'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
-   'BINARY'),
-  ('d3dcompiler_47.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
-   'BINARY'),
   ('PyQt5\\Qt5\\plugins\\imageformats\\qtga.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtga.dll',
-   'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qjpeg.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qtiff.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qoffscreen.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
    'BINARY'),
   ('PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwbmp.dll',
-   'BINARY'),
-  ('opengl32sw.dll',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\opengl32sw.dll',
    'BINARY'),
   ('libGLESv2.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
@@ -660,6 +628,18 @@
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qwebp.dll',
    'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qicns.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qsvg.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platformthemes\\qxdgdesktopportal.dll',
+   'BINARY'),
   ('PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qminimal.dll',
@@ -668,13 +648,33 @@
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\styles\\qwindowsvistastyle.dll',
    'BINARY'),
+  ('d3dcompiler_47.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\d3dcompiler_47.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\iconengines\\qsvgicon.dll',
+   'BINARY'),
   ('libEGL.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\libEGL.dll',
    'BINARY'),
-  ('PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
+  ('PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qgif.dll',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwindows.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\imageformats\\qico.dll',
+   'BINARY'),
+  ('PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\plugins\\platforms\\qwebgl.dll',
+   'BINARY'),
+  ('opengl32sw.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\opengl32sw.dll',
    'BINARY'),
   ('select', 'C:\\Program Files\\Python39\\DLLs\\select.pyd', 'EXTENSION'),
   ('unicodedata',
@@ -712,13 +712,21 @@
    'c:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\QtWidgets.pyd',
    'EXTENSION'),
+  ('Qt5Core.dll',
+   'c:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Core.dll',
+   'BINARY'),
   ('Qt5Gui.dll',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Gui.dll',
    'BINARY'),
-  ('Qt5Core.dll',
-   'c:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Core.dll',
+  ('VCRUNTIME140_1.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\VCRUNTIME140_1.dll',
+   'BINARY'),
+  ('MSVCP140.dll',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\MSVCP140.dll',
    'BINARY'),
   ('Qt5Svg.dll',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
@@ -728,13 +736,9 @@
    'c:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5DBus.dll',
    'BINARY'),
-  ('VCRUNTIME140_1.dll',
-   'C:\\Program Files\\Python39\\VCRUNTIME140_1.dll',
-   'BINARY'),
-  ('MSVCP140.dll', 'C:\\Windows\\system32\\MSVCP140.dll', 'BINARY'),
-  ('Qt5WebSockets.dll',
+  ('Qt5Widgets.dll',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5WebSockets.dll',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Widgets.dll',
    'BINARY'),
   ('Qt5Quick.dll',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
@@ -744,9 +748,9 @@
    'c:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Network.dll',
    'BINARY'),
-  ('Qt5Widgets.dll',
+  ('Qt5WebSockets.dll',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5Widgets.dll',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\bin\\Qt5WebSockets.dll',
    'BINARY'),
   ('libssl-1_1.dll',
    'C:\\Program Files\\Python39\\DLLs\\libssl-1_1.dll',
@@ -774,33 +778,61 @@
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\build\\FabApp\\base_library.zip',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ko.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_sk.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ko.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_sk.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_it.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_it.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_pl.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_hu.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_pl.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_he.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_he.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ca.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ca.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_hu.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_ru.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ru.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_fr.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_de.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fr.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_de.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_en.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_en.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_ca.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ca.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_cs.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_cs.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_pl.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_pl.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_da.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_da.qm',
+   'DATA'),
+  ('PyQt5\\Qt5\\translations\\qtbase_ar.qm',
+   'C:\\users\\fernando\\onedrive - ap hogeschool '
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ar.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_ja.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
@@ -810,57 +842,29 @@
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_gd.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_cs.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_fi.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_cs.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_es.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_es.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_hu.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_hu.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_zh_TW.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_sk.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_sk.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_bg.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_bg.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fi.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_tr.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_tr.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_fi.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_he.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fi.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_he.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_de.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_es.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_de.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_es.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_fr.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_uk.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_fr.qm',
    'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_ar.qm',
+  ('PyQt5\\Qt5\\translations\\qtbase_ko.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ar.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_da.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_da.qm',
-   'DATA'),
-  ('PyQt5\\Qt5\\translations\\qtbase_en.qm',
-   'C:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_en.qm',
+   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\Qt5\\translations\\qtbase_ko.qm',
    'DATA'),
   ('PyQt5\\Qt5\\translations\\qtbase_lv.qm',
    'C:\\users\\fernando\\onedrive - ap hogeschool '

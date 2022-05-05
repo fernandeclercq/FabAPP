@@ -52,7 +52,9 @@ border: 4px dashed #aaa;
      <widget class="QLabel" name="lblConvertGerbers">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -97,7 +99,11 @@ border: 4px dashed #aaa;
      </spacer>
     </item>
     <item>
-     <widget class="QLineEdit" name="ledExportGerberPath"/>
+     <widget class="QLineEdit" name="ledExportGerberPath">
+      <property name="placeholderText">
+       <string>Select a destination folder to export converted gerber files....</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="horizontalSpacer_5">
@@ -125,7 +131,7 @@ border: 4px dashed #aaa;
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>8</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -184,7 +190,9 @@ border: 4px dashed #aaa;
      <widget class="QPushButton" name="btnRenameGerbers">
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">

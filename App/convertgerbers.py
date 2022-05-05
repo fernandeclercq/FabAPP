@@ -13,7 +13,7 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         self.setAcceptDrops(True)
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
 
-        self.ledExportGerberPath.setText(os.getcwd())
+        #self.ledExportGerberPath.setText(os.getcwd())
         self.ledExportGerberPath.setReadOnly(True)
 
         self.btnExportGerbers.clicked.connect(self.evt_btnExportGerbers_clicked)
@@ -77,25 +77,67 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
             event.ignore()
 
 
+
     def evt_btnRenameGerbers_clicked(self):
-        self.extractFilesToPath(self.myGerbersZipPath, self.myOutputDirectory)
+        if self.ledExportGerberPath.text() != "":
+            self.extractFilesToPath(self.myGerbersZipPath, self.myOutputDirectory)
 
 
     def extractFilesToPath(self, gerbers_zip_path: str, path_to_extract: str) -> None:
-        with zipfile.ZipFile(gerbers_zip_path, 'r') as myGerberZip:
-            # Extract single gerber file from zip file to the specified directory
-            output_path = myGerberZip.extract(self.topLayer.layerFilePath, path_to_extract)
-            # Rename newly extracted file to the extension for further use
-            os.rename(output_path, output_path[:-3] + "TOP")
 
-            output_path = myGerberZip.extract(self.bottomLayer.layerFilePath, path_to_extract)
-            os.rename(output_path, output_path[:-3] + "BOT")
+        new_top_path = path_to_extract + self.getPlatformDirectorySlash() + self.topLayer.getFileName()[:-3] + "TOP"
+        new_bot_path = path_to_extract + self.getPlatformDirectorySlash() + self.bottomLayer.getFileName()[:-3] + "BOT"
+        new_drill_path = path_to_extract + self.getPlatformDirectorySlash() + self.drillLayer.getFileName()[:-3] + "DRD"
+        new_boardOutline_path = path_to_extract + self.getPlatformDirectorySlash() + self.boardOutlineLayer.getFileName()[:-3] + "BOA"
 
-            output_path = myGerberZip.extract(self.drillLayer.layerFilePath, path_to_extract)
-            os.rename(output_path, output_path[:-3] + "DRD")
+        isAnyGerberExistent = self.isConvertedGerberExistent([new_top_path, new_bot_path, new_drill_path, new_boardOutline_path])
 
-            output_path = myGerberZip.extract(self.boardOutlineLayer.layerFilePath, path_to_extract)
-            os.rename(output_path, output_path[:-3] + "BOA")
+        isReplaceEnabled = False
+
+        if isAnyGerberExistent:
+            ans = QtWidgets.QMessageBox.question(self, "Replace files",
+                                                 "It seems some of the files already exist.<br><br> <b>Do you want to replace them?</b>")
+            if ans == QMessageBox.Yes:
+                isReplaceEnabled = True
+            else:
+                isReplaceEnabled = False
+                self.ledExportGerberPath.setText("")
+                self.disableRenameButton()
+
+        if self.ledExportGerberPath.text() != "":
+            with zipfile.ZipFile(gerbers_zip_path, 'r') as myGerberZip:
+                # Extract single gerber file from zip file to the specified directory
+                old_top_path = myGerberZip.extract(self.topLayer.layerFilePath, path_to_extract)
+                if isReplaceEnabled:
+                    # Replace files with newly created files
+                    os.replace(old_top_path, new_top_path)
+                else:
+                    # Rename newly extracted file to the extension for further use
+                    os.rename(old_top_path, new_top_path)
+
+                old_bot_path = myGerberZip.extract(self.bottomLayer.layerFilePath, path_to_extract)
+                if isReplaceEnabled:
+                    # Replace files with newly created files
+                    os.replace(old_bot_path, new_bot_path)
+                else:
+                    os.rename(old_bot_path, new_bot_path)
+
+                old_drill_path = myGerberZip.extract(self.drillLayer.layerFilePath, path_to_extract)
+                if isReplaceEnabled:
+                    os.replace(old_drill_path, new_drill_path)
+                else:
+                    os.rename(old_drill_path, new_drill_path)
+
+                old_boardOutline_path = myGerberZip.extract(self.boardOutlineLayer.layerFilePath, path_to_extract)
+                if isReplaceEnabled:
+                    os.replace(old_boardOutline_path, new_boardOutline_path)
+                else:
+                    os.rename(old_boardOutline_path, new_boardOutline_path)
+
+            QMessageBox.information(self, "Gerber Export", "Gerbers were exported successfully to:<br><br> <b>{}</b>".format(
+                path_to_extract
+            ))
+            self.cleanWindowForNextUse()
 
 
     def evt_btnExportGerbers_clicked(self):
@@ -108,7 +150,25 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
             else:
                 self.disableRenameButton()
         else:
-            self.ledExportGerberPath.setText(os.getcwd())
+            self.ledExportGerberPath.setText(self.myOutputDirectory)
+
+
+    def isConvertedGerberExistent(self, gerber_list: list[str]) -> bool:
+        result = False
+
+        for file in gerber_list:
+            if os.path.isfile(file):
+                result = True
+                break
+
+        return result
+
+    def cleanWindowForNextUse(self):
+        self.lblConvertGerbers.setStyleSheet("border: 4px dashed #aaa;")
+        self.lblConvertGerbers.setText("<p>Drag and drop </p><p>compressed gerber files here</p>")
+        self.lblConvertGerbersDisplayChanges.setText("No gerbers were imported yet....")
+        self.ledExportGerberPath.setText("")
+        self.disableRenameButton()
 
 
     def sortGerberFiles(self, gerber_file_headers: list[list[str]]) -> bool:
@@ -223,7 +283,8 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         if filename != "":
             self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed #00E200; }")
             self.lblConvertGerbers.setText(filename)
-            self.enableRenameButton()
+            if self.ledExportGerberPath.text() != "":
+                self.enableRenameButton()
 
 
     def gerbersRejected(self, filename):
