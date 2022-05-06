@@ -39,4 +39,4 @@ missing module named 'org.python' - imported by pickle (optional), xml.sax (dela
 missing module named org - imported by copy (optional)
 missing module named posix - imported by os (conditional, optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level), test.support (delayed, conditional, optional)
-missing module named pyimod03_importers - imported by C:\Users\Fernando\OneDrive - AP Hogeschool Antwerpen\Elektronica_ICT\3_jaar\Stage\stage\stage-at-AP\afwerking\FabAPP\venv\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (top-level)
+missing module named pyimod03_importers - imported by C:\Users\Fornan\AppData\Roaming\Python\Python39\site-packages\PyInstaller\hooks\rthooks\pyi_rth_pkgutil.py (top-level)

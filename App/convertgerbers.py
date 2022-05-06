@@ -137,6 +137,16 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
             QMessageBox.information(self, "Gerber Export", "Gerbers were exported successfully to:<br><br> <b>{}</b>".format(
                 path_to_extract
             ))
+
+
+            # print(self.topLayer.getFileRootPath())
+            # if self.topLayer.getFileRootPath() != "":
+            #     if os.path.exists(path_to_extract + self.topLayer.getFileSeparatorChar() + self.topLayer.getFileRootPath()):
+            #         print(path_to_extract + self.topLayer.getFileSeparatorChar() + self.topLayer.getFileRootPath())
+            #         print(path_to_extract + self.topLayer.getFileSeparatorChar() + self.topLayer.getPathToFile())
+
+
+
             self.cleanWindowForNextUse()
 
 
@@ -232,9 +242,7 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
                                 self.topLayer.layerFilePath = gerberFilePath
                     elif gerberLayerGenSoft.lower().find("kicad") != -1:
                         if gerberLayerFunction[0] == "Copper":
-                            print("copper layer kicad")
                             if gerberLayerFunction[2] == "Bot":
-                                print("bot layer")
                                 self.bottomLayer.layerType = gerberLayerFunction[0]
                                 self.bottomLayer.layerNumber = gerberLayerFunction[1]
                                 self.bottomLayer.layerSide = gerberLayerFunction[2]
@@ -253,6 +261,11 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
             return True
         else:
             return False
+
+        ### Bug
+            # if no drill layer is provided in the gerber-zip, the app will crash after transforming top and bot layer
+
+        ###
 
 
     def getGerbersFileHeader(self, gerber_files: str) -> list[list[str]]:

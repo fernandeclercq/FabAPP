@@ -33,15 +33,48 @@ class PCBLayer:
             else:
                 return ""
 
-    def getFilePathRoot(self) -> str:
+    def getFileSeparatorChar(self) -> str:
+        if self.layerFilePath != "":
+            if self.layerFilePath.find("/"):
+                return "/"
+            elif self.layerFilePath.find("\\"):
+                return "\\"
+            else:
+                return "/"
+
+    def getPathToFile(self) -> str:
         if self.layerFilePath != "":
             if self.layerFilePath.find("/"):
                 idx = self.layerFilePath.rfind("/")
-                return self.layerFilePath[0:idx]
+                if idx != -1:
+                    return self.layerFilePath[0:idx]
+                else:
+                    return self.layerFilePath
             elif self.layerFilePath.find("\\"):
                 idx = self.layerFilePath.rfind("\\")
-                return self.layerFilePath[0:idx]
+                if idx != -1:
+                    return self.layerFilePath[0:idx]
+                else:
+                    return self.layerFilePath
             else:
                 return ""
 
+    def getFileRootPath(self) -> str:
+
+        result = ""
+
+        if self.layerFilePath != "":
+            tmp_str = self.getPathToFile()
+            idx = tmp_str.find(self.getFileSeparatorChar())
+            if idx != -1:
+                result = tmp_str[:idx]
+            else:
+                if tmp_str.find('.') != -1:
+                    result = ""
+                else:
+                    result = tmp_str
+        else:
+            result = ""
+
+        return result
 
