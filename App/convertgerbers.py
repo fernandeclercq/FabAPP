@@ -257,15 +257,11 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
                                 self.topLayer.layerCreationDate = gerberLayerCreationDate
                                 self.topLayer.layerFilePath = gerberFilePath
 
-        if self.topLayer.layerFilePath != "N/A" and self.bottomLayer.layerFilePath != "N/A" and self.boardOutlineLayer.layerFilePath != "N/A":
+        if self.topLayer.layerFilePath != "N/A" and self.bottomLayer.layerFilePath != "N/A" and self.boardOutlineLayer.layerFilePath != "N/A"\
+                and self.drillLayer.layerFilePath != "N/A":
             return True
         else:
             return False
-
-        ### Bug
-            # if no drill layer is provided in the gerber-zip, the app will crash after transforming top and bot layer
-
-        ###
 
 
     def getGerbersFileHeader(self, gerber_files: str) -> list[list[str]]:
@@ -302,8 +298,18 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
 
     def gerbersRejected(self, filename):
         self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed red; }")
-        self.lblConvertGerbers.setText("Gerbers from {} are not X2 compatible".format(filename))
-        self.lblConvertGerbersDisplayChanges.setText("<h2>Reason:</h2> <b>Gerbers do not contain the proper header for automatic conversion</b>")
+        self.lblConvertGerbers.setText("Some of the Gerbers from {} are missing or are not Gerber-X2 compatible".format(filename))
+        self.lblConvertGerbersDisplayChanges.setText("""
+            <h2>Reason:</h2><br>
+            <b>Gerbers with format <b>"RS-X274"</b> do not contain the proper header for automatic conversion</b><br>
+            If some of these gerbers are missing, export them as <b>.zip:</b>
+            <ul>
+                <li>Top-layer</li>
+                <li>Bottom-layer</li>
+                <li>Board outline-layer</li>
+                <li>Drills-layer</li>
+            </ul>
+            """)
         self.disableRenameButton()
 
 
