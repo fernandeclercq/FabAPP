@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from ui.generateNeodenFile_ui import *
-from modules.Component import *
-
+from modules.PCB.PCB import *
 import os
 import platform
 from PyQt5.QtCore import *
@@ -27,8 +26,18 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.inPosFilePath = ""
         self.outNeodenConfigFilePath = ""
 
-        self.c = Component()
-        print(self.c.rotation)
+        self.c1 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
+        self.c2 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
+        self.c3 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
+        self.c4 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
+
+        self.pcb = PCB()
+        self.pcb.componentList.append(self.c1)
+        self.pcb.componentList.append(self.c2)
+        self.pcb.componentList.append(self.c3)
+        self.pcb.componentList.append(self.c4)
+
+        print(self.pcb.componentList)
 
 
     def evt_btnImportPosFile_clicked(self):
