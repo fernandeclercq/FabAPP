@@ -1,5 +1,11 @@
 from PyQt5.QtWidgets import *
 from ui.generateNeodenFile_ui import *
+from modules.Component import *
+
+import os
+import platform
+from PyQt5.QtCore import *
+import zipfile
 
 
 class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
@@ -18,10 +24,18 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.btnOutputFolderDirectory.clicked.connect(self.evt_btnOutputFolderDirectory_clicked)
         self.btnGenerateNeodenConfig.clicked.connect(self.evt_btnGenerateNeodenConfig_clicked)
 
+        self.inPosFilePath = ""
+        self.outNeodenConfigFilePath = ""
+
+        self.c = Component()
+        print(self.c.rotation)
 
 
     def evt_btnImportPosFile_clicked(self):
-        pass
+        inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", os.getcwd(), "Zip file(*.zip)")[0]
+        if inPath != "":
+            print(inPath)
+
 
     def evt_btnRemovePosFile_clicked(self):
         pass

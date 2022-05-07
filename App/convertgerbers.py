@@ -95,8 +95,8 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         isReplaceEnabled = False
 
         if isAnyGerberExistent:
-            ans = QtWidgets.QMessageBox.question(self, "Replace files",
-                                                 "It seems some of the files already exist.<br><br> <b>Do you want to replace them?</b>")
+            ans = QMessageBox.question(self, "Replace files",
+                    "It seems some of the files already exist.<br><br> <b>Do you want to replace them?</b>")
             if ans == QMessageBox.Yes:
                 isReplaceEnabled = True
             else:
