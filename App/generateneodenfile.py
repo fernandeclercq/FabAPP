@@ -19,42 +19,38 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         self.btnImportPositionFile.clicked.connect(self.evt_btnImportPosFile_clicked)
         self.btnRemovePositionFile.clicked.connect(self.evt_btnRemovePosFile_clicked)
+        self.btnRemovePositionFile.setEnabled(False)
 
         self.btnOutputFolderDirectory.clicked.connect(self.evt_btnOutputFolderDirectory_clicked)
         self.btnGenerateNeodenConfig.clicked.connect(self.evt_btnGenerateNeodenConfig_clicked)
 
-        self.inPosFilePath = ""
-        self.outNeodenConfigFilePath = ""
-
-        self.c1 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
-        self.c2 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
-        self.c3 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
-        self.c4 = Component("C1", "100nf", "100nf", Position(12.5, 15.5, 90), Footprint("0805_handSolder", "0805"))
+        self.inPosFilePath = os.getcwd()
+        self.outNeodenConfigFilePath = os.getcwd()
 
         self.pcb = PCB()
-        self.pcb.componentList.append(self.c1)
-        self.pcb.componentList.append(self.c2)
-        self.pcb.componentList.append(self.c3)
-        self.pcb.componentList.append(self.c4)
 
-
-
-
-        print(self.pcb.componentList, sep="\n")
-        print(self.pcb.placementFileList)
 
 
     def evt_btnImportPosFile_clicked(self):
-        inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", os.getcwd(), "Zip file(*.zip)")[0]
+        inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip)")[0]
         if inPath != "":
             if zipfile.is_zipfile(inPath):
-                print(inPath)
+                self.btnRemovePositionFile.setEnabled(True)
+                self.ledImportPositionFilePath.setText(inPath)
+                self.pcb.path = inPath
+                topPlacementFile = self.pcb.getPlacementFile(PCBSide.TOP)
+                print(topPlacementFile.entryList, sep="\n")
+                print(topPlacementFile.headerList)
 
-            #print(zipfile.is_zipfile(inPath))
+
 
 
     def evt_btnRemovePosFile_clicked(self):
-        pass
+        if self.ledImportPositionFilePath.text() != "":
+            self.ledImportPositionFilePath.setText("")
+            self.inPosFilePath = os.getcwd()
+            self.btnRemovePositionFile.setEnabled(False)
+
 
     def evt_btnOutputFolderDirectory_clicked(self):
         pass
