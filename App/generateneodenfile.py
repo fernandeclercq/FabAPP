@@ -37,13 +37,20 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.pcb.componentList.append(self.c3)
         self.pcb.componentList.append(self.c4)
 
-        print(self.pcb.componentList)
+
+
+
+        print(self.pcb.componentList, sep="\n")
+        print(self.pcb.placementFileList)
 
 
     def evt_btnImportPosFile_clicked(self):
         inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", os.getcwd(), "Zip file(*.zip)")[0]
         if inPath != "":
-            print(inPath)
+            if zipfile.is_zipfile(inPath):
+                print(inPath)
+
+            #print(zipfile.is_zipfile(inPath))
 
 
     def evt_btnRemovePosFile_clicked(self):

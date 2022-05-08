@@ -4,3 +4,14 @@ class Position:
         self.yPos = y_pos
         self.rotation = rot
 
+    def __str__(self):
+        return "X position: {}, Y Position: {}, Rotation: {}".format(
+            self.xPos, self.yPos, self.rotation
+        )
+
+
+    def __repr__(self):
+        return "X position: {}, Y Position: {}, Rotation: {}".format(
+            self.xPos, self.yPos, self.rotation
+        )
+

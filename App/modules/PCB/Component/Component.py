@@ -12,3 +12,14 @@ class Component(Footprint, Position):
         self.position = pos
         self.footprint = fpt
 
+
+    def __str__(self):
+        return "Reference name: {}, Original value: {}, Value: {}, Position: {}, Footprint: {}".format(
+            self.refName, self.originalValue, self.value, self.position, self.footprint
+        )
+
+    def __repr__(self):
+        return "Reference name: {}, Original value: {}, Value: {}, Position: {}, Footprint: {}\n".format(
+            self.refName, self.originalValue, self.value, self.position, self.footprint
+        )
+
