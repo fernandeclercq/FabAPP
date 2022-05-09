@@ -38,9 +38,33 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.btnRemovePositionFile.setEnabled(True)
                 self.ledImportPositionFilePath.setText(inPath)
                 self.pcb.path = inPath
-                topPlacementFile = self.pcb.getPlacementFile(PCBSide.TOP)
-                print(topPlacementFile.entryList, sep="\n")
-                print(topPlacementFile.headerList)
+                self.tableTopComponents.setRowCount(len(self.pcb.topComponentList))
+                self.tableBottomComponents.setRowCount(len(self.pcb.botComponentList))
+                print(self.pcb.topComponentList)
+                print(self.pcb.botComponentList)
+                print(len(self.pcb.topComponentList))
+
+                self.tableTopComponents.setItem(0, 1, QTableWidgetItem("Kappa"))
+
+
+                cell_widget = QWidget()
+                chk_box = QCheckBox()
+                chk_box.setCheckState(Qt.Unchecked)
+                lay_out = QHBoxLayout(cell_widget)
+                lay_out.addWidget(chk_box)
+                lay_out.setAlignment(Qt.AlignCenter)
+                lay_out.setContentsMargins(0, 0, 0, 0)
+                cell_widget.setLayout(lay_out)
+                self.tableTopComponents.setCellWidget(0, 0, cell_widget)
+
+
+
+
+                # for i in range(self.tableTopComponents.rowCount()):
+                #     chkbox = self.tableTopComponents.cellWidget(i, 0).findChild(QCheckBox).isChecked()
+                #     print(chkbox)
+
+
 
 
 
@@ -58,11 +82,28 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
     def evt_btnGenerateNeodenConfig_clicked(self):
         pass
 
+
+
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
-        pass
+        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+            event.accept()
+        else:
+            event.ignore()
 
     def dragMoveEvent(self, event: QtGui.QDragMoveEvent) -> None:
-        pass
+        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+            event.accept()
+        else:
+            event.ignore()
 
     def dropEvent(self, event: QtGui.QDragEnterEvent) -> None:
-        pass
+        # Check if dropped file has the .zip extension
+        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+            event.accept()
+            # Set the Drop action to a Copy Action(icon to show)
+            event.setDropAction(Qt.CopyAction)
+            # Get the name of the file
+            fileName = event.mimeData().urls()[0].fileName()
+            # Get the zip file path
+            self.inPosFilePath = event.mimeData().urls()[0].toLocalFile()
+

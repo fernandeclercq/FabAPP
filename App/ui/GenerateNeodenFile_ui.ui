@@ -260,11 +260,10 @@
           <height>651</height>
          </rect>
         </property>
-        <row>
-         <property name="text">
-          <string>0</string>
-         </property>
-        </row>
+        <property name="rowCount">
+         <number>1</number>
+        </property>
+        <row/>
         <column>
          <property name="text">
           <string>Export?</string>
@@ -375,11 +374,6 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </column>
-        <item row="0" column="0">
-         <property name="text">
-          <string/>
-         </property>
-        </item>
        </widget>
       </widget>
       <widget class="QWidget" name="tbBackComponents">
@@ -395,11 +389,6 @@
           <height>651</height>
          </rect>
         </property>
-        <row>
-         <property name="text">
-          <string>0</string>
-         </property>
-        </row>
         <column>
          <property name="text">
           <string>Export?</string>
@@ -510,11 +499,6 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display &amp;quot;Yes&amp;quot; if component needs to be skipped during the pick&amp;amp;place proccess.&lt;/p&gt;&lt;p&gt;Select &amp;quot;Yes&amp;quot; if the component needs to be skipped or&lt;/p&gt;&lt;p&gt;select &amp;quot;No&amp;quot; if the component does not need to be skipped.&lt;/p&gt;&lt;p&gt;Default value = &amp;quot;No&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </column>
-        <item row="0" column="0">
-         <property name="text">
-          <string/>
-         </property>
-        </item>
        </widget>
       </widget>
      </widget>
