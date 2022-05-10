@@ -41,34 +41,38 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.pcb.path = inPath
                 self.tableTopComponents.setRowCount(len(self.pcb.topComponentList))
                 self.tableBottomComponents.setRowCount(len(self.pcb.botComponentList))
-                print(self.pcb.topComponentList)
-                print(self.pcb.botComponentList)
+
                 print(len(self.pcb.topComponentList))
-                print(self.pcb.topFiducialList)
-                print(self.pcb.botFiducialList)
+                print(len(self.pcb.topFiducialList))
+
+                print(self.pcb.topComponentList)
 
 
 
                 for row in range(0, len(self.pcb.topComponentList)):
+                    self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+                    self.tableTopComponents.setItem(row, 1, QTableWidgetItem("1"))
+                    self.tableTopComponents.setItem(row, 2, QTableWidgetItem("1"))
                     self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
                     self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
-                    self.tableTopComponents.setItem(row, 5, QTableWidgetItem(self.pcb.topComponentList[row].footprint.originalValue))
-                    self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_xPos)))
-                    self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_yPos)))
-                    self.tableTopComponents.setItem(row, 8, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_rotation)))
+                    self.tableTopComponents.setItem(row, 5, QTableWidgetItem(self.pcb.topComponentList[row].footprint.transformedValue))
+                    self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedX_pos)))
+                    self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedY_pos)))
+                    self.tableTopComponents.setItem(row, 8, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedRotation)))
+                    self.tableTopComponents.setItem(row, 9, QTableWidgetItem("Yes"))
 
 
 
                 # noinspection PyArgumentList
-                cell_widget = QWidget()
-                chk_box = QCheckBox()
-                chk_box.setCheckState(Qt.Unchecked)
-                lay_out = QHBoxLayout(cell_widget)
-                lay_out.addWidget(chk_box)
-                lay_out.setAlignment(Qt.AlignCenter)
-                lay_out.setContentsMargins(0, 0, 0, 0)
-                cell_widget.setLayout(lay_out)
-                self.tableTopComponents.setCellWidget(0, 0, cell_widget)
+                # cell_widget = QWidget()
+                # chk_box = QCheckBox()
+                # chk_box.setCheckState(Qt.Unchecked)
+                # lay_out = QHBoxLayout(cell_widget)
+                # lay_out.addWidget(chk_box)
+                # lay_out.setAlignment(Qt.AlignCenter)
+                # lay_out.setContentsMargins(0, 0, 0, 0)
+                # cell_widget.setLayout(lay_out)
+
 
 
 
@@ -80,11 +84,26 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
+    def createCellWithCheckBox(self, isChecked: bool = True) -> QWidget:
+        cell_widget = QWidget()
+        chk_box = QCheckBox()
+        if isChecked:
+            chk_box.setCheckState(Qt.Checked)
+        else:
+            chk_box.setCheckState(Qt.Unchecked)
+        lay_out = QHBoxLayout(cell_widget)
+        lay_out.addWidget(chk_box)
+        lay_out.setAlignment(Qt.AlignCenter)
+        lay_out.setContentsMargins(0, 0, 0, 0)
+        cell_widget.setLayout(lay_out)
+
+        return cell_widget
 
 
     def evt_btnRemovePosFile_clicked(self):
         if self.ledImportPositionFilePath.text() != "":
             self.ledImportPositionFilePath.setText("")
+            self.pcb.clearLists()
             self.inPosFilePath = os.getcwd()
             self.btnRemovePositionFile.setEnabled(False)
 

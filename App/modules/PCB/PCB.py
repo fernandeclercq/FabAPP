@@ -50,12 +50,14 @@ class PCB(Component, Fiducial, PlacementFile):
             if file.pcbSide == side:
                 return file
 
-
-    def __convertPlacementListToComponentList(self):
+    def clearLists(self):
         self.topComponentList.clear()
         self.botComponentList.clear()
         self.topFiducialList.clear()
         self.botFiducialList.clear()
+
+    def __convertPlacementListToComponentList(self):
+        self.clearLists()
 
         topPF = self.__getPlacementFile(PCBSide.TOP)
         botPF = self.__getPlacementFile(PCBSide.BOT)
