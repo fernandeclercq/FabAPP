@@ -58,131 +58,131 @@ class PCB(Component, Fiducial, PlacementFile):
 
     def __convertPlacementListToComponentList(self):
         self.clearLists()
+        if len(self.placementFileList) > 0:
+            topPF = self.__getPlacementFile(PCBSide.TOP)
+            botPF = self.__getPlacementFile(PCBSide.BOT)
 
-        topPF = self.__getPlacementFile(PCBSide.TOP)
-        botPF = self.__getPlacementFile(PCBSide.BOT)
+            ## Top & Bot components / Fiducials - KiCad
+            if topPF.softwareCreated == GenerationSoftware.Kicad:
+                for x in range(len(topPF.entryList)):
+                    newFootprint = Footprint(topPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(topPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
+                                           PCBSide.TOP)
 
-        ## Top & Bot components / Fiducials - KiCad
-        if topPF.softwareCreated == GenerationSoftware.Kicad:
-            for x in range(len(topPF.entryList)):
-                newFootprint = Footprint(topPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(topPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
-                                       PCBSide.TOP)
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
+                                          topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.topFiducialList.append(newFid)
+                    else:
+                        newComp = Component(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
+                                            topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.topComponentList.append(newComp)
 
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
-                                      topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.topFiducialList.append(newFid)
-                else:
-                    newComp = Component(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
-                                        topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.topComponentList.append(newComp)
+            if botPF.softwareCreated == GenerationSoftware.Kicad:
+                for x in range(len(botPF.entryList)):
+                    newFootprint = Footprint(botPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(botPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
+                                           PCBSide.BOT)
 
-        if botPF.softwareCreated == GenerationSoftware.Kicad:
-            for x in range(len(botPF.entryList)):
-                newFootprint = Footprint(botPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(botPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
-                                       PCBSide.BOT)
-
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
-                                      botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.botFiducialList.append(newFid)
-                else:
-                    newComp = Component(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
-                                        botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.botComponentList.append(newComp)
-
-
-        ### Top & Bot Components - Eagle
-        if topPF.softwareCreated == GenerationSoftware.Eagle:
-            for x in range(len(topPF.entryList)):
-                newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
-                                       PCBSide.TOP)
-
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                      topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.topFiducialList.append(newFid)
-
-                else:
-                    newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                        topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.topComponentList.append(newComp)
-
-        if botPF.softwareCreated == GenerationSoftware.Eagle:
-            for x in range(len(botPF.entryList)):
-                newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
-                                       PCBSide.BOT)
-
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                      botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.botFiducialList.append(newFid)
-
-                else:
-                    newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                        botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.botComponentList.append(newComp)
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
+                                          botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.botFiducialList.append(newFid)
+                    else:
+                        newComp = Component(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
+                                            botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.botComponentList.append(newComp)
 
 
-        ### Top & Bot components - Fusion360
-        if topPF.softwareCreated == GenerationSoftware.Fusion360:
-            for x in range(len(topPF.entryList)):
-                newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
-                                       float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
-                                       PCBSide.TOP)
+            ### Top & Bot Components - Eagle
+            if topPF.softwareCreated == GenerationSoftware.Eagle:
+                for x in range(len(topPF.entryList)):
+                    newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
+                                           PCBSide.TOP)
 
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                      topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.topFiducialList.append(newFid)
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                          topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.topFiducialList.append(newFid)
 
-                else:
-                    newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                        topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.topComponentList.append(newComp)
+                    else:
+                        newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                            topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.topComponentList.append(newComp)
 
-        if botPF.softwareCreated == GenerationSoftware.Fusion360:
-            for x in range(len(botPF.entryList)):
-                newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
-                                       float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
-                                       PCBSide.BOT)
+            if botPF.softwareCreated == GenerationSoftware.Eagle:
+                for x in range(len(botPF.entryList)):
+                    newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
+                                           PCBSide.BOT)
 
-                if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
-                    newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                      botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                      newPosition, newFootprint)
-                    self.botFiducialList.append(newFid)
-                else:
-                    newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
-                                        botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
-                                        newPosition, newFootprint)
-                    self.botComponentList.append(newComp)
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                          botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.botFiducialList.append(newFid)
+
+                    else:
+                        newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                            botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.botComponentList.append(newComp)
+
+
+            ### Top & Bot components - Fusion360
+            if topPF.softwareCreated == GenerationSoftware.Fusion360:
+                for x in range(len(topPF.entryList)):
+                    newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
+                                           float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
+                                           PCBSide.TOP)
+
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                          topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.topFiducialList.append(newFid)
+
+                    else:
+                        newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                            topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.topComponentList.append(newComp)
+
+            if botPF.softwareCreated == GenerationSoftware.Fusion360:
+                for x in range(len(botPF.entryList)):
+                    newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
+                    newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
+                                           float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
+                                           PCBSide.BOT)
+
+                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                        newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                          botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                          newPosition, newFootprint)
+                        self.botFiducialList.append(newFid)
+                    else:
+                        newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
+                                            botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
+                                            newPosition, newFootprint)
+                        self.botComponentList.append(newComp)
 
 
 

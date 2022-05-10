@@ -1,8 +1,8 @@
 Nozzle 1	=> 0.7mm ID		(XN07)
 	0402,0603, 0805
 	
-Nozzle 2	=> 1.4mm ID		(XN14)
-	1206, 1210, 2512, 3528, 5630
+Nozzle 2	=> 0.7mm ID		(XN07)
+	0402,0603, 0805
 
 Nozzle 3	=>	4mm ID		(XN40)
 	TQFP, IC's
@@ -10,3 +10,25 @@ Nozzle 3	=>	4mm ID		(XN40)
 Nozzle 4	=>	2.2mm ID	(XN22)
 	5050, SOP-8, SOIC
 
+
+Available nozzles:
+	1.4mm ID		(XN14)
+	1206, 1210, 2512, 3528, 5630
+
+
+Footprint to nozzle:
+	0.7mm ID (XN07)
+		"0402"
+		"0603"
+		"0805"
+	2.2mm ID (XN22)
+		"1206"
+		"1210"
+		"1812"
+		"2225"
+		"SOP8"
+		"SOP14"
+		"SOP16"
+		"SOP18"
+	4mm ID (XN40)
+		

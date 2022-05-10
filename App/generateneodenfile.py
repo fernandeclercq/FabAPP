@@ -29,6 +29,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         self.pcb = PCB()
 
+        self.prevNozzle = 0
+        self.prevFootprint = ""
+
 
 
     def evt_btnImportPosFile_clicked(self):
@@ -48,30 +51,26 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 print(self.pcb.topComponentList)
 
 
+                if len(self.pcb.topComponentList) > 0:
+                    for row in range(0, len(self.pcb.topComponentList)):
+                        # Export : Yes / No
+                        self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+                        # Feeder number (1 - 98)
+                        self.tableTopComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
+                        # Nozzle Number (1 - 4)
+                        self.tableTopComponents.setCellWidget(row, 2, self.defineNozzleNumber(self.pcb.topComponentList[row].footprint.transformedValue))
+                        # Comp Name
+                        self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
+                        self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
+                        self.tableTopComponents.setItem(row, 5, QTableWidgetItem(self.pcb.topComponentList[row].footprint.transformedValue))
+                        self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedX_pos)))
+                        self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedY_pos)))
+                        self.tableTopComponents.setItem(row, 8, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedRotation)))
+                        self.tableTopComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
 
-                for row in range(0, len(self.pcb.topComponentList)):
-                    self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
-                    self.tableTopComponents.setItem(row, 1, QTableWidgetItem("1"))
-                    self.tableTopComponents.setItem(row, 2, QTableWidgetItem("1"))
-                    self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
-                    self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
-                    self.tableTopComponents.setItem(row, 5, QTableWidgetItem(self.pcb.topComponentList[row].footprint.transformedValue))
-                    self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedX_pos)))
-                    self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedY_pos)))
-                    self.tableTopComponents.setItem(row, 8, QTableWidgetItem(str(self.pcb.topComponentList[row].position.transformedRotation)))
-                    self.tableTopComponents.setItem(row, 9, QTableWidgetItem("Yes"))
 
 
 
-                # noinspection PyArgumentList
-                # cell_widget = QWidget()
-                # chk_box = QCheckBox()
-                # chk_box.setCheckState(Qt.Unchecked)
-                # lay_out = QHBoxLayout(cell_widget)
-                # lay_out.addWidget(chk_box)
-                # lay_out.setAlignment(Qt.AlignCenter)
-                # lay_out.setContentsMargins(0, 0, 0, 0)
-                # cell_widget.setLayout(lay_out)
 
 
 
@@ -98,6 +97,34 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         cell_widget.setLayout(lay_out)
 
         return cell_widget
+
+
+    def createCellWithCmb(self, list: list[str]):
+        cmb = QComboBox()
+        cmb.addItems(list)
+        return cmb
+
+
+    def defineNozzleNumber(self, footprint: str):
+        cmb = QComboBox()
+        cmb.addItems(["1", "2", "3", "4"])
+
+        if self.prevNozzle == 0:
+            if footprint == "0805":
+                self.prevFootprint = footprint
+                self.prevNozzle = 1
+        else:
+            if footprint == "0805":
+                if footprint == self.prevFootprint and self.prevNozzle == 1:
+                    cmb.setCurrentIndex(1)
+                    self.prevFootprint = footprint
+                    self.prevNozzle = 2
+                else:
+                    cmb.setCurrentIndex(0)
+                    self.prevFootprint = footprint
+                    self.prevNozzle = 1
+
+        return cmb
 
 
     def evt_btnRemovePosFile_clicked(self):
