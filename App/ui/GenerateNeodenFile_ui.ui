@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>768</height>
+    <width>1060</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1024</width>
-    <height>768</height>
+    <width>1060</width>
+    <height>800</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1024</width>
-    <height>768</height>
+    <width>1060</width>
+    <height>800</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1021</width>
+     <width>1061</width>
      <height>51</height>
     </rect>
    </property>
@@ -132,8 +132,8 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>730</y>
-     <width>1021</width>
+     <y>760</y>
+     <width>1061</width>
      <height>31</height>
     </rect>
    </property>
@@ -237,8 +237,8 @@
     <rect>
      <x>0</x>
      <y>50</y>
-     <width>1021</width>
-     <height>681</height>
+     <width>1061</width>
+     <height>711</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -256,8 +256,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1011</width>
-          <height>651</height>
+          <width>1051</width>
+          <height>681</height>
          </rect>
         </property>
         <property name="rowCount">
@@ -385,8 +385,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1011</width>
-          <height>651</height>
+          <width>1051</width>
+          <height>681</height>
          </rect>
         </property>
         <column>

@@ -32,6 +32,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
     def evt_btnImportPosFile_clicked(self):
+        # noinspection PyArgumentList
         inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip)")[0]
         if inPath != "":
             if zipfile.is_zipfile(inPath):
@@ -43,10 +44,22 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 print(self.pcb.topComponentList)
                 print(self.pcb.botComponentList)
                 print(len(self.pcb.topComponentList))
+                print(self.pcb.topFiducialList)
+                print(self.pcb.botFiducialList)
 
-                self.tableTopComponents.setItem(0, 1, QTableWidgetItem("Kappa"))
 
 
+                for row in range(0, len(self.pcb.topComponentList)):
+                    self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
+                    self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
+                    self.tableTopComponents.setItem(row, 5, QTableWidgetItem(self.pcb.topComponentList[row].footprint.originalValue))
+                    self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_xPos)))
+                    self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_yPos)))
+                    self.tableTopComponents.setItem(row, 8, QTableWidgetItem(str(self.pcb.topComponentList[row].position.ori_rotation)))
+
+
+
+                # noinspection PyArgumentList
                 cell_widget = QWidget()
                 chk_box = QCheckBox()
                 chk_box.setCheckState(Qt.Unchecked)
