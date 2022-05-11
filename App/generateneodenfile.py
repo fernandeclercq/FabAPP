@@ -4,6 +4,7 @@ from modules.PCB.PCB import *
 from modules.Neoden4.NeodenDefinitions import *
 from modules.Neoden4.NeodenFile import *
 import os
+import copy
 import platform
 from PyQt5.QtCore import *
 import zipfile
@@ -35,7 +36,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
-        self.pcb = PCB(self.neodenFile)
+        self.pcb = PCB()
 
         self.prevNozzle = 0
         self.prevFootprint = ""
@@ -57,11 +58,25 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # top components and bot components
                 self.pcb.path = inPath
 
-                self.populateTopComponentTable()
-                self.populateBotComponentTable()
 
-                if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
-                    self.btnGenerateNeodenConfig.setEnabled(True)
+                # for fiducial in self.pcb.topFiducialList:
+                #     tmpfid = copy.deepcopy(fiducial)
+                #     self.neodenFile.topFiducialList
+
+                self.neodenFile.topFiducialList = self.pcb.topFiducialList
+                self.neodenFile.botFiducialList = self.pcb.botFiducialList
+                self.neodenFile.topComponentList = self.pcb.topComponentList
+                self.neodenFile.botComponentList = self.pcb.botComponentList
+
+                print(id(self.neodenFile.topComponentList[0]))
+                print(id(self.pcb.topComponentList[0]))
+
+
+                # self.populateTopComponentTable()
+                # self.populateBotComponentTable()
+                #
+                # if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+                #     self.btnGenerateNeodenConfig.setEnabled(True)
 
 
 
@@ -71,51 +86,54 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         if len(self.pcb.topComponentList) > 0:
             self.tableTopComponents.setRowCount(len(self.pcb.topComponentList))
 
-            for row in range(0, len(self.pcb.topComponentList)):
-                # Export : Yes / No
-                self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
-                # Feeder number (1 - 98)
-                self.tableTopComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
-                # Nozzle Number (1 - 4)
-                self.tableTopComponents.setCellWidget(row, 2, self.defineNozzleNumber(
-                    self.pcb.topComponentList[row].footprint.transformedValue))
-                # Comp Name
-                self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
-                self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
-                self.tableTopComponents.setItem(row, 5, QTableWidgetItem(
-                    self.pcb.topComponentList[row].footprint.transformedValue))
-                self.tableTopComponents.setItem(row, 6, QTableWidgetItem(
-                    str(self.pcb.topComponentList[row].position.transformedX_pos)))
-                self.tableTopComponents.setItem(row, 7, QTableWidgetItem(
-                    str(self.pcb.topComponentList[row].position.transformedY_pos)))
-                self.tableTopComponents.setItem(row, 8, QTableWidgetItem(
-                    str(self.pcb.topComponentList[row].position.transformedRotation)))
-                self.tableTopComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
+            # for row in range(0, len(self.pcb.topComponentList)):
+            #     # Export : Yes / No
+            #     self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+            #     # Feeder number (1 - 98)
+            #     self.tableTopComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
+            #     # Nozzle Number (1 - 4)
+            #     self.tableTopComponents.setCellWidget(row, 2, self.defineNozzleNumber(
+            #         self.pcb.topComponentList[row].footprint.transformedValue))
+            #     # Comp Name
+            #     self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
+            #     self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
+            #     self.tableTopComponents.setItem(row, 5, QTableWidgetItem(
+            #         self.pcb.topComponentList[row].footprint.transformedValue))
+            #     self.tableTopComponents.setItem(row, 6, QTableWidgetItem(
+            #         str(self.pcb.topComponentList[row].position.transformedX_pos)))
+            #     self.tableTopComponents.setItem(row, 7, QTableWidgetItem(
+            #         str(self.pcb.topComponentList[row].position.transformedY_pos)))
+            #     self.tableTopComponents.setItem(row, 8, QTableWidgetItem(
+            #         str(self.pcb.topComponentList[row].position.transformedRotation)))
+            #     self.tableTopComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
+            pass
+
 
     def populateBotComponentTable(self):
         if len(self.pcb.botComponentList) > 0:
             self.tableBottomComponents.setRowCount(len(self.pcb.botComponentList))
 
-            for row in range(0, len(self.pcb.botComponentList)):
-                # Export : Yes / No
-                self.tableBottomComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
-                # Feeder number (1 - 98)
-                self.tableBottomComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
-                # Nozzle Number (1 - 4)
-                self.tableBottomComponents.setCellWidget(row, 2, self.defineNozzleNumber(
-                    self.pcb.botComponentList[row].footprint.transformedValue))
-                # Comp Name
-                self.tableBottomComponents.setItem(row, 3, QTableWidgetItem(self.pcb.botComponentList[row].refName))
-                self.tableBottomComponents.setItem(row, 4, QTableWidgetItem(self.pcb.botComponentList[row].Value))
-                self.tableBottomComponents.setItem(row, 5, QTableWidgetItem(
-                    self.pcb.botComponentList[row].footprint.transformedValue))
-                self.tableBottomComponents.setItem(row, 6, QTableWidgetItem(
-                    str(self.pcb.botComponentList[row].position.transformedX_pos)))
-                self.tableBottomComponents.setItem(row, 7, QTableWidgetItem(
-                    str(self.pcb.botComponentList[row].position.transformedY_pos)))
-                self.tableBottomComponents.setItem(row, 8, QTableWidgetItem(
-                    str(self.pcb.botComponentList[row].position.transformedRotation)))
-                self.tableBottomComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
+            # for row in range(0, len(self.pcb.botComponentList)):
+            #     # Export : Yes / No
+            #     self.tableBottomComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+            #     # Feeder number (1 - 98)
+            #     self.tableBottomComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
+            #     # Nozzle Number (1 - 4)
+            #     self.tableBottomComponents.setCellWidget(row, 2, self.defineNozzleNumber(
+            #         self.pcb.botComponentList[row].footprint.transformedValue))
+            #     # Comp Name
+            #     self.tableBottomComponents.setItem(row, 3, QTableWidgetItem(self.pcb.botComponentList[row].refName))
+            #     self.tableBottomComponents.setItem(row, 4, QTableWidgetItem(self.pcb.botComponentList[row].Value))
+            #     self.tableBottomComponents.setItem(row, 5, QTableWidgetItem(
+            #         self.pcb.botComponentList[row].footprint.transformedValue))
+            #     self.tableBottomComponents.setItem(row, 6, QTableWidgetItem(
+            #         str(self.pcb.botComponentList[row].position.transformedX_pos)))
+            #     self.tableBottomComponents.setItem(row, 7, QTableWidgetItem(
+            #         str(self.pcb.botComponentList[row].position.transformedY_pos)))
+            #     self.tableBottomComponents.setItem(row, 8, QTableWidgetItem(
+            #         str(self.pcb.botComponentList[row].position.transformedRotation)))
+            #     self.tableBottomComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
+            pass
 
 
     def cleanComponentTables(self):
@@ -213,20 +231,20 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         #     chkbox = self.tableTopComponents.cellWidget(i, 0).findChild(QCheckBox).isChecked()
         #     print(chkbox)
 
-        tmp: QComboBox = self.tableTopComponents.cellWidget(0, 2)
-        tmp2: QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
-        print(tmp.currentText())
-        print(tmp2.isChecked())
+        # tmp: QComboBox = self.tableTopComponents.cellWidget(0, 2)
+        # tmp2: QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
+        # print(tmp.currentText())
+        # print(tmp2.isChecked())
+        #
+        # for stack in self.neodenFile.stackList:
+        #     print(stack.getAsLineString())
+        #
+        # print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
+        #
+        # for fid in self.pcb.topFiducialList:
+        #     print(fid)
 
-        for stack in self.neodenFile.stackList:
-            print(stack.getAsLineString())
-
-        print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
-
-        for fid in self.pcb.topFiducialList:
-            print(fid)
-
-
+        pass
 
 
 

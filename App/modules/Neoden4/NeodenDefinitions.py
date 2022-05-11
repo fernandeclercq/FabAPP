@@ -14,6 +14,10 @@ class NeodenFileIdentifiers(enum.Enum):
     ComponentIdentifier = "comp"
 
 
+class LightSource(enum.IntEnum):
+    Inner = 1
+    Outer = 2
+
 
 class StackName(enum.Enum):
     Stack = "stack"

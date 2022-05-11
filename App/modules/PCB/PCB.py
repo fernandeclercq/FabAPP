@@ -1,12 +1,11 @@
 from App.modules.PCB.Component.Component import Component, Footprint, Position
 from App.modules.PCB.Fiducial.Fiducial import Fiducial
 from App.modules.PCB.PlacementFile.PlacementFile import PlacementFile, PCBSide, GenerationSoftware, NeodenHeader, KicadHeader, EagleHeader
-from App.modules.Neoden4.NeodenFile import NeodenFile
 import zipfile
 
 
 class PCB(Component, Fiducial, PlacementFile):
-    def __init__(self, neoden_config_file: NeodenFile):
+    def __init__(self):
         super(PCB, self).__init__()
         self.name = ""
         self.dateCreated = ""
@@ -17,7 +16,6 @@ class PCB(Component, Fiducial, PlacementFile):
         self.topFiducialList: list[Fiducial] = []
         self.botFiducialList: list[Fiducial] = []
         self.placementFileList: list[PlacementFile] = []
-        self.neodenFile: NeodenFile = neoden_config_file
 
 
     @property
@@ -68,13 +66,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if topPF.softwareCreated == GenerationSoftware.Kicad:
                 for x in range(len(topPF.entryList)):
                     newFootprint = Footprint(topPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(topPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
                                            PCBSide.TOP)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
@@ -88,13 +85,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if botPF.softwareCreated == GenerationSoftware.Kicad:
                 for x in range(len(botPF.entryList)):
                     newFootprint = Footprint(botPF.entryList[x][KicadHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(botPF.entryList[x][KicadHeader.X_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][KicadHeader.Y_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][KicadHeader.Rotation.value].strip(" ")),
                                            PCBSide.BOT)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
@@ -110,13 +106,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if topPF.softwareCreated == GenerationSoftware.Eagle:
                 for x in range(len(topPF.entryList)):
                     newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
                                            PCBSide.TOP)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
@@ -131,13 +126,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if botPF.softwareCreated == GenerationSoftware.Eagle:
                 for x in range(len(botPF.entryList)):
                     newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
                                            PCBSide.BOT)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
@@ -154,13 +148,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if topPF.softwareCreated == GenerationSoftware.Fusion360:
                 for x in range(len(topPF.entryList)):
                     newFootprint = Footprint(topPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(topPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
                                            float(topPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
                                            PCBSide.TOP)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
@@ -175,13 +168,12 @@ class PCB(Component, Fiducial, PlacementFile):
             if botPF.softwareCreated == GenerationSoftware.Fusion360:
                 for x in range(len(botPF.entryList)):
                     newFootprint = Footprint(botPF.entryList[x][EagleHeader.Footprint.value].strip("\" "))
-                    newFootprint.availableFootprints = self.neodenFile.availableFootprintList
                     newPosition = Position(float(botPF.entryList[x][EagleHeader.X_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][EagleHeader.Y_Pos.value].strip(" ")),
                                            float(botPF.entryList[x][EagleHeader.Rotation.value].strip(" ")),
                                            PCBSide.BOT)
 
-                    if newFootprint.originalValue.lower().find("fid") != -1 or newFootprint.originalValue.lower().find("fiducial") != -1:
+                    if newFootprint.Value.lower().find("fid") != -1 or newFootprint.Value.lower().find("fiducial") != -1:
                         newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
