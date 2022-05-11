@@ -1,5 +1,6 @@
 from App.modules.Neoden4.Stack.Stack import Stack
 from App.modules.PCB.Fiducial.Fiducial import Fiducial
+from App.modules.PCB.Component.Component import Component
 from App.modules.Neoden4.FirstChip.FirstChipSetting import FirstChipSetting
 from App.modules.Neoden4.NeodenDefinitions import *
 
@@ -13,13 +14,28 @@ class NeodenFile(Stack):
         self.pcbTesting: str = "test,No"
         self.pcbPanelFirstChipSetting: FirstChipSetting = FirstChipSetting()
         self.fiducialList: list[Fiducial] = []
+        self.componentList: list[Component] = []
+        self.availableFootprintList: list[str] = []
+        self.xOrigin: float = 0.00
+        self.yOrigin: float = 0.00
 
 
 
         self.__populateNeodenStackList()
         self.__populateNeodenFirstChipSetting()
+        self.__populateAvailableFootprints()
+        self.__populateXYOrigin()
 
 
+
+    def __populateXYOrigin(self):
+        self.xOrigin = self.pcbPanelFirstChipSetting.leftBottomX
+        self.yOrigin = self.pcbPanelFirstChipSetting.leftBottomY
+
+
+    def __populateAvailableFootprints(self):
+        for stack in self.stackList:
+            self.availableFootprintList.append(stack.footprint)
 
 
 

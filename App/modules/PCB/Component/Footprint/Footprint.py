@@ -5,10 +5,24 @@ class Footprint:
     def __init__(self, ori_val: str = ""):
         self.originalValue = ori_val
         self.transformedValue = "N/A"
+        self._availableFootprints: list[str] = []
+
+
+
+
+    @property
+    def availableFootprints(self):
+        return self._availableFootprints
+
+
+    @availableFootprints.setter
+    def availableFootprints(self, val: list[str]):
+        self._availableFootprints = val
         self.__correctFootprint()
 
+
     def __correctFootprint(self):
-        for ft in NeodenFootprints.Footprints.value:
+        for ft in self.availableFootprints:
             if self.originalValue.find(ft) != -1:
                 self.transformedValue = ft
                 break

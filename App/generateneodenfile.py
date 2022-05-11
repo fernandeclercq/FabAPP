@@ -16,6 +16,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
         self.setAcceptDrops(True)
 
+        self.neodenStackConfigPath = "./config/Neoden_stack_config.csv"
+        self.neodenFile = NeodenFile(self.neodenStackConfigPath)
+
         self.ledFilesOutputDirectory.setReadOnly(True)
         self.ledImportPositionFilePath.setReadOnly(True)
 
@@ -30,12 +33,14 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.inPosFilePath = os.getcwd()
         self.outNeodenConfigFilePath = os.getcwd()
 
-        self.pcb = PCB()
+
+
+        self.pcb = PCB(self.neodenFile)
 
         self.prevNozzle = 0
         self.prevFootprint = ""
 
-        self.neodenStackConfigPath = "./config/Neoden_stack_config.csv"
+
 
 
 
@@ -50,7 +55,6 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Setting the path of the zip for the gerbers + componentlists,
                 # will automatically sort the list for the components and create 2 lists with:
                 # top components and bot components
-
                 self.pcb.path = inPath
 
                 self.populateTopComponentTable()
@@ -126,10 +130,10 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
-    def createCellWithCheckBox(self, isChecked: bool = True) -> QWidget:
+    def createCellWithCheckBox(self, is_checked: bool = True) -> QWidget:
         cell_widget = QWidget()
         chk_box = QCheckBox()
-        if isChecked:
+        if is_checked:
             chk_box.setCheckState(Qt.Checked)
         else:
             chk_box.setCheckState(Qt.Unchecked)
@@ -142,9 +146,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         return cell_widget
 
 
-    def createCellWithCmb(self, list: list[str]):
+    def createCellWithCmb(self, lst: list[str]):
         cmb = QComboBox()
-        cmb.addItems(list)
+        cmb.addItems(lst)
         return cmb
 
 
@@ -210,18 +214,14 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         #     print(chkbox)
 
         tmp: QComboBox = self.tableTopComponents.cellWidget(0, 2)
-        tmp2:QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
+        tmp2: QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
         print(tmp.currentText())
         print(tmp2.isChecked())
 
-
-
-        neodenfile = NeodenFile(self.neodenStackConfigPath)
-
-        for stack in neodenfile.stackList:
+        for stack in self.neodenFile.stackList:
             print(stack.getAsLineString())
 
-        print(neodenfile.pcbPanelFirstChipSetting.getAsStringLine())
+        print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
 
         for fid in self.pcb.topFiducialList:
             print(fid)
