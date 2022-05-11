@@ -13,9 +13,6 @@ class Footprint:
                 self.transformedValue = ft
                 break
 
-        # if self.transformedValue == "N/A":
-        #     self.transformedValue = ""
-
 
     def __repr__(self):
         return "Original value: {}, Transformed Value: {}".format(

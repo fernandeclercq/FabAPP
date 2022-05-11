@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import *
 from ui.generateNeodenFile_ui import *
 from modules.PCB.PCB import *
+from modules.Neoden4.NeodenDefinitions import *
+from modules.Neoden4.NeodenFile import *
 import os
 import platform
 from PyQt5.QtCore import *
@@ -23,6 +25,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         self.btnOutputFolderDirectory.clicked.connect(self.evt_btnOutputFolderDirectory_clicked)
         self.btnGenerateNeodenConfig.clicked.connect(self.evt_btnGenerateNeodenConfig_clicked)
+        self.btnGenerateNeodenConfig.setEnabled(False)
 
         self.inPosFilePath = os.getcwd()
         self.outNeodenConfigFilePath = os.getcwd()
@@ -31,6 +34,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         self.prevNozzle = 0
         self.prevFootprint = ""
+
+        self.neodenStackConfigPath = "./config/Neoden_stack_config.csv"
 
 
 
@@ -51,9 +56,10 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.populateTopComponentTable()
                 self.populateBotComponentTable()
 
-                # for i in range(self.tableTopComponents.rowCount()):
-                #     chkbox = self.tableTopComponents.cellWidget(i, 0).findChild(QCheckBox).isChecked()
-                #     print(chkbox)
+                if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+                    self.btnGenerateNeodenConfig.setEnabled(True)
+
+
 
 
 
@@ -167,17 +173,56 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
     def evt_btnRemovePosFile_clicked(self):
         if self.ledImportPositionFilePath.text() != "":
             self.ledImportPositionFilePath.setText("")
+            self.ledFilesOutputDirectory.setText("")
             self.cleanComponentTables()
             self.pcb.clearLists()
             self.inPosFilePath = os.getcwd()
+            self.outNeodenConfigFilePath = os.getcwd()
             self.btnRemovePositionFile.setEnabled(False)
+            self.btnGenerateNeodenConfig.setEnabled(False)
 
 
     def evt_btnOutputFolderDirectory_clicked(self):
-        pass
+        tempPath = QFileDialog.getExistingDirectory(self, "Select your output folder", self.outNeodenConfigFilePath)
+        if tempPath != "":
+            self.ledFilesOutputDirectory.setText(tempPath)
+            self.outNeodenConfigFilePath = tempPath
 
     def evt_btnGenerateNeodenConfig_clicked(self):
-        pass
+        # with open(self.outNeodenConfigFilePath + "/test.txt", 'w') as file:
+        #     file.write("""
+        #     #Feeder,Feeder ID,Type,Nozzle,X,Y,Angle,Footprint,Value,Pick height,Pick delay,Placement height,Placement delay,Vacuum detection,Vacuum value,Vision alignment,Speed,
+        #     stack,3,0,1,411.36,119.04,90.00,0805,0805/1k,1.50,100,1.00,100,No,-40,1,60,4,50,80,No,No,
+        #     stack,6,0,1,411.07,158.43,90.00,0805,0805/10k,1.50,100,1.00,100,No,-40,1,60,8,50,80,No,No,
+        #     stack,12,0,1,411.04,303.79,90.00,0805,0805/22pF,0.50,100,1.00,100,No,-40,1,60,4,50,80,No,No,
+        #     stack,13,0,1,411.50,325.34,90.00,0805,0805/LED1,2.00,100,1.50,100,No,-40,1,60,4,50,80,No,No,
+        #     stack,97,1,4,282.68,83.46,0.00,SOT223-3,SOT223-3/AMS-3.3V,0.00,100,1.50,100,No,-60,1,60,1,1,281.83,114.95,1,1,No,No,
+        #     stack,98,1,3,95.72,320.98,90.00,QFN32,QFN-32/STM8S,1.00,100,2.00,100,No,-40,1,40,7,4,165.50,355.88,1,1,No,No,""")
+
+        # Chip,Feeder ID,Nozzle,Name,Value,Footprint,X,Y,Rotation,Skip
+        # comp, 12, 1, C1, 100nF, 0805, 83.73, 15.96, -90.00, No,
+        # comp, 12, 1, C2, 22pF, 0805, 72.53, 28.32, -90.00, No,
+        # comp, 12, 1, C3, 22pF, 0805, 78.63, 25.72, 90.00, No,
+
+
+        # for i in range(self.tableTopComponents.rowCount()):
+        #     chkbox = self.tableTopComponents.cellWidget(i, 0).findChild(QCheckBox).isChecked()
+        #     print(chkbox)
+
+        tmp: QComboBox = self.tableTopComponents.cellWidget(0, 2)
+        tmp2:QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
+        print(tmp.currentText())
+        print(tmp2.isChecked())
+
+        print(NeodenDef.NeodenStackHeader.value)
+        print(NeodenDef.NeodenStackPrefix.value)
+        print(NeodenDef.NeodenCompPrefix.value)
+
+        neodenfile = NeodenFile(self.neodenStackConfigPath)
+
+
+
+
 
 
 
@@ -213,4 +258,6 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.populateTopComponentTable()
             self.populateBotComponentTable()
 
+            if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+                self.btnGenerateNeodenConfig.setEnabled(True)
 
