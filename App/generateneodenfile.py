@@ -214,12 +214,17 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         print(tmp.currentText())
         print(tmp2.isChecked())
 
-        print(NeodenDef.NeodenStackHeader.value)
-        print(NeodenDef.NeodenStackPrefix.value)
-        print(NeodenDef.NeodenCompPrefix.value)
+
 
         neodenfile = NeodenFile(self.neodenStackConfigPath)
 
+        for stack in neodenfile.stackList:
+            print(stack.getAsLineString())
+
+        print(neodenfile.pcbPanelFirstChipSetting.getAsStringLine())
+
+        for fid in self.pcb.topFiducialList:
+            print(fid)
 
 
 

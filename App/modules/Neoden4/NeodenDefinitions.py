@@ -1,12 +1,18 @@
 import enum
 
 
-class NeodenDef(enum.Enum):
-    NeodenStackHeader = "#Feeder,Feeder ID,Type,Nozzle,X,Y,Angle,Footprint,Value,Pick height,Pick delay,Placement height,Placement delay," \
-                        "Vacuum detection,Vacuum value,Vision alignment,Speed,\n"
 
-    NeodenStackPrefix = "stack"
-    NeodenCompPrefix = "comp"
+class NeodenFileIdentifiers(enum.Enum):
+    ConfigFileIdentifier = "#Feeder,Feeder ID,Type,Nozzle,X,Y,Angle,Footprint,Value,Pick height,Pick delay," \
+                           "Placement height,Placement delay, Vacuum detection,Vacuum value,Vision alignment,Speed,\n"
+    StackIdentifier = "stack"
+    PCBSettingIdentifier = "pcb"
+    PCBFiducialIdentifier = "mark"
+    SingleFiducialIdentifier = "markext"
+    PCBPanelIdentifier = "mirror_create"
+    SinglePanelIdentifier = "mirror"
+    ComponentIdentifier = "comp"
+
 
 
 class StackName(enum.Enum):
@@ -23,13 +29,6 @@ class VisionAlignment(enum.IntEnum):
     Individually = 1
     Jointly = 2
     LargeComponent = 3
-
-
-#Feeder,    Feeder ID,  Type,   Nozzle, X,      Y,      Angle,  Footprint,  Value,      Pick height,    Pick delay, Placement height,   Placement delay,
-#stack,     3,          0,      1,      411.36, 119.04, 90.00,  0805,       0805/1k,    1.50,           100,        1.00,               100,
-
-#Vacuum detection,  Vacuum value,   Vision alignment,   Speed,  (Feeding rate), (Feed strength),    (peel strength),    (size correction),  (Skip)
-#No,                -40,            1,                  60,     4,              50,                 80,                 No,                 No,
 
 
 class StackConfig(enum.IntEnum):
@@ -55,3 +54,18 @@ class StackConfig(enum.IntEnum):
     PeelStrength = 19
     SizeCorrection = 20
     Skip = 21
+
+
+class FirstChipMapping(enum.Enum):
+    LineIdentifier = 0
+    Columns = 1
+    Rows = 2
+    LeftBottomX = 3
+    LeftBottomY = 4
+    LeftTopX = 5
+    LeftTopY = 6
+    RightTopX = 7
+    RightTopY = 8
+    PcbAngle = 9
+
+
