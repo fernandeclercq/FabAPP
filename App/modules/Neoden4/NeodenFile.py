@@ -139,10 +139,13 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
 
     @botFiducialList.setter
     def botFiducialList(self, pcb_fid_list: list[Fiducial]):
+        fidNr = 0
         for pcb_fid in pcb_fid_list:
             newNeoFid = NeodenFiducial(copy.deepcopy(pcb_fid))
+            newNeoFid.fiducialNumber = fidNr
             newNeoFid.fiducial.position = self.__botCorrectPosition(newNeoFid.fiducial.position)
             self._botFiducialList.append(newNeoFid)
+            fidNr += 1
         print(self._botFiducialList)
 
 
@@ -153,10 +156,13 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
 
     @topFiducialList.setter
     def topFiducialList(self, pcb_fid_list: list[Fiducial]):
+        fidNr = 0
         for pcb_fid in pcb_fid_list:
             newNeoFid = NeodenFiducial(copy.deepcopy(pcb_fid))
+            newNeoFid.fiducialNumber = fidNr
             newNeoFid.fiducial.position = self.__topCorrectPosition(newNeoFid.fiducial.position)
             self._topFiducialList.append(newNeoFid)
+            fidNr += 1
         print(self._topFiducialList)
 
 

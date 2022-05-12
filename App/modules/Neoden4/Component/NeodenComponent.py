@@ -1,4 +1,5 @@
 from App.modules.PCB.Component.Component import Component, Position, Footprint
+from App.modules.Neoden4.NeodenDefinitions import NeodenFileIdentifiers
 
 
 class NeodenComponent(Component):
@@ -31,6 +32,13 @@ class NeodenComponent(Component):
     def __repr__(self):
         return "Feeder Id: {}, Nozzle: {}, Skip: {},\n Component: {}\n".format(
             self.feederId, self.nozzle, self.skip, self.component
+        )
+
+    def getAsStringLine(self):
+        return "{},{},{},{},{},{},{},{},{},{},".format(
+            NeodenFileIdentifiers.ComponentIdentifier.value, self.feederId, self.nozzle, self.component.refName, self.component.Value,
+            self.component.footprint.Value, self.component.position.xPos, self.component.position.yPos, self.component.position.rotation,
+            self.skip
         )
 
 

@@ -70,8 +70,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.populateTopComponentTable()
                 self.populateBotComponentTable()
                 #
-                # if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
-                #     self.btnGenerateNeodenConfig.setEnabled(True)
+                if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+                    self.btnGenerateNeodenConfig.setEnabled(True)
 
 
 
@@ -247,6 +247,12 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         #
         # for fid in self.pcb.topFiducialList:
         #     print(fid)
+
+        for comp in self.neodenFile.topComponentList:
+            print(comp.getAsStringLine())
+
+        for fid in self.neodenFile.topFiducialList:
+            print(fid.getAsStringLine())
 
         pass
 
