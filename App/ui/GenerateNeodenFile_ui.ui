@@ -245,7 +245,7 @@
     <item>
      <widget class="QTabWidget" name="twContainerTabs">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tbFrontComponents">
        <attribute name="title">
@@ -260,21 +260,13 @@
           <height>681</height>
          </rect>
         </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <property name="rowCount">
          <number>1</number>
         </property>
         <row/>
-        <column>
-         <property name="text">
-          <string>Export?</string>
-         </property>
-         <property name="toolTip">
-          <string>Check if component will be included into Neoden4 Config File</string>
-         </property>
-         <property name="whatsThis">
-          <string>Check if component will be included into Neoden4 Config File</string>
-         </property>
-        </column>
         <column>
          <property name="text">
           <string>Feeder #</string>
@@ -389,17 +381,9 @@
           <height>681</height>
          </rect>
         </property>
-        <column>
-         <property name="text">
-          <string>Export?</string>
-         </property>
-         <property name="toolTip">
-          <string>Check if component will be included into Neoden4 Config File</string>
-         </property>
-         <property name="whatsThis">
-          <string>Check if component will be included into Neoden4 Config File</string>
-         </property>
-        </column>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <column>
          <property name="text">
           <string>Feeder #</string>

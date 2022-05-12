@@ -68,7 +68,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
                 self.populateTopComponentTable()
-                # self.populateBotComponentTable()
+                self.populateBotComponentTable()
                 #
                 # if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
                 #     self.btnGenerateNeodenConfig.setEnabled(True)
@@ -83,52 +83,53 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
             for row in range(0, len(self.pcb.topComponentList)):
                 # Export : Yes / No
-                self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+                # self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
                 # Feeder number (1 - 48)
-
-                self.tableTopComponents.setCellWidget(row, 1, self.createFeederCmb(self.neodenFile.topComponentList[row].feederId))
+                self.tableTopComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.topComponentList[row].feederId))
                 # Nozzle Number (1 - 4)
-                self.tableTopComponents.setCellWidget(row, 2, self.createNozzleCmb(self.neodenFile.topComponentList[row].nozzle))
+                self.tableTopComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.topComponentList[row].nozzle))
                 # Comp Name
-                self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
-            #     self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
-            #     self.tableTopComponents.setItem(row, 5, QTableWidgetItem(
-            #         self.pcb.topComponentList[row].footprint.transformedValue))
-            #     self.tableTopComponents.setItem(row, 6, QTableWidgetItem(
-            #         str(self.pcb.topComponentList[row].position.transformedX_pos)))
-            #     self.tableTopComponents.setItem(row, 7, QTableWidgetItem(
-            #         str(self.pcb.topComponentList[row].position.transformedY_pos)))
-            #     self.tableTopComponents.setItem(row, 8, QTableWidgetItem(
-            #         str(self.pcb.topComponentList[row].position.transformedRotation)))
-            #     self.tableTopComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
-            pass
+                self.tableTopComponents.setItem(row, 2, QTableWidgetItem(self.neodenFile.topComponentList[row].component.refName))
+                self.tableTopComponents.itemAt(row, 2)
+                # Component Value
+                self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.neodenFile.topComponentList[row].component.Value))
+                # Component Footprint
+                self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.neodenFile.topComponentList[row].component.footprint.Value))
+                # Component X pos
+                self.tableTopComponents.setItem(row, 5, QTableWidgetItem(str(self.neodenFile.topComponentList[row].component.position.xPos)))
+                # Component Y pos
+                self.tableTopComponents.setItem(row, 6, QTableWidgetItem(str(self.neodenFile.topComponentList[row].component.position.yPos)))
+                # Component Rotation
+                self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.neodenFile.topComponentList[row].component.position.rotation)))
+                # Component Skip
+                self.tableTopComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.topComponentList[row].skip))
 
 
     def populateBotComponentTable(self):
-        if len(self.pcb.botComponentList) > 0:
-            self.tableBottomComponents.setRowCount(len(self.pcb.botComponentList))
+        if len(self.neodenFile.botComponentList) > 0:
+            self.tableBottomComponents.setRowCount(len(self.neodenFile.botComponentList))
 
-            # for row in range(0, len(self.pcb.botComponentList)):
-            #     # Export : Yes / No
-            #     self.tableBottomComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
-            #     # Feeder number (1 - 98)
-            #     self.tableBottomComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
-            #     # Nozzle Number (1 - 4)
-            #     self.tableBottomComponents.setCellWidget(row, 2, self.defineNozzleNumber(
-            #         self.pcb.botComponentList[row].footprint.transformedValue))
-            #     # Comp Name
-            #     self.tableBottomComponents.setItem(row, 3, QTableWidgetItem(self.pcb.botComponentList[row].refName))
-            #     self.tableBottomComponents.setItem(row, 4, QTableWidgetItem(self.pcb.botComponentList[row].Value))
-            #     self.tableBottomComponents.setItem(row, 5, QTableWidgetItem(
-            #         self.pcb.botComponentList[row].footprint.transformedValue))
-            #     self.tableBottomComponents.setItem(row, 6, QTableWidgetItem(
-            #         str(self.pcb.botComponentList[row].position.transformedX_pos)))
-            #     self.tableBottomComponents.setItem(row, 7, QTableWidgetItem(
-            #         str(self.pcb.botComponentList[row].position.transformedY_pos)))
-            #     self.tableBottomComponents.setItem(row, 8, QTableWidgetItem(
-            #         str(self.pcb.botComponentList[row].position.transformedRotation)))
-            #     self.tableBottomComponents.setCellWidget(row, 9, self.createCellWithCmb(["No", "Yes"]))
-            pass
+            for row in range(0, len(self.neodenFile.botComponentList)):
+                # Export : Yes / No
+                # self.tableBottomComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+                # Feeder number (1 - 48)
+                self.tableBottomComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.botComponentList[row].feederId))
+                # Nozzle Number (1 - 4)
+                self.tableBottomComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.botComponentList[row].nozzle))
+                # Comp Name
+                self.tableBottomComponents.setItem(row, 2, QTableWidgetItem(self.neodenFile.botComponentList[row].component.refName))
+                # Component Value
+                self.tableBottomComponents.setItem(row, 3, QTableWidgetItem(self.neodenFile.botComponentList[row].component.Value))
+                # Component Footprint
+                self.tableBottomComponents.setItem(row, 4, QTableWidgetItem(self.neodenFile.botComponentList[row].component.footprint.Value))
+                # Component X pos
+                self.tableBottomComponents.setItem(row, 5, QTableWidgetItem(str(self.neodenFile.botComponentList[row].component.position.xPos)))
+                # Component Y pos
+                self.tableBottomComponents.setItem(row, 6, QTableWidgetItem(str(self.neodenFile.botComponentList[row].component.position.yPos)))
+                # Component Rotation
+                self.tableBottomComponents.setItem(row, 7, QTableWidgetItem(str(self.neodenFile.botComponentList[row].component.position.rotation)))
+                # Component Skip
+                self.tableBottomComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.botComponentList[row].skip))
 
 
     def cleanComponentTables(self):
@@ -168,7 +169,6 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             myFeederIds.append(str(i))
 
         cmb.addItems(myFeederIds)
-
         cmb.setCurrentIndex(int(feeder_id ) - 1)
         return cmb
 
@@ -183,30 +183,17 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         newCmb.addItems(myNozzles)
         newCmb.setCurrentIndex(int(nozzle) - 1)
-
-
         return newCmb
 
-    def defineNozzleNumber(self, footprint: str):
-        cmb = QComboBox()
-        cmb.addItems(["1", "2", "3", "4"])
-
-        if self.prevNozzle == 0:
-            if footprint == "0805":
-                self.prevFootprint = footprint
-                self.prevNozzle = 1
+    def createSkipCmb(self, skip: str) -> QComboBox:
+        newCmb = QComboBox()
+        newCmb.addItems(["No", "Yes"])
+        if skip.lower() == "no":
+            newCmb.setCurrentIndex(0)
         else:
-            if footprint == "0805":
-                if footprint == self.prevFootprint and self.prevNozzle == 1:
-                    cmb.setCurrentIndex(1)
-                    self.prevFootprint = footprint
-                    self.prevNozzle = 2
-                else:
-                    cmb.setCurrentIndex(0)
-                    self.prevFootprint = footprint
-                    self.prevNozzle = 1
+            newCmb.setCurrentIndex(1)
 
-        return cmb
+        return newCmb
 
 
     def evt_btnRemovePosFile_clicked(self):
