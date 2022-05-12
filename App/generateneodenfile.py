@@ -59,20 +59,15 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.pcb.path = inPath
 
 
-                # for fiducial in self.pcb.topFiducialList:
-                #     tmpfid = copy.deepcopy(fiducial)
-                #     self.neodenFile.topFiducialList
-
                 self.neodenFile.topFiducialList = self.pcb.topFiducialList
                 self.neodenFile.botFiducialList = self.pcb.botFiducialList
                 self.neodenFile.topComponentList = self.pcb.topComponentList
                 self.neodenFile.botComponentList = self.pcb.botComponentList
 
-                print(id(self.neodenFile.topComponentList[0]))
-                print(id(self.pcb.topComponentList[0]))
 
 
-                # self.populateTopComponentTable()
+
+                self.populateTopComponentTable()
                 # self.populateBotComponentTable()
                 #
                 # if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
@@ -83,8 +78,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
     def populateTopComponentTable(self):
-        if len(self.pcb.topComponentList) > 0:
-            self.tableTopComponents.setRowCount(len(self.pcb.topComponentList))
+        if len(self.neodenFile.topComponentList) > 0:
+            self.tableTopComponents.setRowCount(len(self.neodenFile.topComponentList))
 
             # for row in range(0, len(self.pcb.topComponentList)):
             #     # Export : Yes / No

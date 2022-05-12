@@ -18,15 +18,15 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
         self._botFiducialList: list[NeodenFiducial] = []
         self._topComponentList: list[NeodenComponent] = []
         self._botComponentList: list[NeodenComponent] = []
-        self.availableFootprintList: list[str] = []
         self.xOrigin: float = 0.00
         self.yOrigin: float = 0.00
+        self.prevNozzle = -1
+        self.prevFootprint = "N/A"
 
 
 
         self.__populateNeodenStackList()
         self.__populateNeodenFirstChipSetting()
-        self.__populateAvailableFootprints()
         self.__populateXYOrigin()
 
 
@@ -41,6 +41,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
         for pcb_comp in pcb_comp_list:
             newNeodenComp = NeodenComponent(copy.deepcopy(pcb_comp))
             newNeodenComp.component.position = self.__botCorrectPosition(newNeodenComp.component.position)
+            newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
+            newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
+            newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._botComponentList.append(newNeodenComp)
         print(self._botComponentList)
 
@@ -53,6 +56,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
         for pcb_comp in pcb_comp_list:
             newNeodenComp = NeodenComponent(copy.deepcopy(pcb_comp))
             newNeodenComp.component.position = self.__topCorrectPosition(newNeodenComp.component.position)
+            newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
+            newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
+            newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._topComponentList.append(newNeodenComp)
 
         print(self._topComponentList)
@@ -82,6 +88,49 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
         newPos.pcbSide = original_position.pcbSide
 
         return newPos
+
+    def __correctFootprint(self, original_footprint: Footprint) -> Footprint:
+        newFootprint = Footprint()
+        for stack in self.stackList:
+            if original_footprint.Value.find(stack.footprint) != -1:
+                newFootprint.Value = stack.footprint
+                break
+
+        return newFootprint
+
+    def __assignNozzle(self, comp: Component) -> int:
+        newNozzle = 1
+
+        for stack in self.stackList:
+            if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
+                newNozzle = stack.nozzle
+                break
+
+        if self.prevNozzle == -1 and self.prevFootprint == "N/A":
+            if comp.footprint.Value.find("0805") != -1:
+                self.prevNozzle = newNozzle
+                self.prevFootprint = comp.footprint.Value
+        else:
+            if comp.footprint.Value.find("0805") != -1:
+                self.prevFootprint = comp.footprint.Value
+                if self.prevNozzle == 1:
+                    newNozzle = 2
+                    self.prevNozzle = 2
+                else:
+                    newNozzle = 1
+                    self.prevNozzle = 1
+
+        return newNozzle
+
+    def __assignFeederId(self, comp: Component) -> int:
+        newFeederId: int = 1
+
+        for stack in self.stackList:
+            if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
+                newFeederId = stack.feederId
+                break
+
+        return newFeederId
 
 
     @property
@@ -115,11 +164,6 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
     def __populateXYOrigin(self):
         self.xOrigin = self.pcbPanelFirstChipSetting.leftBottomX
         self.yOrigin = self.pcbPanelFirstChipSetting.leftBottomY
-
-
-    def __populateAvailableFootprints(self):
-        for stack in self.stackList:
-            self.availableFootprintList.append(stack.footprint)
 
 
 
