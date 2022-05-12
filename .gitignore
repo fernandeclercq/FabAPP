@@ -1,2 +1,8 @@
 venv/
 .idea/
+
+dist/
+build/
+
+App/app-compile/ubuntu21/build/
+App/app-compile/win-x64/build

@@ -224,9 +224,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
     def evt_btnGenerateNeodenConfig_clicked(self):
         isTopNeodenFileCreated: bool = False
-        isBopNeodenFileCreated: bool = False
+        isBotNeodenFileCreated: bool = False
         fileTopPath = self.outNeodenConfigFilePath + "/" + self.pcb.name + "-top.csv"
-        fileBopPath = self.outNeodenConfigFilePath + "/" + self.pcb.name + "-bot.csv"
+        fileBotPath = self.outNeodenConfigFilePath + "/" + self.pcb.name + "-bot.csv"
 
 
 
@@ -235,17 +235,14 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
             if isTopNeodenFileCreated:
                 QMessageBox.information(self, "Pick and Place Files Created",
-                                        "Pick and Place Top Neoden file was created in:<br><br><b>{}</b>".format(
-                                        fileTopPath))
+                                        "Pick and Place Top Neoden file was created in:<br><br><b>{}</b>".format(fileTopPath))
 
         if self.tableBottomComponents.rowCount() > 0:
-            isBopNeodenFileCreated = self.generateBotNeodenFile(fileBopPath)
+            isBotNeodenFileCreated = self.generateBotNeodenFile(fileBotPath)
 
-            if isBopNeodenFileCreated:
+            if isBotNeodenFileCreated:
                 QMessageBox.information(self, "Pick and Place Files Created",
-                                        "Pick and Place Bot Neoden file was created in:<br><br><b>{}</b>".format(
-                                        fileBopPath
-                                        ))
+                                        "Pick and Place Bot Neoden file was created in:<br><br><b>{}</b>".format(fileBotPath))
 
 
 
@@ -256,7 +253,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             buffer += NeodenFileIdentifiers.ConfigFileIdentifier.value
             buffer += '\n'
 
-            for stack in self.neodenFile.botStackList():
+            for stack in self.neodenFile.botStackList:
                 buffer += stack.getAsLineString()
                 buffer += '\n'
 

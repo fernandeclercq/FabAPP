@@ -133,10 +133,29 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
                 newNozzle = stack.nozzle
                 if comp.position.pcbSide == PCBSide.BOT:
-                    self._botStackList.append(stack)
+                    if len(self._botStackList) > 0:
+                        for bot_stack in self._botStackList:
+                            if bot_stack == stack:
+                                break
+                            else:
+                                self._botStackList.append(stack)
+                                break
+                    else:
+                        self._botStackList.append(stack)
+                        break
                 else:
-                    self._topStackList.append(stack)
+                    if len(self._topStackList) > 0:
+                        for top_stack in self._topStackList:
+                            if top_stack == stack:
+                                break
+                            else:
+                                self._topStackList.append(stack)
+                                break
+                    else:
+                        self._topStackList.append(stack)
+                        break
                 break
+
 
         if self.prevNozzle == -1 and self.prevFootprint == "N/A":
             if comp.footprint.Value.find("0805") != -1:
