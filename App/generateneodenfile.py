@@ -216,32 +216,52 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
     def evt_btnGenerateNeodenConfig_clicked(self):
 
-        print(NeodenFileIdentifiers.ConfigFileIdentifier.value)
+        self.generateTopNeodenFile()
 
 
-        for stack in self.neodenFile.stackList:
-            print(stack.getAsLineString())
 
-        print(self.neodenFile.panelSetting)
+    def generateTopNeodenFile(self):
+        if self.outNeodenConfigFilePath != "":
+            buffer: str = ""
 
+            buffer += NeodenFileIdentifiers.ConfigFileIdentifier.value
+            buffer += '\n'
 
-        print(self.neodenFile.getTopPCBFiducialSettingAsStringLine())
+            for stack in self.neodenFile.stackList:
+                buffer += stack.getAsLineString()
+                buffer += '\n'
 
-        for fid in self.neodenFile.topFiducialList:
-            print(fid.getAsStringLine())
+            buffer += self.neodenFile.panelSetting
+            buffer += '\n'
 
-        print(self.neodenFile.pcbTesting)
+            buffer += self.neodenFile.getTopPCBFiducialSettingAsStringLine()
+            buffer += '\n'
 
-        print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
+            for fid in self.neodenFile.topFiducialList:
+                buffer += fid.getAsStringLine()
+                buffer += '\n'
 
-        print(self.neodenFile.topPcbSinglePanel.getAsStringLine())
+            buffer += self.neodenFile.pcbTesting
+            buffer += '\n'
 
-        print(NeodenFileIdentifiers.ComponentSectionIdentifier.value)
+            buffer += self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine()
+            buffer += '\n'
 
-        for comp in self.neodenFile.topComponentList:
-            print(comp.getAsStringLine())
+            buffer += self.neodenFile.topPcbSinglePanel.getAsStringLine()
+            buffer += '\n'
 
-        pass
+            buffer += NeodenFileIdentifiers.ComponentSectionIdentifier.value
+            buffer += '\n'
+
+            for comp in self.neodenFile.topComponentList:
+                buffer += comp.getAsStringLine()
+                buffer += '\n'
+
+            buffer += '\n'
+
+            with open(self.outNeodenConfigFilePath + "/top.csv", 'w') as file:
+                file.write(buffer)
+
 
 
 

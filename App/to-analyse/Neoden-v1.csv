@@ -16,7 +16,7 @@ markext,1,0.8,3,1,0,
 markext,2,0.8,3,1,0,
 markext,3,0.8,3,1,0,
 test,No,
-mirror_create,1,1,64.54,9.40,0,0,0,0,0,
+mirror_create,1,1,64.88,9.55,0,0,0,0,0,
 mirror,80.92,27.66,0,No,
 #Chip,Feeder ID,Nozzle,Name,Value,Footprint,X,Y,Rotation,Skip
 comp,1,1,R1,220R,0805,80.92,27.66,0.00,No,
