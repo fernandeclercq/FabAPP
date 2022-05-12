@@ -78,6 +78,7 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
     def topComponentList(self):
         return self._topComponentList
 
+
     @topComponentList.setter
     def topComponentList(self, pcb_comp_list: list[Component]):
         for pcb_comp in pcb_comp_list:
@@ -117,6 +118,7 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         newPos.pcbSide = original_position.pcbSide
 
         return newPos
+
 
     def __correctFootprint(self, original_footprint: Footprint) -> Footprint:
         newFootprint = Footprint()

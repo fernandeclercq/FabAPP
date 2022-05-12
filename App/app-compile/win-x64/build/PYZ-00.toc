@@ -508,11 +508,11 @@
    'PYMODULE'),
   ('posixpath', 'C:\\Program Files\\Python39\\lib\\posixpath.py', 'PYMODULE'),
   ('stat', 'C:\\Program Files\\Python39\\lib\\stat.py', 'PYMODULE'),
+  ('stringprep', 'C:\\Program Files\\Python39\\lib\\stringprep.py', 'PYMODULE'),
   ('tracemalloc',
    'C:\\Program Files\\Python39\\lib\\tracemalloc.py',
    'PYMODULE'),
   ('_py_abc', 'C:\\Program Files\\Python39\\lib\\_py_abc.py', 'PYMODULE'),
-  ('stringprep', 'C:\\Program Files\\Python39\\lib\\stringprep.py', 'PYMODULE'),
   ('App.mainwindows',
    'C:\\Users\\Fornan\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\mainwindows.py',

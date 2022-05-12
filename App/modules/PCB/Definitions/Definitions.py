@@ -34,12 +34,6 @@ class NeodenOfsset(enum.Enum):
     Y_Offset = 9.72
 
 
-class NeodenFootprints(enum.Enum):
-    Footprints = ["0402", "0603", "0805", "1206", "1210", "1812", "2225", "SOP8", "SOP14", "SOP16", "SOP18", "SOP20", "SOP24", "SOP28", "SOP30",
-                  "SSOP16", "SSOP20", "SSOP24", "SSOP28", "TSOP16", "QFP44", "QFP54", "QFP64", "QFP80", "LQFP32", "LQFP44", "QFN24", "QFN32",
-                  "TQFP100", "SOT223", "SOT-223"
-                  ]
-
 
 class KicadHeader(enum.Enum):
     Name = 0
