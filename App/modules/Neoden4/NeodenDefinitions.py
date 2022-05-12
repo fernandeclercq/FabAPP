@@ -4,7 +4,8 @@ import enum
 
 class NeodenFileIdentifiers(enum.Enum):
     ConfigFileIdentifier = "#Feeder,Feeder ID,Type,Nozzle,X,Y,Angle,Footprint,Value,Pick height,Pick delay," \
-                           "Placement height,Placement delay, Vacuum detection,Vacuum value,Vision alignment,Speed,"
+                           "Placement height,Placement delay,Vacuum detection,Vacuum value,Vision alignment,Speed,"
+
     ComponentSectionIdentifier = "#Chip,Feeder ID,Nozzle,Name,Value,Footprint,X,Y,Rotation,Skip"
     StackIdentifier = "stack"
     PCBSettingIdentifier = "pcb"

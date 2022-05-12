@@ -35,14 +35,10 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.outNeodenConfigFilePath = os.getcwd()
 
 
-
         self.pcb = PCB()
 
         self.prevNozzle = 0
         self.prevFootprint = ""
-
-
-
 
 
     def evt_btnImportPosFile_clicked(self):
@@ -213,13 +209,11 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.neodenFile.clearComponentList()
 
 
-
     def evt_btnOutputFolderDirectory_clicked(self):
         tempPath = QFileDialog.getExistingDirectory(self, "Select your output folder", self.outNeodenConfigFilePath)
         if tempPath != "":
             self.ledFilesOutputDirectory.setText(tempPath)
             self.outNeodenConfigFilePath = tempPath
-
 
 
     def evt_btnGenerateNeodenConfig_clicked(self):

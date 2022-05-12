@@ -30,7 +30,6 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         self.prevFootprint = "N/A"
 
 
-
         self.__populateNeodenStackList()
         self.__populateNeodenFirstChipSetting()
         self.__populateXYOrigin()
@@ -62,6 +61,8 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
     @botComponentList.setter
     def botComponentList(self, pcb_comp_list: list[Component]):
         for pcb_comp in pcb_comp_list:
+            # copy.deepcopy() makes a copy of each object inside "pcb_comp"
+            # Deepcopy is necessary to decouple the references between pcb.component and neoden.component
             newNeodenComp = NeodenComponent(copy.deepcopy(pcb_comp))
             newNeodenComp.component.position = self.__botCorrectPosition(newNeodenComp.component.position)
             newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
@@ -224,64 +225,66 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
     def __populateNeodenFirstChipSetting(self):
         if self.configPath.endswith(".csv"):
             with open(self.configPath, mode='r') as config:
-                FirstChipSettingFound = False
-                while not FirstChipSettingFound:
-                    fileEntry = config.readline()
-                    if fileEntry != "":
-                        fileEntry = fileEntry.split(',')
-                        if fileEntry[0] == "mirror_create":
-                            self.pcbPanelFirstChipSetting.leftBottomX = round(float(fileEntry[FirstChipMapping.
-                                                                                    LeftBottomX.value]), 2)
-                            self.pcbPanelFirstChipSetting.leftBottomY = round(float(fileEntry[FirstChipMapping.
-                                                                                    LeftBottomY.value]), 2)
-                            FirstChipSettingFound = True
-                            break
-
+                header: str = config.readline().strip('\n')
+                if header == str(NeodenFileIdentifiers.ConfigFileIdentifier.value):
+                    FirstChipSettingFound = False
+                    while not FirstChipSettingFound:
+                        fileEntry = config.readline()
+                        if fileEntry != "":
+                            fileEntry = fileEntry.split(',')
+                            if fileEntry[0] == "mirror_create":
+                                self.pcbPanelFirstChipSetting.leftBottomX = round(float(fileEntry[FirstChipMapping.
+                                                                                        LeftBottomX.value]), 2)
+                                self.pcbPanelFirstChipSetting.leftBottomY = round(float(fileEntry[FirstChipMapping.
+                                                                                        LeftBottomY.value]), 2)
+                                FirstChipSettingFound = True
+                                break
 
 
     def __populateNeodenStackList(self):
         if self.configPath.endswith(".csv"):
             with open(self.configPath, mode='r') as config:
-                header = config.readline().strip('\n')
-                isLastLine = False
-                while not isLastLine:
-                    lst = config.readline().strip('\n')
-                    if lst != "":
-                        lst = lst.split(',')
-                        if lst[0].lower() == "stack":
-                            newStack = Stack()
-                            newStack.stackName = lst[StackConfig.Stack.value]
-                            newStack.feederId = lst[StackConfig.FeederId.value]
-                            newStack.feederType = FeederType(int(lst[StackConfig.FeederType.value]))
-                            newStack.nozzle = lst[StackConfig.Nozzle.value]
-                            newStack.xPos = lst[StackConfig.X.value]
-                            newStack.yPos = lst[StackConfig.Y.value]
-                            newStack.pickAngle = lst[StackConfig.Angle.value]
-                            newStack.footprint = lst[StackConfig.Footprint.value]
-                            newStack.compValue = lst[StackConfig.CompValue.value]
-                            newStack.pickHeight = lst[StackConfig.PickHeight.value]
-                            newStack.pickDelayMS = lst[StackConfig.PickDelay.value]
-                            newStack.placementHeight = lst[StackConfig.PlacementHeight.value]
-                            newStack.placementDelayMS = lst[StackConfig.PlacementDelay.value]
-                            newStack.vacuumDetection = lst[StackConfig.VacuumDetection.value]
-                            newStack.vacuumValue = lst[StackConfig.VacuumValue.value]
-                            newStack.visionAlignment = VisionAlignment(int(lst[StackConfig.VisionAlignment.value]))
-                            newStack.speed = lst[StackConfig.Speed.value]
-                            newStack.feedRate = lst[StackConfig.FeedRate.value]
-                            newStack.feedStrength = lst[StackConfig.FeedStrength.value]
-                            newStack.peelStrength = lst[StackConfig.PeelStrength.value]
-                            newStack.sizeCorrection = lst[StackConfig.SizeCorrection.value]
-                            newStack.skip = lst[StackConfig.Skip.value]
+                header: str = config.readline().strip('\n')
+                if header == str(NeodenFileIdentifiers.ConfigFileIdentifier.value):
+                    isLastLine = False
+                    while not isLastLine:
+                        lst = config.readline().strip('\n')
+                        if lst != "":
+                            lst = lst.split(',')
+                            if lst[0].lower() == "stack":
+                                newStack = Stack()
+                                newStack.stackName = lst[StackConfig.Stack.value]
+                                newStack.feederId = lst[StackConfig.FeederId.value]
+                                newStack.feederType = FeederType(int(lst[StackConfig.FeederType.value]))
+                                newStack.nozzle = lst[StackConfig.Nozzle.value]
+                                newStack.xPos = lst[StackConfig.X.value]
+                                newStack.yPos = lst[StackConfig.Y.value]
+                                newStack.pickAngle = lst[StackConfig.Angle.value]
+                                newStack.footprint = lst[StackConfig.Footprint.value]
+                                newStack.compValue = lst[StackConfig.CompValue.value]
+                                newStack.pickHeight = lst[StackConfig.PickHeight.value]
+                                newStack.pickDelayMS = lst[StackConfig.PickDelay.value]
+                                newStack.placementHeight = lst[StackConfig.PlacementHeight.value]
+                                newStack.placementDelayMS = lst[StackConfig.PlacementDelay.value]
+                                newStack.vacuumDetection = lst[StackConfig.VacuumDetection.value]
+                                newStack.vacuumValue = lst[StackConfig.VacuumValue.value]
+                                newStack.visionAlignment = VisionAlignment(int(lst[StackConfig.VisionAlignment.value]))
+                                newStack.speed = lst[StackConfig.Speed.value]
+                                newStack.feedRate = lst[StackConfig.FeedRate.value]
+                                newStack.feedStrength = lst[StackConfig.FeedStrength.value]
+                                newStack.peelStrength = lst[StackConfig.PeelStrength.value]
+                                newStack.sizeCorrection = lst[StackConfig.SizeCorrection.value]
+                                newStack.skip = lst[StackConfig.Skip.value]
 
-                            if newStack.feederType == FeederType.NormalFeeder:
-                                self.stackList.append(newStack)
+                                if newStack.feederType == FeederType.NormalFeeder:
+                                    self.stackList.append(newStack)
 
+                            else:
+                                isLastLine = True
+                                break
                         else:
                             isLastLine = True
                             break
-                    else:
-                        isLastLine = True
-                        break
 
 
     def getTopPCBFiducialSettingAsStringLine(self):
