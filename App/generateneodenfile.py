@@ -224,10 +224,13 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         print(self.neodenFile.panelSetting)
 
-        print(self.neodenFile.pcbTesting)
+
+        print(self.neodenFile.getTopPCBFiducialSettingAsStringLine())
 
         for fid in self.neodenFile.topFiducialList:
             print(fid.getAsStringLine())
+
+        print(self.neodenFile.pcbTesting)
 
         print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
 

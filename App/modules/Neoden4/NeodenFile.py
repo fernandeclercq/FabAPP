@@ -49,8 +49,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._botComponentList.append(newNeodenComp)
 
-        self.botPcbSinglePanel.firstCompX = self._botComponentList[0].component.position.xPos
-        self.botPcbSinglePanel.firstCompY = self._botComponentList[0].component.position.yPos
+        if len(self._botComponentList) > 0:
+            self.botPcbSinglePanel.firstCompX = float(self._botComponentList[0].component.position.xPos)
+            self.botPcbSinglePanel.firstCompY = float(self._botComponentList[0].component.position.yPos)
 
     @property
     def topComponentList(self):
@@ -66,9 +67,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._topComponentList.append(newNeodenComp)
 
-
-        self.topPcbSinglePanel.firstCompX = float(self._topComponentList[0].component.position.xPos)
-        self.topPcbSinglePanel.firstCompY = float(self._topComponentList[0].component.position.yPos)
+        if len(self._topComponentList) > 0:
+            self.topPcbSinglePanel.firstCompX = float(self._topComponentList[0].component.position.xPos)
+            self.topPcbSinglePanel.firstCompY = float(self._topComponentList[0].component.position.yPos)
 
 
     def __topCorrectPosition(self, original_position: Position) -> Position:
@@ -242,3 +243,17 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
                         isLastLine = True
                         break
 
+
+    def getTopPCBFiducialSettingAsStringLine(self):
+        tmpStr: str = "" + str(NeodenFileIdentifiers.PCBFiducialIdentifier.value) + ",Whole,Auto,"
+        for pcb_fid in self._topFiducialList:
+            tmpStr += "{},{},".format(pcb_fid.fiducial.position.xPos, pcb_fid.fiducial.position.yPos)
+
+        return tmpStr
+
+    def getBotPCBFiducialSettingAsStringLine(self):
+        tmpStr: str = "" + str(NeodenFileIdentifiers.PCBFiducialIdentifier.value) + ",Whole,Auto,"
+        for pcb_fid in self._botFiducialList:
+            tmpStr += "{},{},".format(pcb_fid.fiducial.position.xPos, pcb_fid.fiducial.position.yPos)
+
+        return tmpStr
