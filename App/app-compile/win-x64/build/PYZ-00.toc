@@ -508,42 +508,143 @@
    'PYMODULE'),
   ('posixpath', 'C:\\Program Files\\Python39\\Lib\\posixpath.py', 'PYMODULE'),
   ('stat', 'C:\\Program Files\\Python39\\Lib\\stat.py', 'PYMODULE'),
+  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('tracemalloc',
    'C:\\Program Files\\Python39\\Lib\\tracemalloc.py',
    'PYMODULE'),
-  ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
   ('_py_abc', 'C:\\Program Files\\Python39\\Lib\\_py_abc.py', 'PYMODULE'),
-  ('mainwindows',
+  ('App.mainwindows',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\mainwindows.py',
    'PYMODULE'),
-  ('generateneodenfile',
+  ('App',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\__init__.py',
+   'PYMODULE'),
+  ('App.generateneodenfile',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\generateneodenfile.py',
    'PYMODULE'),
-  ('ui.generateNeodenFile_ui',
-   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
-   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\generateNeodenFile_ui.py',
-   'PYMODULE'),
-  ('ui', '-', 'PYMODULE'),
   ('PyQt5',
    'c:\\users\\fernando\\onedrive - ap hogeschool '
    'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\__init__.py',
    'PYMODULE'),
-  ('convertgerbers',
+  ('App.modules.Neoden4.NeodenFile',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\NeodenFile.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\__init__.py',
+   'PYMODULE'),
+  ('App.modules',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.FirstChip.FirstChipSetting',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\FirstChip\\FirstChipSetting.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.FirstChip', '-', 'PYMODULE'),
+  ('App.modules.Neoden4.Fiducial.NeodenFiducial',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Fiducial\\NeodenFiducial.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.Fiducial',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Fiducial\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Fiducial.Fiducial',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Fiducial\\Fiducial.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Fiducial',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Fiducial\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Component.Position.Position',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\Position\\Position.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Component.Position',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\Position\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Component',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Definitions.Definitions',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Definitions\\Definitions.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Definitions', '-', 'PYMODULE'),
+  ('App.modules.PCB.Component.Footprint.Footprint',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\Footprint\\Footprint.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Component.Footprint',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\Footprint\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.Component.NeodenComponent',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Component\\NeodenComponent.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.Component',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Component\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.PCB.Component.Component',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\Component\\Component.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.Stack.Stack',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Stack\\Stack.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.Stack',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\Stack\\__init__.py',
+   'PYMODULE'),
+  ('App.modules.Neoden4.NeodenDefinitions',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\Neoden4\\NeodenDefinitions.py',
+   'PYMODULE'),
+  ('App.modules.PCB.PCB',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\PCB.py',
+   'PYMODULE'),
+  ('App.modules.PCB.PlacementFile.PlacementFile',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\PlacementFile\\PlacementFile.py',
+   'PYMODULE'),
+  ('App.modules.PCB.PlacementFile',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCB\\PlacementFile\\__init__.py',
+   'PYMODULE'),
+  ('App.ui.generateNeodenFile_ui',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\generateNeodenFile_ui.py',
+   'PYMODULE'),
+  ('App.ui', '-', 'PYMODULE'),
+  ('App.convertgerbers',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\convertgerbers.py',
    'PYMODULE'),
-  ('modules.PCBLayer',
+  ('App.modules.PCBLayer',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\modules\\PCBLayer.py',
    'PYMODULE'),
-  ('modules', '-', 'PYMODULE'),
-  ('ui.convertGerbers_ui',
+  ('App.ui.convertGerbers_ui',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\convertGerbers_ui.py',
    'PYMODULE'),
-  ('ui.mainWindow_ui',
+  ('App.ui.mainWindow_ui',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\mainWindow_ui.py',
    'PYMODULE')])

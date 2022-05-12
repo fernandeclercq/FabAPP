@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import *
-from ui.generateNeodenFile_ui import *
-from modules.PCB.PCB import *
-from modules.Neoden4.NeodenDefinitions import *
-from modules.Neoden4.NeodenFile import *
+from App.ui.generateNeodenFile_ui import *
+from App.modules.PCB.PCB import *
+from App.modules.Neoden4.NeodenDefinitions import *
+from App.modules.Neoden4.NeodenFile import *
 import os
 import copy
 import platform

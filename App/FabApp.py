@@ -1,5 +1,5 @@
 import sys
-from mainwindows import *
+from App.mainwindows import *
 
 
 
@@ -8,3 +8,4 @@ if __name__ == "__main__":
     mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec_())
+

@@ -1,6 +1,7 @@
-from ui.mainWindow_ui import Ui_MainWindowDialog
-from convertgerbers import *
-from generateneodenfile import *
+from App.ui.mainWindow_ui import Ui_MainWindowDialog
+from App.convertgerbers import *
+from App.generateneodenfile import *
+
 
 class MainWindow(QDialog, Ui_MainWindowDialog):
     def __init__(self):

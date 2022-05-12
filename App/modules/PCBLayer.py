@@ -1,3 +1,4 @@
+
 class PCBLayer:
     def __init__(self, layer_file_path: str = "N/A", layer_type: str = "N/A", layer_side: str = "N/A",
                  layer_number: str = "N/A", layer_signal_type: str = "N/A", layer_polarity: str = "N/A",

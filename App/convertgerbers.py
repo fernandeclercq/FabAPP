@@ -2,9 +2,9 @@ import os
 import platform
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from ui.convertGerbers_ui import *
+from App.ui.convertGerbers_ui import *
 import zipfile
-from modules.PCBLayer import *
+from App.modules.PCBLayer import *
 
 class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
     def __init__(self):

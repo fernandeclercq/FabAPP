@@ -9,7 +9,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['App/FabApp.py'],
+    [ os.getcwd() + '/App/FabApp.py'],
     pathex=[],
     binaries=[],
     datas=[
