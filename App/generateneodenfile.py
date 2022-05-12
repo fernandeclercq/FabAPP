@@ -215,44 +215,28 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.outNeodenConfigFilePath = tempPath
 
     def evt_btnGenerateNeodenConfig_clicked(self):
-        # with open(self.outNeodenConfigFilePath + "/test.txt", 'w') as file:
-        #     file.write("""
-        #     #Feeder,Feeder ID,Type,Nozzle,X,Y,Angle,Footprint,Value,Pick height,Pick delay,Placement height,Placement delay,Vacuum detection,Vacuum value,Vision alignment,Speed,
-        #     stack,3,0,1,411.36,119.04,90.00,0805,0805/1k,1.50,100,1.00,100,No,-40,1,60,4,50,80,No,No,
-        #     stack,6,0,1,411.07,158.43,90.00,0805,0805/10k,1.50,100,1.00,100,No,-40,1,60,8,50,80,No,No,
-        #     stack,12,0,1,411.04,303.79,90.00,0805,0805/22pF,0.50,100,1.00,100,No,-40,1,60,4,50,80,No,No,
-        #     stack,13,0,1,411.50,325.34,90.00,0805,0805/LED1,2.00,100,1.50,100,No,-40,1,60,4,50,80,No,No,
-        #     stack,97,1,4,282.68,83.46,0.00,SOT223-3,SOT223-3/AMS-3.3V,0.00,100,1.50,100,No,-60,1,60,1,1,281.83,114.95,1,1,No,No,
-        #     stack,98,1,3,95.72,320.98,90.00,QFN32,QFN-32/STM8S,1.00,100,2.00,100,No,-40,1,40,7,4,165.50,355.88,1,1,No,No,""")
 
-        # Chip,Feeder ID,Nozzle,Name,Value,Footprint,X,Y,Rotation,Skip
-        # comp, 12, 1, C1, 100nF, 0805, 83.73, 15.96, -90.00, No,
-        # comp, 12, 1, C2, 22pF, 0805, 72.53, 28.32, -90.00, No,
-        # comp, 12, 1, C3, 22pF, 0805, 78.63, 25.72, 90.00, No,
+        print(NeodenFileIdentifiers.ConfigFileIdentifier.value)
 
 
-        # for i in range(self.tableTopComponents.rowCount()):
-        #     chkbox = self.tableTopComponents.cellWidget(i, 0).findChild(QCheckBox).isChecked()
-        #     print(chkbox)
+        for stack in self.neodenFile.stackList:
+            print(stack.getAsLineString())
 
-        # tmp: QComboBox = self.tableTopComponents.cellWidget(0, 2)
-        # tmp2: QCheckBox = self.tableTopComponents.cellWidget(0, 0).children()[1]
-        # print(tmp.currentText())
-        # print(tmp2.isChecked())
-        #
-        # for stack in self.neodenFile.stackList:
-        #     print(stack.getAsLineString())
-        #
-        # print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
-        #
-        # for fid in self.pcb.topFiducialList:
-        #     print(fid)
+        print(self.neodenFile.panelSetting)
 
-        for comp in self.neodenFile.topComponentList:
-            print(comp.getAsStringLine())
+        print(self.neodenFile.pcbTesting)
 
         for fid in self.neodenFile.topFiducialList:
             print(fid.getAsStringLine())
+
+        print(self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine())
+
+        print(self.neodenFile.topPcbSinglePanel.getAsStringLine())
+
+        print(NeodenFileIdentifiers.ComponentSectionIdentifier.value)
+
+        for comp in self.neodenFile.topComponentList:
+            print(comp.getAsStringLine())
 
         pass
 

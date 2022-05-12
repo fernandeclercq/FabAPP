@@ -2,11 +2,12 @@ from App.modules.Neoden4.Stack.Stack import Stack
 from App.modules.Neoden4.Component.NeodenComponent import *
 from App.modules.Neoden4.Fiducial.NeodenFiducial import NeodenFiducial, Fiducial
 from App.modules.Neoden4.FirstChip.FirstChipSetting import FirstChipSetting
+from App.modules.Neoden4.Panel.Panel import Panel
 from App.modules.Neoden4.NeodenDefinitions import *
 import copy
 
 
-class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
+class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
     def __init__(self, config_path: str):
         super().__init__()
         self.configPath: str = config_path
@@ -14,6 +15,8 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
         self.panelSetting: str = "pcb,Manual,Lock,100,100,350,150,Front,10,10,0,"
         self.pcbTesting: str = "test,No"
         self.pcbPanelFirstChipSetting: FirstChipSetting = FirstChipSetting()
+        self.topPcbSinglePanel: Panel = Panel()
+        self.botPcbSinglePanel: Panel = Panel()
         self._topFiducialList: list[NeodenFiducial] = []
         self._botFiducialList: list[NeodenFiducial] = []
         self._topComponentList: list[NeodenComponent] = []
@@ -45,7 +48,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
             newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
             newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._botComponentList.append(newNeodenComp)
-        print(self._botComponentList)
+
+        self.botPcbSinglePanel.firstCompX = self._botComponentList[0].component.position.xPos
+        self.botPcbSinglePanel.firstCompY = self._botComponentList[0].component.position.yPos
 
     @property
     def topComponentList(self):
@@ -61,7 +66,9 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent):
             newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
             self._topComponentList.append(newNeodenComp)
 
-        print(self._topComponentList)
+
+        self.topPcbSinglePanel.firstCompX = float(self._topComponentList[0].component.position.xPos)
+        self.topPcbSinglePanel.firstCompY = float(self._topComponentList[0].component.position.yPos)
 
 
     def __topCorrectPosition(self, original_position: Position) -> Position:
