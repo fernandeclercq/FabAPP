@@ -81,16 +81,16 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         if len(self.neodenFile.topComponentList) > 0:
             self.tableTopComponents.setRowCount(len(self.neodenFile.topComponentList))
 
-            # for row in range(0, len(self.pcb.topComponentList)):
-            #     # Export : Yes / No
-            #     self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
-            #     # Feeder number (1 - 98)
-            #     self.tableTopComponents.setCellWidget(row, 1, self.createCellWithCmb(["1", "2", "3", "4"]))
-            #     # Nozzle Number (1 - 4)
-            #     self.tableTopComponents.setCellWidget(row, 2, self.defineNozzleNumber(
-            #         self.pcb.topComponentList[row].footprint.transformedValue))
-            #     # Comp Name
-            #     self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
+            for row in range(0, len(self.pcb.topComponentList)):
+                # Export : Yes / No
+                self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
+                # Feeder number (1 - 48)
+
+                self.tableTopComponents.setCellWidget(row, 1, self.createFeederCmb(self.neodenFile.topComponentList[row].feederId))
+                # Nozzle Number (1 - 4)
+                self.tableTopComponents.setCellWidget(row, 2, self.createNozzleCmb(self.neodenFile.topComponentList[row].nozzle))
+                # Comp Name
+                self.tableTopComponents.setItem(row, 3, QTableWidgetItem(self.pcb.topComponentList[row].refName))
             #     self.tableTopComponents.setItem(row, 4, QTableWidgetItem(self.pcb.topComponentList[row].Value))
             #     self.tableTopComponents.setItem(row, 5, QTableWidgetItem(
             #         self.pcb.topComponentList[row].footprint.transformedValue))
@@ -159,11 +159,33 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         return cell_widget
 
 
-    def createCellWithCmb(self, lst: list[str]):
+    def createFeederCmb(self, feeder_id: int) -> QComboBox:
         cmb = QComboBox()
-        cmb.addItems(lst)
+        start = 1
+        end = 49
+        myFeederIds = []
+        for i in range(start, end):
+            myFeederIds.append(str(i))
+
+        cmb.addItems(myFeederIds)
+
+        cmb.setCurrentIndex(int(feeder_id ) - 1)
         return cmb
 
+    def createNozzleCmb(self, nozzle: int) -> QComboBox:
+        newCmb = QComboBox()
+
+        start = 1
+        end = 5
+        myNozzles = []
+        for i in range(start, end):
+            myNozzles.append(str(i))
+
+        newCmb.addItems(myNozzles)
+        newCmb.setCurrentIndex(int(nozzle) - 1)
+
+
+        return newCmb
 
     def defineNozzleNumber(self, footprint: str):
         cmb = QComboBox()
