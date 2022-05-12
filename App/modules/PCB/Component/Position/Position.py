@@ -1,4 +1,4 @@
-from App.modules.PCB.Definitions.Definitions import PCBSide, NeodenOfsset
+from App.modules.PCB.Definitions.Definitions import PCBSide
 
 
 class Position:

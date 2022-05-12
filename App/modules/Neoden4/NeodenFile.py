@@ -4,6 +4,7 @@ from App.modules.Neoden4.Fiducial.NeodenFiducial import NeodenFiducial, Fiducial
 from App.modules.Neoden4.FirstChip.FirstChipSetting import FirstChipSetting
 from App.modules.Neoden4.Panel.Panel import Panel
 from App.modules.Neoden4.NeodenDefinitions import *
+from App.modules.PCB.Definitions.Definitions import PCBSide
 import copy
 
 
@@ -17,6 +18,8 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         self.pcbPanelFirstChipSetting: FirstChipSetting = FirstChipSetting()
         self.topPcbSinglePanel: Panel = Panel()
         self.botPcbSinglePanel: Panel = Panel()
+        self._topStackList: list[Stack] = []
+        self._botStackList: list[Stack] = []
         self._topFiducialList: list[NeodenFiducial] = []
         self._botFiducialList: list[NeodenFiducial] = []
         self._topComponentList: list[NeodenComponent] = []
@@ -32,6 +35,23 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         self.__populateNeodenFirstChipSetting()
         self.__populateXYOrigin()
 
+
+    @property
+    def topStackList(self):
+        return self._topStackList
+
+    @property
+    def botStackList(self):
+        return self._botStackList
+
+
+    def clearComponentList(self):
+        self._topFiducialList.clear()
+        self._botFiducialList.clear()
+        self._botComponentList.clear()
+        self._topComponentList.clear()
+        self._topStackList.clear()
+        self._botStackList.clear()
 
 
     @property
@@ -112,6 +132,10 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         for stack in self.stackList:
             if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
                 newNozzle = stack.nozzle
+                if comp.position.pcbSide == PCBSide.BOT:
+                    self._botStackList.append(stack)
+                else:
+                    self._topStackList.append(stack)
                 break
 
         if self.prevNozzle == -1 and self.prevFootprint == "N/A":

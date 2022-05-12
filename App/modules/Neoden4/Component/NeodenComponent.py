@@ -1,4 +1,4 @@
-from App.modules.PCB.Component.Component import Component, Position, Footprint
+from App.modules.PCB.Component.Component import *
 from App.modules.Neoden4.NeodenDefinitions import NeodenFileIdentifiers
 
 

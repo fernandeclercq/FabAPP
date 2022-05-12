@@ -56,23 +56,24 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Setting the path of the zip for the gerbers + componentlists,
                 # will automatically sort the list for the components and create 2 lists with:
                 # top components and bot components
+                if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList):
+                    self.clearComponentTables()
+
                 self.pcb.path = inPath
 
+                # Populate fiducials & component lists for further process
                 self.neodenFile.topFiducialList = self.pcb.topFiducialList
                 self.neodenFile.botFiducialList = self.pcb.botFiducialList
                 self.neodenFile.topComponentList = self.pcb.topComponentList
                 self.neodenFile.botComponentList = self.pcb.botComponentList
 
-
-
-
+                # Populate top & bottom component tables
                 self.populateTopComponentTable()
                 self.populateBotComponentTable()
-                #
+
+                # If the top or bottom comp table contains data, enable the "export" button
                 if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
                     self.btnGenerateNeodenConfig.setEnabled(True)
-
-
 
 
 
@@ -199,12 +200,18 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         if self.ledImportPositionFilePath.text() != "":
             self.ledImportPositionFilePath.setText("")
             self.ledFilesOutputDirectory.setText("")
-            self.cleanComponentTables()
-            self.pcb.clearLists()
+            self.clearComponentTables()
             self.inPosFilePath = os.getcwd()
             self.outNeodenConfigFilePath = os.getcwd()
             self.btnRemovePositionFile.setEnabled(False)
             self.btnGenerateNeodenConfig.setEnabled(False)
+
+
+    def clearComponentTables(self):
+        self.cleanComponentTables()
+        self.pcb.clearLists()
+        self.neodenFile.clearComponentList()
+
 
 
     def evt_btnOutputFolderDirectory_clicked(self):
@@ -213,20 +220,98 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.ledFilesOutputDirectory.setText(tempPath)
             self.outNeodenConfigFilePath = tempPath
 
+
+
     def evt_btnGenerateNeodenConfig_clicked(self):
+        isTopNeodenFileCreated: bool = False
+        isBopNeodenFileCreated: bool = False
+        fileTopPath = self.outNeodenConfigFilePath + "/" + self.pcb.name + "-top.csv"
+        fileBopPath = self.outNeodenConfigFilePath + "/" + self.pcb.name + "-bot.csv"
 
-        self.generateTopNeodenFile()
+
+
+        if self.tableTopComponents.rowCount() > 0:
+            isTopNeodenFileCreated = self.generateTopNeodenFile(fileTopPath)
+
+            if isTopNeodenFileCreated:
+                QMessageBox.information(self, "Pick and Place Files Created",
+                                        "Pick and Place Top Neoden file was created in:<br><br><b>{}</b>".format(
+                                        fileTopPath))
+
+        if self.tableBottomComponents.rowCount() > 0:
+            isBopNeodenFileCreated = self.generateBotNeodenFile(fileBopPath)
+
+            if isBopNeodenFileCreated:
+                QMessageBox.information(self, "Pick and Place Files Created",
+                                        "Pick and Place Bot Neoden file was created in:<br><br><b>{}</b>".format(
+                                        fileBopPath
+                                        ))
 
 
 
-    def generateTopNeodenFile(self):
+    def generateBotNeodenFile(self, toWriteFile: str) -> bool:
+        buffer: str = ""
+
         if self.outNeodenConfigFilePath != "":
-            buffer: str = ""
-
             buffer += NeodenFileIdentifiers.ConfigFileIdentifier.value
             buffer += '\n'
 
-            for stack in self.neodenFile.stackList:
+            for stack in self.neodenFile.botStackList():
+                buffer += stack.getAsLineString()
+                buffer += '\n'
+
+            buffer += self.neodenFile.panelSetting
+            buffer += '\n'
+
+            buffer += self.neodenFile.getBotPCBFiducialSettingAsStringLine()
+            buffer += '\n'
+
+            for fid in self.neodenFile.botFiducialList:
+                buffer += fid.getAsStringLine()
+                buffer += '\n'
+
+            buffer += self.neodenFile.pcbTesting
+            buffer += '\n'
+
+            buffer += self.neodenFile.pcbPanelFirstChipSetting.getAsStringLine()
+            buffer += '\n'
+
+            buffer += self.neodenFile.botPcbSinglePanel.getAsStringLine()
+            buffer += '\n'
+
+            buffer += NeodenFileIdentifiers.ComponentSectionIdentifier.value
+            buffer += '\n'
+
+            for comp in self.neodenFile.botComponentList:
+                buffer += comp.getAsStringLine()
+                buffer += '\n'
+
+            buffer += '\n'
+
+            if os.path.exists(toWriteFile):
+                ans = QMessageBox.question(self, "Replace Existing File", "There exists already a <b>Bot neoden config file</b> in this folder\n"
+                                                                    "<b>Do you want to replace this?</b>")
+                if ans == QMessageBox.Yes:
+                    with open(toWriteFile, 'w') as file:
+                        file.write(buffer)
+                        return True
+                else:
+                    QMessageBox.information(self, "Writing Neoden File - Bot", "Generate \"Neoden File - Bot\" has been canceled")
+                    return False
+            else:
+                with open(toWriteFile, 'w') as file:
+                    file.write(buffer)
+                    return True
+
+
+    def generateTopNeodenFile(self, toWriteFile: str) -> bool:
+        buffer: str = ""
+
+        if self.outNeodenConfigFilePath != "":
+            buffer += NeodenFileIdentifiers.ConfigFileIdentifier.value
+            buffer += '\n'
+
+            for stack in self.neodenFile.topStackList:
                 buffer += stack.getAsLineString()
                 buffer += '\n'
 
@@ -258,10 +343,20 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
             buffer += '\n'
 
-            with open(self.outNeodenConfigFilePath + "/" + self.pcb.name + "-top.csv", 'w') as file:
-                file.write(buffer)
-
-
+            if os.path.exists(toWriteFile):
+                ans = QMessageBox.question(self, "Replace Existing File", "There exists already a <b>Top neoden config file</b> in this folder\n"
+                                                                          "<b>Do you want to replace this?</b>")
+                if ans == QMessageBox.Yes:
+                    with open(toWriteFile, 'w') as file:
+                        file.write(buffer)
+                        return True
+                else:
+                    QMessageBox.information(self, "Writing Neoden File - Bot", "Generate \"Neoden File - Top\" has been canceled")
+                    return False
+            else:
+                with open(toWriteFile, 'w') as file:
+                    file.write(buffer)
+                    return True
 
 
 
@@ -292,11 +387,25 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.ledImportPositionFilePath.setText(self.inPosFilePath)
             self.btnRemovePositionFile.setEnabled(True)
 
+            # Setting the path of the zip for the gerbers + componentlists,
+            # will automatically sort the list for the components and create 2 lists with:
+            # top components and bot components
+            if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList):
+                self.clearComponentTables()
+
             self.pcb.path = self.inPosFilePath
 
+            # Populate fiducials & component lists for further process
+            self.neodenFile.topFiducialList = self.pcb.topFiducialList
+            self.neodenFile.botFiducialList = self.pcb.botFiducialList
+            self.neodenFile.topComponentList = self.pcb.topComponentList
+            self.neodenFile.botComponentList = self.pcb.botComponentList
+
+            # Populate top & bottom component tables
             self.populateTopComponentTable()
             self.populateBotComponentTable()
 
+            # If the top or bottom comp table contains data, enable the "export" button
             if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
                 self.btnGenerateNeodenConfig.setEnabled(True)
 
