@@ -27,6 +27,14 @@ class PCB(Component, Fiducial, PlacementFile):
         self._path = value
         self.__identifyPlacementFiles()
         self.__convertPlacementListToComponentList()
+        self.name = self.__getPCBName()
+
+
+    def __getPCBName(self) -> str:
+        idx_last_sep = self._path.rfind('/')
+        idx_ext_char = self._path.rfind('.')
+
+        return self._path[idx_last_sep + 1:idx_ext_char]
 
 
     def __identifyPlacementFiles(self):

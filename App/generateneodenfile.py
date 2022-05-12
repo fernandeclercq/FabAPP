@@ -58,7 +58,6 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # top components and bot components
                 self.pcb.path = inPath
 
-
                 self.neodenFile.topFiducialList = self.pcb.topFiducialList
                 self.neodenFile.botFiducialList = self.pcb.botFiducialList
                 self.neodenFile.topComponentList = self.pcb.topComponentList
@@ -259,7 +258,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
             buffer += '\n'
 
-            with open(self.outNeodenConfigFilePath + "/top.csv", 'w') as file:
+            with open(self.outNeodenConfigFilePath + "/" + self.pcb.name + "-top.csv", 'w') as file:
                 file.write(buffer)
 
 

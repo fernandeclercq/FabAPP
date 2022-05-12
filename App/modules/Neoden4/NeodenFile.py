@@ -154,7 +154,6 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeoFid.fiducial.position = self.__botCorrectPosition(newNeoFid.fiducial.position)
             self._botFiducialList.append(newNeoFid)
             fidNr += 1
-        print(self._botFiducialList)
 
 
     @property
@@ -171,8 +170,6 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeoFid.fiducial.position = self.__topCorrectPosition(newNeoFid.fiducial.position)
             self._topFiducialList.append(newNeoFid)
             fidNr += 1
-        print(self._topFiducialList)
-
 
 
     def __populateXYOrigin(self):
