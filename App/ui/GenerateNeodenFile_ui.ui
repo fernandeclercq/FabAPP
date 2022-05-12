@@ -245,7 +245,7 @@
     <item>
      <widget class="QTabWidget" name="twContainerTabs">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tbFrontComponents">
        <attribute name="title">
@@ -264,9 +264,8 @@
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="rowCount">
-         <number>1</number>
+         <number>0</number>
         </property>
-        <row/>
         <column>
          <property name="text">
           <string>Feeder #</string>
