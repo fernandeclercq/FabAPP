@@ -17,10 +17,34 @@ class NeodenFileIdentifiers(enum.Enum):
 
 
 class NeodenFootprints(enum.Enum):
-    Footprints = ["0402", "0603", "0805", "1206", "1210", "1812", "2225", "SOP8", "SOP14", "SOP16", "SOP18", "SOP20", "SOP24", "SOP28", "SOP30",
+
+    AllFootprints = ["0402", "0603", "0805", "1206", "1210", "1812", "2225", "SOP8", "SOP14", "SOP16", "SOP18", "SOP20", "SOP24", "SOP28", "SOP30",
                   "SSOP16", "SSOP20", "SSOP24", "SSOP28", "TSOP16", "QFP44", "QFP54", "QFP64", "QFP80", "LQFP32", "LQFP44", "QFN24", "QFN32",
-                  "TQFP100", "SOT223", "SOT-223", "SOT23"
+                  "TQFP100", "SOT223", "SOT-223", "SOT-223-3", "SOT23"
                   ]
+
+    Nozzle_1_2_Footprints = [
+        "0402", "0603", "0805", "SOT23", "SOD123"
+    ]
+
+    Nozzle_2_Footprints = [
+        "0402", "0603", "0805", "SOT23", "SOD123"
+    ]
+
+    Nozzle_3_Footprints = [
+        "LQFP32", "LQFP44", "QFN24", "QFN32", "TQFP100", "SSOP16", "SSOP20", "SSOP24",
+        "SSOP28", "SOP16", "SOP18", "SOP20", "SOP24", "SOP28", "SOP30", "5050"
+    ]
+
+    Nozzle_4_Footprints = [
+        "SOP8", "SOP14", "1206", "1210", "1812", "2225", "SOT223", "SOT-223", "SOT-223-3"
+    ]
+
+
+
+
+
+
 
 
 class LightSource(enum.IntEnum):

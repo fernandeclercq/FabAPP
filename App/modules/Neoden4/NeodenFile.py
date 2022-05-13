@@ -122,10 +122,18 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
 
     def __correctFootprint(self, original_footprint: Footprint) -> Footprint:
         newFootprint = Footprint()
+        foundFootprintInStack = False
         for stack in self.stackList:
-            if original_footprint.Value.find(stack.footprint) != -1:
+            if original_footprint.Value.lower().find(stack.footprint.lower()) != -1:
                 newFootprint.Value = stack.footprint
+                foundFootprintInStack = True
                 break
+
+        if not foundFootprintInStack:
+            for footprint in NeodenFootprints.AllFootprints.value:
+                if original_footprint.Value.lower().find(str(footprint).lower()) != -1:
+                    newFootprint.Value = str(footprint)
+                    break
 
         return newFootprint
 
@@ -135,37 +143,38 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
         for stack in self.stackList:
             if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
                 newNozzle = stack.nozzle
+
                 if comp.position.pcbSide == PCBSide.BOT:
                     if len(self._botStackList) > 0:
-                        for bot_stack in self._botStackList:
-                            if bot_stack == stack:
-                                break
-                            else:
-                                self._botStackList.append(stack)
-                                break
+                        found = stack in self._botStackList
+                        if not found:
+                            self._botStackList.append(stack)
                     else:
                         self._botStackList.append(stack)
-                        break
+
+
                 else:
                     if len(self._topStackList) > 0:
-                        for top_stack in self._topStackList:
-                            if top_stack == stack:
-                                break
-                            else:
-                                self._topStackList.append(stack)
-                                break
+                        found = stack in self._topStackList
+                        if not found:
+                            self._topStackList.append(stack)
                     else:
                         self._topStackList.append(stack)
-                        break
+
                 break
 
 
         if self.prevNozzle == -1 and self.prevFootprint == "N/A":
-            if comp.footprint.Value.find("0805") != -1:
+            if comp.footprint.Value in NeodenFootprints.Nozzle_1_2_Footprints.value:
                 self.prevNozzle = newNozzle
                 self.prevFootprint = comp.footprint.Value
+            elif comp.footprint.Value in NeodenFootprints.Nozzle_3_Footprints.value:
+                newNozzle = 3
+
+            elif comp.footprint.Value in NeodenFootprints.Nozzle_4_Footprints.value:
+                newNozzle = 4
         else:
-            if comp.footprint.Value.find("0805") != -1:
+            if comp.footprint.Value in NeodenFootprints.Nozzle_1_2_Footprints.value:
                 self.prevFootprint = comp.footprint.Value
                 if self.prevNozzle == 1:
                     newNozzle = 2
@@ -173,6 +182,12 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
                 else:
                     newNozzle = 1
                     self.prevNozzle = 1
+
+            elif comp.footprint.Value in NeodenFootprints.Nozzle_3_Footprints.value:
+                newNozzle = 3
+
+            elif comp.footprint.Value in NeodenFootprints.Nozzle_4_Footprints.value:
+                newNozzle = 4
 
         return newNozzle
 
