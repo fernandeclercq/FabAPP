@@ -3,13 +3,13 @@ Feeder# Footprint	Value				Description
 
 13		0805		LED_RED				LED ROOD VF=2V
 
-12		0805		22pF				V=?
+12		0805		10uF				V=16V
 
 11		---			----
 
 10		SOT23		MMBT2222A			V=40V 600mA
 
-9
+9		SOP123		1N4148W				General purpose diode
 
 8		0805		100k				1/8W
 ---
