@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Comment": "All values are metric (mm)",
+        "CreationDate": "2022-05-14T18:51:59Z",
+        "GenerationSoftware": {
+            "Application": "EAGLE",
+            "Vendor": "Autodesk",
+            "Version": "9.6.2"
+        },
+        "Part": "Single"
+    },
+    "Overall": {
+        "BoardThickness": 1.67,
+        "LayerNumber": 2,
+        "Name": {
+            "ProjectId": "esp32-programmer"
+        },
+        "Owner": "Fernando Declercq Medina <fernando.declercqmedina@student.ap.be>",
+        "Size": {
+            "X": 45.39,
+            "Y": 24.11
+        }
+    }
+}
