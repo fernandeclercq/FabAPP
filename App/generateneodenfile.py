@@ -17,7 +17,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
         self.setAcceptDrops(True)
 
-        self.neodenStackConfigPath = self.getConfigFilePath("config/Neoden_stack_config.csv")
+        self.neodenStackConfigPath = self.getConfigFilePath()
         self.neodenFile = NeodenFile(self.neodenStackConfigPath)
 
         self.ledFilesOutputDirectory.setReadOnly(True)
@@ -41,15 +41,23 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         self.prevFootprint = ""
 
 
-    def getConfigFilePath(self, path: str) -> str:
+
+    def getConfigFilePath(self, path: str = "config") -> str:
         platformName = platform.system()
+        prefix = "./" + path + "/"
         finalPath: str = ""
 
         if platformName.lower() == "darwin":
             tmp = os.path.dirname(path)[:-3]
             return tmp
         else:
-            return path
+            filesLst = os.listdir("./" + path)
+            for file in filesLst:
+                if file.lower().find("config") != -1:
+                    if file.lower().endswith(".csv"):
+                        return prefix + str(file)
+
+
 
 
     def evt_btnImportPosFile_clicked(self):

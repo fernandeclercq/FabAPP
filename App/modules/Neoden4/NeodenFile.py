@@ -113,8 +113,14 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newPos.rotation = round((original_position.rotation - 360), 2)
         else:
             newPos.rotation = original_position.rotation
-        newPos.xPos = round(((original_position.yPos + self.xOrigin) + 0.22), 2)
-        newPos.yPos = round(((abs(original_position.xPos) + self.yOrigin) - 0.31), 2)
+
+        if original_position.positionGenSoft == GenerationSoftware.Kicad:
+            newPos.xPos = round(((original_position.yPos + self.xOrigin) + 0.22), 2)
+            newPos.yPos = round(((abs(original_position.xPos) + self.yOrigin) - 0.31), 2)
+        else:
+            newPos.xPos = round(((original_position.yPos + self.xOrigin) + 0.22), 2)
+            newPos.yPos = round(((original_position.xPos + self.yOrigin) - 0.31), 2)
+
         newPos.pcbSide = original_position.pcbSide
 
         return newPos

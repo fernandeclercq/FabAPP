@@ -1,5 +1,6 @@
 from App.modules.PCB.Component.Footprint.Footprint import Footprint
 from App.modules.PCB.Component.Position.Position import Position
+from App.modules.PCB.Definitions.Definitions import GenerationSoftware
 
 
 class Fiducial(Footprint, Position):
@@ -10,6 +11,19 @@ class Fiducial(Footprint, Position):
         self.Value = ori_val
         self.position = pos
         self.footprint = fpt
+        self._generationSoftware: GenerationSoftware = GenerationSoftware.NotDefined
+
+
+    @property
+    def generationSoftware(self):
+        return self._generationSoftware
+
+    @generationSoftware.setter
+    def generationSoftware(self, val: GenerationSoftware):
+        self._generationSoftware = val
+        self.position.positionGenSoft = val
+        self.footprint.footprintGenSoft = val
+
 
     def __str__(self):
         return "Reference name: {},Value: {}, Position: {}, Footprint: {}".format(

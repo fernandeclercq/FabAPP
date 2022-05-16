@@ -1,4 +1,4 @@
-from App.modules.PCB.Definitions.Definitions import PCBSide
+from App.modules.PCB.Definitions.Definitions import PCBSide, GenerationSoftware
 
 
 class Position:
@@ -7,6 +7,7 @@ class Position:
         self.yPos: float = y_pos
         self.rotation: float = rot
         self.pcbSide: PCBSide = pcb_side
+        self.positionGenSoft: GenerationSoftware = GenerationSoftware.NotDefined
 
 
     def __str__(self):

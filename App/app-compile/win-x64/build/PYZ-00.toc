@@ -506,23 +506,13 @@
   ('genericpath',
    'C:\\Program Files\\Python39\\Lib\\genericpath.py',
    'PYMODULE'),
-<<<<<<< HEAD
-  ('posixpath', 'C:\\Program Files\\Python39\\lib\\posixpath.py', 'PYMODULE'),
-  ('stat', 'C:\\Program Files\\Python39\\lib\\stat.py', 'PYMODULE'),
-  ('stringprep', 'C:\\Program Files\\Python39\\lib\\stringprep.py', 'PYMODULE'),
-=======
   ('posixpath', 'C:\\Program Files\\Python39\\Lib\\posixpath.py', 'PYMODULE'),
   ('stat', 'C:\\Program Files\\Python39\\Lib\\stat.py', 'PYMODULE'),
->>>>>>> a75943e (modify configfile)
+  ('_py_abc', 'C:\\Program Files\\Python39\\Lib\\_py_abc.py', 'PYMODULE'),
   ('tracemalloc',
    'C:\\Program Files\\Python39\\Lib\\tracemalloc.py',
    'PYMODULE'),
-<<<<<<< HEAD
-  ('_py_abc', 'C:\\Program Files\\Python39\\lib\\_py_abc.py', 'PYMODULE'),
-=======
   ('stringprep', 'C:\\Program Files\\Python39\\Lib\\stringprep.py', 'PYMODULE'),
-  ('_py_abc', 'C:\\Program Files\\Python39\\Lib\\_py_abc.py', 'PYMODULE'),
->>>>>>> a75943e (modify configfile)
   ('App.mainwindows',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\mainwindows.py',
@@ -651,7 +641,10 @@
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\generateNeodenFile_ui.py',
    'PYMODULE'),
-  ('App.ui', '-', 'PYMODULE'),
+  ('App.ui',
+   'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
+   'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\ui\\__init__.py',
+   'PYMODULE'),
   ('App.convertgerbers',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\convertgerbers.py',

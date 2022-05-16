@@ -83,11 +83,13 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Kicad
                         self.topFiducialList.append(newFid)
                     else:
                         newComp = Component(topPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                             topPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Kicad
                         self.topComponentList.append(newComp)
 
             if botPF.softwareCreated == GenerationSoftware.Kicad:
@@ -102,11 +104,13 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Kicad
                         self.botFiducialList.append(newFid)
                     else:
                         newComp = Component(botPF.entryList[x][KicadHeader.Name.value].strip("\" "),
                                             botPF.entryList[x][KicadHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Kicad
                         self.botComponentList.append(newComp)
 
 
@@ -123,12 +127,14 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Eagle
                         self.topFiducialList.append(newFid)
 
                     else:
                         newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                             topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Eagle
                         self.topComponentList.append(newComp)
 
             if botPF.softwareCreated == GenerationSoftware.Eagle:
@@ -143,12 +149,14 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Eagle
                         self.botFiducialList.append(newFid)
 
                     else:
                         newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                             botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Eagle
                         self.botComponentList.append(newComp)
 
 
@@ -165,12 +173,14 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Fusion360
                         self.topFiducialList.append(newFid)
 
                     else:
                         newComp = Component(topPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                             topPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Fusion360
                         self.topComponentList.append(newComp)
 
             if botPF.softwareCreated == GenerationSoftware.Fusion360:
@@ -185,11 +195,13 @@ class PCB(Component, Fiducial, PlacementFile):
                         newFid = Fiducial(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                           botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                           newPosition, newFootprint)
+                        newFid.generationSoftware = GenerationSoftware.Fusion360
                         self.botFiducialList.append(newFid)
                     else:
                         newComp = Component(botPF.entryList[x][EagleHeader.Name.value].strip("\" "),
                                             botPF.entryList[x][EagleHeader.Val.value].strip("\" "),
                                             newPosition, newFootprint)
+                        newComp.generationSoftware = GenerationSoftware.Fusion360
                         self.botComponentList.append(newComp)
 
 
