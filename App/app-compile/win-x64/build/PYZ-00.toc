@@ -526,8 +526,7 @@
    'Antwerpen\\Elektronica_ICT\\3_jaar\\Stage\\stage\\stage-at-AP\\afwerking\\FabAPP\\App\\generateneodenfile.py',
    'PYMODULE'),
   ('PyQt5',
-   'c:\\users\\fernando\\onedrive - ap hogeschool '
-   'antwerpen\\elektronica_ict\\3_jaar\\stage\\stage\\stage-at-ap\\afwerking\\fabapp\\venv\\lib\\site-packages\\PyQt5\\__init__.py',
+   'C:\\Program Files\\Python39\\lib\\site-packages\\PyQt5\\__init__.py',
    'PYMODULE'),
   ('App.modules.Neoden4.NeodenFile',
    'C:\\Users\\Fernando\\OneDrive - AP Hogeschool '

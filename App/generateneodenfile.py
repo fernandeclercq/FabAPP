@@ -63,36 +63,35 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
     def evt_btnImportPosFile_clicked(self):
         # noinspection PyArgumentList
         inPath: str = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip);; CSV File (*.csv)")[0]
+        if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList) > 0:
+            self.clearComponentTables()
+
         if inPath != "":
+            self.btnRemovePositionFile.setEnabled(True)
+            self.ledImportPositionFilePath.setText(inPath)
+
+            self.pcb.path = inPath
+
             if zipfile.is_zipfile(inPath):
-                self.btnRemovePositionFile.setEnabled(True)
-                self.ledImportPositionFilePath.setText(inPath)
-
-                # Setting the path of the zip for the gerbers + componentlists,
-                # will automatically sort the list for the components and create 2 lists with:
-                # top components and bot components
-                if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList):
-                    self.clearComponentTables()
-
-                self.pcb.path = inPath
-
-                # Populate fiducials & component lists for further process
-                self.neodenFile.topFiducialList = self.pcb.topFiducialList
-                self.neodenFile.botFiducialList = self.pcb.botFiducialList
-                self.neodenFile.topComponentList = self.pcb.topComponentList
-                self.neodenFile.botComponentList = self.pcb.botComponentList
-
-                # Populate top & bottom component tables
-                self.populateTopComponentTable()
-                self.populateBotComponentTable()
-
-                # If the top or bottom comp table contains data, enable the "export" button
-                if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
-                    self.btnGenerateNeodenConfig.setEnabled(True)
+                self.pcb.processPlacementFileFromZip()
 
             else:
                 if inPath.endswith(".csv"):
-                    print(inPath)
+                    self.pcb.processPlacementFileFromFile(inPath)
+
+            # Populate fiducials & component lists for further process
+            self.neodenFile.topFiducialList = self.pcb.topFiducialList
+            self.neodenFile.botFiducialList = self.pcb.botFiducialList
+            self.neodenFile.topComponentList = self.pcb.topComponentList
+            self.neodenFile.botComponentList = self.pcb.botComponentList
+
+            # Populate top & bottom component tables
+            self.populateTopComponentTable()
+            self.populateBotComponentTable()
+
+            # If the top or bottom comp table contains data, enable the "export" button
+            if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+                self.btnGenerateNeodenConfig.setEnabled(True)
 
 
 
@@ -375,51 +374,55 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
-        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+        fileEnter: str = event.mimeData().urls()[0].fileName()
+        if fileEnter.endswith(".zip") or fileEnter.endswith(".csv"):
             event.accept()
         else:
             event.ignore()
 
 
     def dragMoveEvent(self, event: QtGui.QDragMoveEvent) -> None:
-        if event.mimeData().urls()[0].fileName().endswith(".zip"):
+        fileMoved: str = event.mimeData().urls()[0].fileName()
+        if fileMoved.endswith(".zip") or fileMoved.endswith(".csv"):
             event.accept()
         else:
             event.ignore()
 
 
     def dropEvent(self, event: QtGui.QDragEnterEvent) -> None:
+        fileDropped: str = event.mimeData().urls()[0].fileName()
+        event.accept()
+        # Set the Drop action to a Copy Action(icon to show)
+        event.setDropAction(Qt.CopyAction)
+
+        if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList):
+            self.clearComponentTables()
+
+        # Get the zip file path
+        self.inPosFilePath = event.mimeData().urls()[0].toLocalFile()
+        self.ledImportPositionFilePath.setText(self.inPosFilePath)
+        self.btnRemovePositionFile.setEnabled(True)
+
+        self.pcb.path = self.inPosFilePath
+
         # Check if dropped file has the .zip extension
-        if event.mimeData().urls()[0].fileName().endswith(".zip"):
-            event.accept()
-            # Set the Drop action to a Copy Action(icon to show)
-            event.setDropAction(Qt.CopyAction)
-            # Get the name of the file
-            fileName = event.mimeData().urls()[0].fileName()
-            # Get the zip file path
-            self.inPosFilePath = event.mimeData().urls()[0].toLocalFile()
-            self.ledImportPositionFilePath.setText(self.inPosFilePath)
-            self.btnRemovePositionFile.setEnabled(True)
+        if fileDropped.endswith(".zip"):
+            self.pcb.processPlacementFileFromZip()
 
-            # Setting the path of the zip for the gerbers + componentlists,
-            # will automatically sort the list for the components and create 2 lists with:
-            # top components and bot components
-            if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList):
-                self.clearComponentTables()
+        if fileDropped.endswith(".csv"):
+            self.pcb.processPlacementFileFromFile(self.inPosFilePath)
 
-            self.pcb.path = self.inPosFilePath
+        # Populate fiducials & component lists for further process
+        self.neodenFile.topFiducialList = self.pcb.topFiducialList
+        self.neodenFile.botFiducialList = self.pcb.botFiducialList
+        self.neodenFile.topComponentList = self.pcb.topComponentList
+        self.neodenFile.botComponentList = self.pcb.botComponentList
 
-            # Populate fiducials & component lists for further process
-            self.neodenFile.topFiducialList = self.pcb.topFiducialList
-            self.neodenFile.botFiducialList = self.pcb.botFiducialList
-            self.neodenFile.topComponentList = self.pcb.topComponentList
-            self.neodenFile.botComponentList = self.pcb.botComponentList
+        # Populate top & bottom component tables
+        self.populateTopComponentTable()
+        self.populateBotComponentTable()
 
-            # Populate top & bottom component tables
-            self.populateTopComponentTable()
-            self.populateBotComponentTable()
-
-            # If the top or bottom comp table contains data, enable the "export" button
-            if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
-                self.btnGenerateNeodenConfig.setEnabled(True)
+        # If the top or bottom comp table contains data, enable the "export" button
+        if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
+            self.btnGenerateNeodenConfig.setEnabled(True)
 

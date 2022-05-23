@@ -25,9 +25,33 @@ class PCB(Component, Fiducial, PlacementFile):
     @path.setter
     def path(self, value: str):
         self._path = value
+
+
+
+    def processPlacementFileFromZip(self):
         self.__identifyPlacementFiles()
         self.__convertPlacementListToComponentList()
-        self.name = self.__getPCBName()
+
+
+    def processPlacementFileFromFile(self, file_path: str):
+        if file_path != "":
+            if file_path.lower().find("-top-pos") != -1 or file_path.lower().find("_front") != -1:
+                tp = PlacementFile(file_path, PCBSide.TOP)
+                tp._identifySoftwareCreatedFromFile()
+                tp._populateEntryListFromFile()
+                self.placementFileList.append(tp)
+                self.name = tp._getPCBNameFromFile()
+
+            elif file_path.lower().find("-bottom-pos") != -1 or file_path.lower().find("_back") != -1:
+                bt = PlacementFile(file_path, PCBSide.BOT)
+                bt._identifySoftwareCreatedFromFile()
+                bt._populateEntryListFromFile()
+                self.name = bt._getPCBNameFromFile()
+                self.placementFileList.append(bt)
+
+
+            self.__convertPlacementListToComponentList()
+
 
 
     def __getPCBName(self) -> str:
@@ -38,34 +62,40 @@ class PCB(Component, Fiducial, PlacementFile):
 
 
     def __identifyPlacementFiles(self):
-        self.placementFileList.clear()
         with zipfile.ZipFile(self._path, 'r') as myZip:
             for file in myZip.namelist():
                 if file.endswith(".csv"):
                     if file.lower().find("top") != -1 or file.lower().find("front") != -1:
                         tp = PlacementFile(file, PCBSide.TOP)
-                        tp._identifySoftwareCreated(myZip)
-                        tp._populateEntryList(myZip)
+                        tp._identifySoftwareCreatedFromZip(myZip)
+                        tp._populateEntryListFromZip(myZip)
+                        self.name = tp._getPCBNameFromFile()
                         self.placementFileList.append(tp)
                     elif file.lower().find("bot") != -1 or file.lower().find("back") != -1:
                         bt = PlacementFile(file, PCBSide.BOT)
-                        bt._identifySoftwareCreated(myZip)
-                        bt._populateEntryList(myZip)
+                        bt._identifySoftwareCreatedFromZip(myZip)
+                        bt._populateEntryListFromZip(myZip)
+                        self.name = bt._getPCBNameFromFile()
                         self.placementFileList.append(bt)
+
 
     def __getPlacementFile(self, side: PCBSide) -> PlacementFile:
         for file in self.placementFileList:
             if file.pcbSide == side:
                 return file
 
+        return PlacementFile()
+
+
     def clearLists(self):
         self.topComponentList.clear()
         self.botComponentList.clear()
         self.topFiducialList.clear()
         self.botFiducialList.clear()
+        self.placementFileList.clear()
+
 
     def __convertPlacementListToComponentList(self):
-        self.clearLists()
         if len(self.placementFileList) > 0:
             topPF = self.__getPlacementFile(PCBSide.TOP)
             botPF = self.__getPlacementFile(PCBSide.BOT)
