@@ -15,9 +15,13 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
 
         #self.ledExportGerberPath.setText(os.getcwd())
         self.ledExportGerberPath.setReadOnly(True)
+        self.ledImportGerbers.setReadOnly(True)
+        self.lblConvertGerbers.setHidden(True)
 
         self.btnExportGerbers.clicked.connect(self.evt_btnExportGerbers_clicked)
         self.btnRenameGerbers.clicked.connect(self.evt_btnRenameGerbers_clicked)
+        self.btnImportGerbers.clicked.connect(self.evt_btnImportGerbers_clicked)
+        self.btnRemoveGerbers.clicked.connect(self.evt_btnRemoveGerbers_clicked)
 
         self.myGerbersZipPath = os.getcwd()
         self.myOutputDirectory = os.getcwd()
@@ -30,6 +34,35 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
 
         self.areLayersSorted = False
         self.btnRenameGerbers.setEnabled(False)
+        self.btnRemoveGerbers.setEnabled(False)
+
+
+    def evt_btnImportGerbers_clicked(self):
+        inPath = QFileDialog.getOpenFileName(self, "Import gerber files as zip", self.myGerbersZipPath, "Zip file(*.zip)")[0]
+        if inPath != "":
+            if zipfile.is_zipfile(inPath):
+                self.myGerbersZipPath = inPath
+                # Reset all PCBLayers information
+                self.resetPCBLayers()
+                # Get gerber files names and headers
+                gerberFileHeaders = self.getGerbersFileHeader(self.myGerbersZipPath)
+                # Read files headers and assign gerber file paths to the correct layer
+                self.areLayersSorted = self.sortGerberFiles(gerberFileHeaders)
+                # If the sorting of these gerber is successful
+                if self.areLayersSorted:
+                    # Show geber zip file name on the window
+                    self.gerbersAccepted(self.getFileName(self.myGerbersZipPath))
+                    # Display changes to be made to the gerber files
+                    self.displayChangesToGerbers()
+
+                else:
+                    # Else, display reason why these gerbers were not accepted
+                    self.gerbersRejected(self.getFileName(self.myGerbersZipPath))
+
+
+
+    def evt_btnRemoveGerbers_clicked(self):
+        self.cleanWindowForNextUse()
 
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
@@ -178,7 +211,9 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         self.lblConvertGerbers.setText("<p>Drag and drop </p><p>compressed gerber files here</p>")
         self.lblConvertGerbersDisplayChanges.setText("No gerbers were imported yet....")
         self.ledExportGerberPath.setText("")
+        self.ledImportGerbers.setText("")
         self.disableRenameButton()
+        self.btnRemoveGerbers.setEnabled(False)
 
 
     def sortGerberFiles(self, gerber_file_headers: list[list[str]]) -> bool:
@@ -292,6 +327,8 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         if filename != "":
             self.lblConvertGerbers.setStyleSheet("QLabel { border: 4px dashed #00E200; }")
             self.lblConvertGerbers.setText(filename)
+            self.ledImportGerbers.setText(self.myGerbersZipPath)
+            self.btnRemoveGerbers.setEnabled(True)
             if self.ledExportGerberPath.text() != "":
                 self.enableRenameButton()
 

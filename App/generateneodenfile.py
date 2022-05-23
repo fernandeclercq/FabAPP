@@ -62,7 +62,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
     def evt_btnImportPosFile_clicked(self):
         # noinspection PyArgumentList
-        inPath = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip)")[0]
+        inPath: str = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip);; CSV File (*.csv)")[0]
         if inPath != "":
             if zipfile.is_zipfile(inPath):
                 self.btnRemovePositionFile.setEnabled(True)
@@ -89,6 +89,10 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # If the top or bottom comp table contains data, enable the "export" button
                 if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
                     self.btnGenerateNeodenConfig.setEnabled(True)
+
+            else:
+                if inPath.endswith(".csv"):
+                    print(inPath)
 
 
 

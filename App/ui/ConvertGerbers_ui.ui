@@ -44,31 +44,94 @@ border: 4px dashed #aaa;
      <x>10</x>
      <y>10</y>
      <width>1001</width>
-     <height>101</height>
+     <height>51</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QLabel" name="lblConvertGerbers">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+     <spacer name="horizontalSpacer_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-	border: 4px dashed #aaa
- }</string>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
       </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop &lt;/p&gt;&lt;p&gt;compressed gerber files here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="ledImportGerbers">
+      <property name="placeholderText">
+       <string>Import the zip-file containing the gerbers or drag-and-drop the zip-file</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnImportGerbers">
+      <property name="text">
+       <string>Import...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>15</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnRemoveGerbers">
+      <property name="text">
+       <string>Remove....</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_9">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Preferred</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -76,9 +139,9 @@ border: 4px dashed #aaa;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>330</y>
+     <y>350</y>
      <width>1001</width>
-     <height>71</height>
+     <height>51</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -190,7 +253,7 @@ border: 4px dashed #aaa;
      <widget class="QPushButton" name="btnRenameGerbers">
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>8</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -223,9 +286,9 @@ Layers</string>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
+     <y>60</y>
      <width>1001</width>
-     <height>221</height>
+     <height>291</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -245,6 +308,37 @@ Layers</string>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="lblConvertGerbers">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>198</width>
+     <height>99</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	border: 4px dashed #aaa
+ }</string>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop &lt;/p&gt;&lt;p&gt;compressed gerber files here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
  </widget>
  <resources/>
