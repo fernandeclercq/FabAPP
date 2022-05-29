@@ -1,7 +1,7 @@
 Feeder# Footprint	Value				Description
 
 
-13		0805		LED_RED				LED ROOD VF=2V
+13		0805		220R				1/8W
 
 12		0805		10uF				V=16V
 
@@ -28,5 +28,5 @@ Feeder# Footprint	Value				Description
 
 2		0805		330R				1/8W
 
-1		0805		220R				1/8W
+1		0805		LED_RED				LED ROOD VF=2V
 

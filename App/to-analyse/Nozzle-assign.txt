@@ -16,19 +16,4 @@ Available nozzles:
 	1206, 1210, 2512, 3528, 5630
 
 
-Footprint to nozzle:
-	0.7mm ID (XN07)
-		"0402"
-		"0603"
-		"0805"
-	2.2mm ID (XN22)
-		"1206"
-		"1210"
-		"1812"
-		"2225"
-		"SOP8"
-		"SOP14"
-		"SOP16"
-		"SOP18"
-	4mm ID (XN40)
 		
