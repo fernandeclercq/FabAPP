@@ -43,10 +43,6 @@ class NeodenFootprints(enum.Enum):
 
 
 
-
-
-
-
 class LightSource(enum.IntEnum):
     Inner = 1
     Outer = 2
