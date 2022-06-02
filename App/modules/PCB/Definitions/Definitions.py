@@ -29,9 +29,11 @@ class NeodenHeader(enum.Enum):
     Skip = 8
 
 
+
 class NeodenOfsset(enum.Enum):
     X_Offset = 64.93
     Y_Offset = 9.72
+
 
 
 
