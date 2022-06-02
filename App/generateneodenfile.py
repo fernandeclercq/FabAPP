@@ -100,10 +100,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.tableTopComponents.setRowCount(len(self.neodenFile.topComponentList))
 
             for row in range(0, len(self.pcb.topComponentList)):
-                # Export : Yes / No
-                # self.tableTopComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
                 # Feeder number (1 - 48)
-                self.tableTopComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.topComponentList[row].feederId))
+                self.tableTopComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.topComponentList[row]))
                 # Nozzle Number (1 - 4)
                 self.tableTopComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.topComponentList[row].nozzle))
                 # Comp Name
@@ -128,10 +126,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             self.tableBottomComponents.setRowCount(len(self.neodenFile.botComponentList))
 
             for row in range(0, len(self.neodenFile.botComponentList)):
-                # Export : Yes / No
-                # self.tableBottomComponents.setCellWidget(row, 0, self.createCellWithCheckBox())
                 # Feeder number (1 - 48)
-                self.tableBottomComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.botComponentList[row].feederId))
+                self.tableBottomComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.botComponentList[row]))
                 # Nozzle Number (1 - 4)
                 self.tableBottomComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.botComponentList[row].nozzle))
                 # Comp Name
@@ -162,23 +158,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
-    def createCellWithCheckBox(self, is_checked: bool = True) -> QWidget:
-        cell_widget = QWidget()
-        chk_box = QCheckBox()
-        if is_checked:
-            chk_box.setCheckState(Qt.Checked)
-        else:
-            chk_box.setCheckState(Qt.Unchecked)
-        lay_out = QHBoxLayout(cell_widget)
-        lay_out.addWidget(chk_box)
-        lay_out.setAlignment(Qt.AlignCenter)
-        lay_out.setContentsMargins(0, 0, 0, 0)
-        cell_widget.setLayout(lay_out)
-
-        return cell_widget
-
-
-    def createFeederCmb(self, feeder_id: int) -> QComboBox:
+    def createFeederCmb(self, component: NeodenComponent) -> QComboBox:
         cmb = QComboBox()
         start = 1
         end = 49
@@ -187,8 +167,22 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             myFeederIds.append(str(i))
 
         cmb.addItems(myFeederIds)
-        cmb.setCurrentIndex(int(feeder_id ) - 1)
+
+        cmb.setCurrentIndex(int(component.feederId) - 1)
+
+        cmb.setProperty("comp_name", component.component.refName)
+
+        cmb.currentIndexChanged.connect(self.evt_feederCmb_currentIndexChanged)
+
         return cmb
+
+
+    def evt_feederCmb_currentIndexChanged(self, idx):
+        print(idx)
+        cmb: QComboBox = self.sender()
+        print(cmb.property("comp_name"))
+
+
 
     def createNozzleCmb(self, nozzle: int) -> QComboBox:
         newCmb = QComboBox()

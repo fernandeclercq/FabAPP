@@ -1,0 +1,19 @@
+0. Placement components - Combobox edit possibility
+1. PCB definitions & Neoden definitions to XML-file
+2. Read Definitions from XML-File
+3. Load Definitions from XML-file
+	3.1. If no XML-file "Definitions" found, load default definitions (values from enums)
+4. New UI to edit XML-file definitions
+	4.1. If no XML-file "Definitions" found, create new definitions with default values from enum classes
+5. Edit Definitions from XML-file through UI
+
+--------------------------------------------------------------------------
+
+Nozzle 1 & 2:
+Height to PCB = 1.5
+--------------------
+Nozzle 3:
+Height to PCB = 1.7 (1.5)
+---------------------
+Nozzle 4:
+Height to PCB = 1.5

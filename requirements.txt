@@ -1,8 +1,6 @@
 altgraph==0.17.2
 certifi==2022.5.18.1
 charset-normalizer==2.0.12
-cx-Freeze==6.10
-cx-Logging==3.0
 docopt==0.6.2
 future==0.18.2
 idna==3.3
