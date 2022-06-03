@@ -172,13 +172,17 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         cmb.setProperty("comp_name", component.component.refName)
 
-        cmb.currentIndexChanged.connect(self.evt_feederCmb_currentIndexChanged)
+        if component.feederConfigFound:
+            cmb.setEnabled(False)
+        else:
+            cmb.currentIndexChanged.connect(self.evt_feederCmb_currentIndexChanged)
 
         return cmb
 
 
     def evt_feederCmb_currentIndexChanged(self, idx):
         print(idx)
+
         cmb: QComboBox = self.sender()
         print(cmb.property("comp_name"))
 

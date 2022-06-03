@@ -11,6 +11,8 @@ class NeodenComponent(Component):
         self._component: Component = pcb_comp
         self.skip: str = "No"
 
+        self.feederConfigFound: bool = False
+
 
 
     @property
