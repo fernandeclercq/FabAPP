@@ -67,7 +67,7 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp.component.position = self.__botCorrectPosition(newNeodenComp.component.position)
             newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
             newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
-            newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
+            [newNeodenComp.feederId, newNeodenComp.feederConfigFound] = self.__assignFeederId(newNeodenComp.component)
             self._botComponentList.append(newNeodenComp)
 
         if len(self._botComponentList) > 0:
@@ -86,7 +86,7 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp.component.position = self.__topCorrectPosition(newNeodenComp.component.position)
             newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
             newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
-            newNeodenComp.feederId = self.__assignFeederId(newNeodenComp.component)
+            [newNeodenComp.feederId, newNeodenComp.feederConfigFound] = self.__assignFeederId(newNeodenComp.component)
             self._topComponentList.append(newNeodenComp)
 
         if len(self._topComponentList) > 0:
@@ -197,15 +197,15 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
 
         return newNozzle
 
-    def __assignFeederId(self, comp: Component) -> int:
+    def __assignFeederId(self, comp: Component) -> [int, bool]:
         newFeederId: int = 1
 
         for stack in self.stackList:
             if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
                 newFeederId = stack.feederId
-                break
+                return [newFeederId, True]
 
-        return newFeederId
+        return [newFeederId, False]
 
 
     @property
