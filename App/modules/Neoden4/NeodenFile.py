@@ -66,8 +66,8 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp = NeodenComponent(copy.deepcopy(pcb_comp))
             newNeodenComp.component.position = self.__botCorrectPosition(newNeodenComp.component.position)
             newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
-            newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
-            [newNeodenComp.feederId, newNeodenComp.feederConfigFound] = self.__assignFeederId(newNeodenComp.component)
+            [newNeodenComp.nozzle, newNeodenComp.isNozzleAssigned] = self.__assignNozzle(newNeodenComp.component)
+            [newNeodenComp.feederId, newNeodenComp.isFeederConfigFound] = self.__assignFeederId(newNeodenComp.component)
             self._botComponentList.append(newNeodenComp)
 
         if len(self._botComponentList) > 0:
@@ -85,8 +85,8 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             newNeodenComp = NeodenComponent(copy.deepcopy(pcb_comp))
             newNeodenComp.component.position = self.__topCorrectPosition(newNeodenComp.component.position)
             newNeodenComp.component.footprint = self.__correctFootprint(newNeodenComp.component.footprint)
-            newNeodenComp.nozzle = self.__assignNozzle(newNeodenComp.component)
-            [newNeodenComp.feederId, newNeodenComp.feederConfigFound] = self.__assignFeederId(newNeodenComp.component)
+            [newNeodenComp.nozzle, newNeodenComp.isNozzleAssigned] = self.__assignNozzle(newNeodenComp.component)
+            [newNeodenComp.feederId, newNeodenComp.isFeederConfigFound] = self.__assignFeederId(newNeodenComp.component)
             self._topComponentList.append(newNeodenComp)
 
         if len(self._topComponentList) > 0:
@@ -143,12 +143,14 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
 
         return newFootprint
 
-    def __assignNozzle(self, comp: Component) -> int:
+    def __assignNozzle(self, comp: Component) -> [int, bool]:
         newNozzle = 1
+        isNozzleFound: bool = False
 
         for stack in self.stackList:
             if stack.compValue == (comp.footprint.Value + "/" + comp.Value):
                 newNozzle = stack.nozzle
+                isNozzleFound = True
 
                 if comp.position.pcbSide == PCBSide.BOT:
                     if len(self._botStackList) > 0:
@@ -174,28 +176,35 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             if comp.footprint.Value in NeodenFootprints.Nozzle_1_2_Footprints.value:
                 self.prevNozzle = newNozzle
                 self.prevFootprint = comp.footprint.Value
+                isNozzleFound = True
             elif comp.footprint.Value in NeodenFootprints.Nozzle_3_Footprints.value:
                 newNozzle = 3
+                isNozzleFound = True
 
             elif comp.footprint.Value in NeodenFootprints.Nozzle_4_Footprints.value:
                 newNozzle = 4
+                isNozzleFound = True
         else:
             if comp.footprint.Value in NeodenFootprints.Nozzle_1_2_Footprints.value:
                 self.prevFootprint = comp.footprint.Value
                 if self.prevNozzle == 1:
                     newNozzle = 2
                     self.prevNozzle = 2
+                    isNozzleFound = True
                 else:
                     newNozzle = 1
                     self.prevNozzle = 1
+                    isNozzleFound = True
 
             elif comp.footprint.Value in NeodenFootprints.Nozzle_3_Footprints.value:
                 newNozzle = 3
+                isNozzleFound = True
 
             elif comp.footprint.Value in NeodenFootprints.Nozzle_4_Footprints.value:
                 newNozzle = 4
+                isNozzleFound = True
 
-        return newNozzle
+        return [newNozzle, isNozzleFound]
 
     def __assignFeederId(self, comp: Component) -> [int, bool]:
         newFeederId: int = 1
@@ -323,3 +332,22 @@ class NeodenFile(Stack, NeodenFiducial, NeodenComponent, Panel):
             tmpStr += "{},{},".format(pcb_fid.fiducial.position.xPos, pcb_fid.fiducial.position.yPos)
 
         return tmpStr
+
+    def getCompByRefName(self, ref_name: str) -> NeodenComponent:
+        result = NeodenComponent(Component())
+        compFound: bool = False
+
+        for topCmp in self.topComponentList:
+            if topCmp.component.refName == ref_name:
+                result = topCmp
+                compFound = True
+                break
+
+        if not compFound:
+            for botCmp in self.botComponentList:
+                if botCmp.component.refName == ref_name:
+                    result = botCmp
+                    compFound = True
+                    break
+
+        return result
