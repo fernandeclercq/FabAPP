@@ -1,2 +1,0 @@
-PCB Left Bottom
-X = 78.76 / Y = 24.31
