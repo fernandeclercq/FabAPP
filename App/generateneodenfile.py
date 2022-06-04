@@ -244,6 +244,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         comp_ref_name = cmb.property("comp_name")
         neo_comp = self.neodenFile.getCompByRefName(comp_ref_name)
         neo_comp.skip = newVal
+        
 
 
     def evt_btnRemovePosFile_clicked(self):
