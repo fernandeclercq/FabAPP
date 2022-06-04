@@ -118,7 +118,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Component Rotation
                 self.tableTopComponents.setItem(row, 7, QTableWidgetItem(str(self.neodenFile.topComponentList[row].component.position.rotation)))
                 # Component Skip
-                self.tableTopComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.topComponentList[row].skip))
+                self.tableTopComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.topComponentList[row]))
 
 
     def populateBotComponentTable(self):
@@ -143,7 +143,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Component Rotation
                 self.tableBottomComponents.setItem(row, 7, QTableWidgetItem(str(self.neodenFile.botComponentList[row].component.position.rotation)))
                 # Component Skip
-                self.tableBottomComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.botComponentList[row].skip))
+                self.tableBottomComponents.setCellWidget(row, 8, self.createSkipCmb(self.neodenFile.botComponentList[row]))
 
 
     def cleanComponentTables(self):
@@ -223,15 +223,27 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
-    def createSkipCmb(self, skip: str) -> QComboBox:
+    def createSkipCmb(self, neo_comp: NeodenComponent) -> QComboBox:
         newCmb = QComboBox()
         newCmb.addItems(["No", "Yes"])
-        if skip.lower() == "no":
+        if neo_comp.skip.lower() == "no":
             newCmb.setCurrentIndex(0)
         else:
             newCmb.setCurrentIndex(1)
 
+        newCmb.setProperty("comp_name", neo_comp.component.refName)
+        newCmb.currentIndexChanged.connect(self.evt_createSkipCmb_currentIndexChanged)
+
+
+
         return newCmb
+
+    def evt_createSkipCmb_currentIndexChanged(self, idx):
+        cmb: QComboBox = self.sender()
+        newVal = cmb.itemText(idx)
+        comp_ref_name = cmb.property("comp_name")
+        neo_comp = self.neodenFile.getCompByRefName(comp_ref_name)
+        neo_comp.skip = newVal
 
 
     def evt_btnRemovePosFile_clicked(self):
