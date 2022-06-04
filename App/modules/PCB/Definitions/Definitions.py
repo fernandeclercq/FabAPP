@@ -2,7 +2,7 @@ import enum
 
 
 
-class PCBSide(enum.Enum):
+class PCBSide(enum.IntEnum):
     NotDefined = 0
     TOP = 1
     BOT = 2

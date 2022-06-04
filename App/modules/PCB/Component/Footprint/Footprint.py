@@ -9,9 +9,9 @@ class Footprint:
 
 
     def __repr__(self):
-        return "Original value: {}".format(self.Value)
+        return "Value: {}".format(self.Value)
 
 
     def __str__(self):
-        return "Original value: {}\n".format(self.Value)
+        return "Value: {}\n".format(self.Value)
 

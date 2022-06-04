@@ -11,11 +11,11 @@ class Position:
 
 
     def __str__(self):
-        return "Original X: {}, Original Y: {}, Original Rotation: {}, {}".format(
+        return "X: {}, Y: {}, Rotation: {}, {}".format(
             self.xPos, self.yPos, self.rotation, self.pcbSide)
 
 
     def __repr__(self):
-        return "Original X: {}, Original Y: {}, Original Rotation: {}, {}\n".format(
+        return "X: {}, Y: {}, Rotation: {}, {}\n".format(
             self.xPos, self.yPos, self.rotation, self.pcbSide)
 

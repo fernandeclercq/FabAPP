@@ -62,7 +62,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
     def evt_btnImportPosFile_clicked(self):
         # noinspection PyArgumentList
-        inPath: str = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "Zip file(*.zip);; CSV File (*.csv)")[0]
+        inPath: str = QFileDialog.getOpenFileName(self, "Import Position File as Zip", self.inPosFilePath, "CSV File (*.csv);;Zip file(*.zip)")[0]
         if len(self.pcb.topComponentList) > 0 or len(self.pcb.botComponentList) > 0:
             self.clearComponentTables()
 
@@ -103,7 +103,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Feeder number (1 - 48)
                 self.tableTopComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.topComponentList[row]))
                 # Nozzle Number (1 - 4)
-                self.tableTopComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.topComponentList[row].nozzle))
+                self.tableTopComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.topComponentList[row]))
                 # Comp Name
                 self.tableTopComponents.setItem(row, 2, QTableWidgetItem(self.neodenFile.topComponentList[row].component.refName))
                 self.tableTopComponents.itemAt(row, 2)
@@ -129,7 +129,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 # Feeder number (1 - 48)
                 self.tableBottomComponents.setCellWidget(row, 0, self.createFeederCmb(self.neodenFile.botComponentList[row]))
                 # Nozzle Number (1 - 4)
-                self.tableBottomComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.botComponentList[row].nozzle))
+                self.tableBottomComponents.setCellWidget(row, 1, self.createNozzleCmb(self.neodenFile.botComponentList[row]))
                 # Comp Name
                 self.tableBottomComponents.setItem(row, 2, QTableWidgetItem(self.neodenFile.botComponentList[row].component.refName))
                 # Component Value
@@ -158,7 +158,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
 
-    def createFeederCmb(self, component: NeodenComponent) -> QComboBox:
+    def createFeederCmb(self, neo_comp: NeodenComponent) -> QComboBox:
         cmb = QComboBox()
         start = 1
         end = 49
@@ -168,11 +168,11 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         cmb.addItems(myFeederIds)
 
-        cmb.setCurrentIndex(int(component.feederId) - 1)
+        cmb.setCurrentIndex(int(neo_comp.feederId) - 1)
 
-        cmb.setProperty("comp_name", component.component.refName)
+        cmb.setProperty("comp_name", neo_comp.component.refName)
 
-        if component.feederConfigFound:
+        if neo_comp.isFeederConfigFound:
             cmb.setEnabled(False)
         else:
             cmb.currentIndexChanged.connect(self.evt_feederCmb_currentIndexChanged)
@@ -181,14 +181,16 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
 
     def evt_feederCmb_currentIndexChanged(self, idx):
-        print(idx)
-
         cmb: QComboBox = self.sender()
-        print(cmb.property("comp_name"))
+        newVal = cmb.itemText(idx)
+        comp_ref_name = cmb.property("comp_name")
+
+        neo_comp = self.neodenFile.getCompByRefName(comp_ref_name)
+        neo_comp.feederId = int(newVal)
 
 
 
-    def createNozzleCmb(self, nozzle: int) -> QComboBox:
+    def createNozzleCmb(self, neo_comp: NeodenComponent) -> QComboBox:
         newCmb = QComboBox()
 
         start = 1
@@ -198,8 +200,28 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             myNozzles.append(str(i))
 
         newCmb.addItems(myNozzles)
-        newCmb.setCurrentIndex(int(nozzle) - 1)
+        newCmb.setCurrentIndex(int(neo_comp.nozzle) - 1)
+
+        newCmb.setProperty("comp_name", neo_comp.component.refName)
+
+        if neo_comp.isNozzleAssigned:
+            newCmb.setEnabled(False)
+        else:
+            newCmb.currentIndexChanged.connect(self.evt_nozzleCmb_currentIndexChanged)
+
         return newCmb
+
+
+
+    def evt_nozzleCmb_currentIndexChanged(self, idx):
+        cmb: QComboBox = self.sender()
+        newVal = cmb.itemText(idx)
+        comp_ref_name = cmb.property("comp_name")
+
+        neo_comp = self.neodenFile.getCompByRefName(comp_ref_name)
+        neo_comp.nozzle = int(newVal)
+
+
 
     def createSkipCmb(self, skip: str) -> QComboBox:
         newCmb = QComboBox()
