@@ -102,3 +102,11 @@ class FirstChipMapping(enum.Enum):
     PcbAngle = 9
 
 
+
+class PCBOrigin(enum.Enum):
+    X = 78.76
+    Y = 24.31
+
+
+
+
