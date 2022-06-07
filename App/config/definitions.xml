@@ -204,8 +204,37 @@
 
     <nozzle>
         <nz id="0">
-            
         </nz>
+=======
+        <installed-nozzle>
+            <in id="0">
+                <position>1</position>
+                <nozzle-id>0</nozzle-id>
+            </in>
+        </installed-nozzle>
+        <available-nozzle>
+            <an id="0">
+                <name>XN07</name>
+                <pickable-footprints>
+                    <pf id="0">
+                        <footprint-id>0</footprint-id>
+                    </pf>
+                    <pf id="1">
+                        <footprint-id>1</footprint-id>
+                    </pf>
+                    <pf id="2">
+                        <footprint-id>2</footprint-id>
+                    </pf>
+                </pickable-footprints>
+            </an>
+            <an>
+                <name>XN14</name>
+                <pickable-footprints>
+
+                </pickable-footprints>
+            </an>
+        </available-nozzle>
+>>>>>>> 1c348e61192cf377a362c241a27df2d4115c54fe
     </nozzle>
 
 </definitions>
