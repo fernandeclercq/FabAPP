@@ -50,6 +50,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         if platformName.lower() == "darwin":
             tmp = os.path.dirname(path)[:-3]
             return tmp
+
         else:
             filesLst = os.listdir("./" + path)
             for file in filesLst:
@@ -92,6 +93,11 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             # If the top or bottom comp table contains data, enable the "export" button
             if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
                 self.btnGenerateNeodenConfig.setEnabled(True)
+
+                if self.tableTopComponents.rowCount() > self.tableBottomComponents.rowCount():
+                    self.twContainerTabs.setCurrentIndex(0)
+                else:
+                    self.twContainerTabs.setCurrentIndex(1)
 
 
 
@@ -155,6 +161,8 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
 
         for row in range(botRowCount, -1, -1):
             self.tableBottomComponents.removeRow(row)
+
+        self.twContainerTabs.setCurrentIndex(0)
 
 
 
@@ -234,9 +242,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         newCmb.setProperty("comp_name", neo_comp.component.refName)
         newCmb.currentIndexChanged.connect(self.evt_createSkipCmb_currentIndexChanged)
 
-
-
         return newCmb
+
+
 
     def evt_createSkipCmb_currentIndexChanged(self, idx):
         cmb: QComboBox = self.sender()
@@ -458,4 +466,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         # If the top or bottom comp table contains data, enable the "export" button
         if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
             self.btnGenerateNeodenConfig.setEnabled(True)
+
+            if self.tableTopComponents.rowCount() > self.tableBottomComponents.rowCount():
+                self.twContainerTabs.setCurrentIndex(0)
+            else:
+                self.twContainerTabs.setCurrentIndex(1)
 
