@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<definitions>
+    <pcb>
+        <origin>
+            <x>78.76</x>
+            <y>24.31</y>
+        </origin>
+    </pcb>
+    <footprints>
+        <ft id="0">
+            <name>0402</name>
+            <length>1.00</length>
+            <width>0.50</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="1">
+            <name>0603</name>
+            <length>1.60</length>
+            <width>0.80</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="2">
+            <name>0805</name>
+            <length>2.00</length>
+            <width>1.20</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="3">
+            <name>1206</name>
+            <length>3.20</length>
+            <width>1.60</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="4">
+            <name>1210</name>
+            <length>3.20</length>
+            <width>1.60</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="5">
+            <name>1812</name>
+            <length>4.50</length>
+            <width>3.20</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="6">
+            <name>2225</name>
+            <length>4.50</length>
+            <width>3.20</width>
+            <thickness>0.50</thickness>
+        </ft>
+        <ft id="7">
+            <name>SOP8</name>
+            <length>5.00</length>
+            <width>6.00</width>
+            <thickness>1.50</thickness>
+        </ft>
+        <ft id="8">
+            <name>SOP14</name>
+            <length>8.70</length>
+            <width>6.00</width>
+            <thickness>1.50</thickness>
+        </ft>
+        <ft id="9">
+            <name>SOP16</name>
+            <length>10.00</length>
+            <width>6.00</width>
+            <thickness>1.50</thickness>
+        </ft>
+        <ft id="10">
+            <name>SOP18</name>
+            <length>11.50</length>
+            <width>10.30</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="11">
+            <name>SOP20</name>
+            <length>12.70</length>
+            <width>10.30</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="12">
+            <name>SOP24</name>
+            <length>15.40</length>
+            <width>10.30</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="13">
+            <name>SOP28</name>
+            <length>17.90</length>
+            <width>10.30</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="14">
+            <name>SOP30</name>
+            <length>19.00</length>
+            <width>10.30</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="15">
+            <name>SSOP16</name>
+            <length>6.20</length>
+            <width>7.70</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="16">
+            <name>SSOP20</name>
+            <length>7.20</length>
+            <width>7.70</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="17">
+            <name>SSOP24</name>
+            <length>8.30</length>
+            <width>7.70</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="18">
+            <name>SSOP28</name>
+            <length>10.20</length>
+            <width>7.70</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="19">
+            <name>TSOP16</name>
+            <length>5.00</length>
+            <width>6.40</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="20">
+            <name>QFP44</name>
+            <length>13.50</length>
+            <width>13.50</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="21">
+            <name>QFP54</name>
+            <length>17.20</length>
+            <width>17.20</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="22">
+            <name>QFP64</name>
+            <length>17.20</length>
+            <width>17.20</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="23">
+            <name>QFP80</name>
+            <length>24.00</length>
+            <width>18.00</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="24">
+            <name>LQFP32</name>
+            <length>9.00</length>
+            <width>9.00</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="25">
+            <name>LQFP44</name>
+            <length>12.00</length>
+            <width>12.00</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="26">
+            <name>QFN24</name>
+            <length>4.00</length>
+            <width>4.00</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="27">
+            <name>QFN32</name>
+            <length>5.00</length>
+            <width>5.00</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="28">
+            <name>TQFP100</name>
+            <length>16.00</length>
+            <width>16.00</width>
+            <thickness>2.00</thickness>
+        </ft>
+        <ft id="29">
+            <name>SOT223-3</name>
+            <length>6.83</length>
+            <width>6.20</width>
+            <thickness>1.50</thickness>
+        </ft>
+        <ft id="30">
+            <name>SOT23</name>
+            <length>2.90</length>
+            <width>2.40</width>
+            <thickness>1.00</thickness>
+        </ft>
+        <ft id="31">
+            <name>SOD123</name>
+            <length>3.65</length>
+            <width>1.55</width>
+            <thickness>1.00</thickness>
+        </ft>
+    </footprints>
+
+    <nozzle>
+        <nz id="0">
+            
+        </nz>
+    </nozzle>
+
+</definitions>
+
