@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <definitions>
-    <pcb>
+    <Neoden4>
         <origin>
             <x>78.76</x>
             <y>24.31</y>
         </origin>
-    </pcb>
+    </Neoden4>
     <footprints>
         <ft id="0">
             <name>0402</name>
@@ -202,10 +202,7 @@
         </ft>
     </footprints>
 
-    <nozzle>
-        <nz id="0">
-        </nz>
-=======
+    <nozzles>
         <installed-nozzle>
             <in id="0">
                 <position>1</position>
@@ -227,15 +224,59 @@
                     </pf>
                 </pickable-footprints>
             </an>
-            <an>
+            <an id="1">
                 <name>XN14</name>
                 <pickable-footprints>
-
+                    <pf id="0">
+                        <footprint-id>3</footprint-id>
+                    </pf>
+                    <pf id="1">
+                        <footprint-id>4</footprint-id>
+                    </pf>
+                    <pf id="2">
+                        <footprint-id>5</footprint-id>
+                    </pf>
+                    <pf id="3">
+                        <footprint-id>6</footprint-id>
+                    </pf>
+                </pickable-footprints>
+            </an>
+            <an id="2">
+                <name>XN22</name>
+                <pickable-footprints>
+                    <pf id="0">
+                        <footprint-id>7</footprint-id>
+                    </pf>
+                    <pf id="1">
+                        <footprint-id>15</footprint-id>
+                    </pf>
+                    <pf id="2">
+                        <footprint-id>16</footprint-id>
+                    </pf>
+                    <pf id="3">
+                        <footprint-id>17</footprint-id>
+                    </pf>
+                </pickable-footprints>
+            </an>
+            <an id="3">
+                <name>XN40</name>
+                <pickable-footprints>
+                    <pf id="0">
+                        <footprint-id>8</footprint-id>
+                    </pf>
+                    <pf id="1">
+                        <footprint-id>9</footprint-id>
+                    </pf>
+                    <pf id="2">
+                        <footprint-id>10</footprint-id>
+                    </pf>
+                    <pf id="3">
+                        <footprint-id>11</footprint-id>
+                    </pf>
                 </pickable-footprints>
             </an>
         </available-nozzle>
->>>>>>> 1c348e61192cf377a362c241a27df2d4115c54fe
-    </nozzle>
+    </nozzles>
 
 </definitions>
 

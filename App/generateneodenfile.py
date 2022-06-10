@@ -45,20 +45,24 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
     def getConfigFilePath(self, path: str = "config") -> str:
         platformName = platform.system()
         prefix = "./" + path + "/"
-        finalPath: str = ""
+        finalPath = ""
 
         if platformName.lower() == "darwin":
             tmp = os.path.dirname(path)[:-3]
-            return tmp
+            finalPath = tmp
 
         else:
             filesLst = os.listdir("./" + path)
             for file in filesLst:
                 if file.lower().find("config") != -1:
                     if file.lower().endswith(".csv"):
-                        return prefix + str(file)
+                        finalPath = prefix + str(file)
 
 
+        if finalPath != "":
+            return finalPath
+        else:
+            return ""
 
 
     def evt_btnImportPosFile_clicked(self):
