@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QResizeEvent
 from PyQt5.QtWidgets import *
 from App.ui.generateNeodenFile_ui import *
 from App.modules.PCB.PCB import *
@@ -15,6 +16,9 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
         super(GenerateNeodenFile, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
+        self.setLayout(self.vBoxLay_main)
+        self.tableTopComponents.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        #self.vBoxLay_main.setSpacing(0)
         self.setAcceptDrops(True)
 
         self.neodenStackConfigPath = self.getConfigFilePath()
@@ -93,6 +97,7 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
             # Populate top & bottom component tables
             self.populateTopComponentTable()
             self.populateBotComponentTable()
+
 
             # If the top or bottom comp table contains data, enable the "export" button
             if self.tableTopComponents.rowCount() > 0 or self.tableBottomComponents.rowCount() > 0:
@@ -475,4 +480,15 @@ class GenerateNeodenFile(QDialog, Ui_GenerateNeodenConfigDialog):
                 self.twContainerTabs.setCurrentIndex(0)
             else:
                 self.twContainerTabs.setCurrentIndex(1)
+
+
+    def resizeEvent(self, event: QResizeEvent):
+        newWidth = event.size().width()
+        newHeight = event.size().height()
+        self.tableTopComponents.resize(newWidth - 10, newHeight - 115)
+
+
+
+
+
 

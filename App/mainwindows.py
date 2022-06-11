@@ -12,6 +12,7 @@ class MainWindow(QDialog, Ui_MainWindowDialog):
 
         self.btnConvertGrb.clicked.connect(self.evt_btnConvertGerbers_clicked)
         self.btnGenerateNeodenFile.clicked.connect(self.evt_btnGenerateNeodenFile_clicked)
+        self.setLayout(self.hQbox_1)
 
 
     ### Events Handlers - Main Window
