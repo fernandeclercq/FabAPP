@@ -11,6 +11,7 @@ class ConvertGerbers(QDialog, Ui_ConvertGerbersDialog):
         super(ConvertGerbers, self).__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
+        self.setLayout(self.vQBox_main)
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
 
         #self.ledExportGerberPath.setText(os.getcwd())
