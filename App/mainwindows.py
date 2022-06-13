@@ -1,6 +1,7 @@
 from App.ui.mainWindow_ui import Ui_MainWindowDialog
 from App.convertgerbers import *
 from App.generateneodenfile import *
+from App.editDefinitions import *
 
 
 class MainWindow(QDialog, Ui_MainWindowDialog):
@@ -9,10 +10,13 @@ class MainWindow(QDialog, Ui_MainWindowDialog):
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon("img/AP_logo_256.png"))
         self.setWindowTitle("FabApp")
+        self.setLayout(self.vQBox_main)
+
 
         self.btnConvertGrb.clicked.connect(self.evt_btnConvertGerbers_clicked)
         self.btnGenerateNeodenFile.clicked.connect(self.evt_btnGenerateNeodenFile_clicked)
-        self.setLayout(self.vQBox_main)
+        self.btnEditDefinitions.clicked.connect(self.evt_btnEditDefinitions_clicked)
+
 
 
     ### Events Handlers - Main Window
@@ -26,4 +30,9 @@ class MainWindow(QDialog, Ui_MainWindowDialog):
         generateNeodenFile_page = GenerateNeodenFile()
         generateNeodenFile_page.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         generateNeodenFile_page.exec_()
+
+    def evt_btnEditDefinitions_clicked(self):
+        editDefinitions_page = EditDefinitions()
+        editDefinitions_page.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        editDefinitions_page.exec_()
 

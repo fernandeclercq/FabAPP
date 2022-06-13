@@ -2,9 +2,10 @@ venv/
 .idea/
 .DS_Store
 
-<<<<<<< HEAD
 App/to-analyse/
 
-=======
 to-analyse/
->>>>>>> a259774 (update gitignore & delete to-analyse)
+
+__pycache__
+
+
