@@ -1,23 +1,23 @@
-from App.modules.Neoden4.Nozzle.Nozzle import Nozzle
+from App.modules.Definitions.Nozzle.AvailableNozzle import AvailableNozzle
 
 
 
-class InstalledNozzle(Nozzle):
-    def __init__(self, nozzle_id: int = 0, position: int = 0, nozzle: Nozzle = Nozzle()):
+class InstalledNozzle(AvailableNozzle):
+    def __init__(self, nozzle_id: int = 0, position: int = 0, nozzle: AvailableNozzle = AvailableNozzle()):
         super(InstalledNozzle, self).__init__()
-        self.nozzle: Nozzle = nozzle
+        self.nozzle: AvailableNozzle = nozzle
         self.position: int = position
-        self.nozzleId: int = nozzle_id
+        self.id: int = nozzle_id
 
 
     def __str__(self):
-        return "Id: {}, Position: {}, Nozzle: {}".format(
-            self.nozzleId, self.position, self.nozzle
+        return "Installed Nozzle - Id: {}, Position: {}, Nozzle: {}".format(
+            self.id, self.position, self.nozzle
         )
 
     def __repr__(self):
-        return "Id: {}, Position: {}, Nozzle: {}\n".format(
-            self.nozzleId, self.position, self.nozzle
+        return "Installed Nozzle - Id: {}, Position: {}, Nozzle: {}\n".format(
+            self.id, self.position, self.nozzle
         )
 
 

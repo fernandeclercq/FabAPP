@@ -6,15 +6,17 @@ class FootprintPackage(Footprint):
         super(FootprintPackage, self).__init__()
         self.id: int = footprint_id
         self.footprint: Footprint = footprint
+        self._name: str = "N/A"
         self.length: float = length
         self.thickness: float = thickness
 
     @property
     def name(self):
-        return self.footprint.Value
+        return self._name
 
     @name.setter
     def name(self, val: str):
+        self._name = val
         self.footprint.Value = val
 
 

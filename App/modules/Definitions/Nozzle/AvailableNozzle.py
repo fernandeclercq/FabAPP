@@ -7,18 +7,18 @@ class AvailableNozzle(Nozzle):
     def __init__(self, nozzle: Nozzle = Nozzle(), nozzle_id: int = 0):
         super(AvailableNozzle, self).__init__()
         self.nozzle: Nozzle = nozzle
-        self.nozzleId: int = nozzle_id
+        self.id: int = nozzle_id
         self.pickableFootprintList: list[FootprintPackage] = []
 
 
     def __str__(self):
-        return "Id: {}, Nozzle: {}, Pickable Footprints: {}".format(
-            self.nozzleId, self.nozzle, self.pickableFootprintList
+        return "Available Nozzle - Id: {}, Nozzle: {}, Pickable Footprints: {}".format(
+            self.id, self.nozzle, self.pickableFootprintList
         )
 
     def __repr__(self):
-        return "Id: {}, Nozzle: {}, Pickable Footprints: {}\n".format(
-            self.nozzleId, self.nozzle, self.pickableFootprintList
+        return "Available Nozzle - Id: {}, Nozzle: {}, Pickable Footprints: {}\n".format(
+            self.id, self.nozzle, self.pickableFootprintList
         )
 
 

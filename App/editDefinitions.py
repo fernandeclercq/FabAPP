@@ -8,12 +8,27 @@ from App.modules.Definitions.Definitions import Definition
 
 
 class EditDefinitions(QDialog, Ui_EditDefinitions_Dialog):
-    def __init__(self):
+    def __init__(self, definitions: Definition):
         super(EditDefinitions, self).__init__()
         self.setupUi(self)
         self.setLayout(self.vQBox_Main)
 
+        self.btnEditDefinitions_Cancel.clicked.connect(self.evt_btnCancel_clicked)
 
-        definition = Definition()
 
+        self.definitions = definitions
+
+        self.dspbNeodenOriginX.setValue(self.definitions.originX)
+        self.dspbNeodenOriginY.setValue(self.definitions.originY)
+
+        print(self.definitions.footprintPackages)
+        print(self.definitions.availableNozzles)
+        print(self.definitions.installedNozzles)
+
+
+
+
+
+    def evt_btnCancel_clicked(self):
+        self.close()
 

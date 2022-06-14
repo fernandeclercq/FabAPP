@@ -208,6 +208,18 @@
                 <position>1</position>
                 <nozzle-id>0</nozzle-id>
             </in>
+			<in id="1">
+                <position>2</position>
+                <nozzle-id>0</nozzle-id>
+            </in>
+			<in id="2">
+                <position>3</position>
+                <nozzle-id>3</nozzle-id>
+            </in>
+			<in id="3">
+                <position>4</position>
+                <nozzle-id>2</nozzle-id>
+            </in>
         </installed-nozzle>
         <available-nozzle>
             <an id="0">
