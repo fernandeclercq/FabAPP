@@ -12,12 +12,12 @@ class AvailableNozzle(Nozzle):
 
 
     def __str__(self):
-        return "Available Nozzle - Id: {}, Nozzle: {}, Pickable Footprints: {}".format(
+        return "Available Nozzle - Id: {}, Nozzle: {}, \nPickable Footprints: {}".format(
             self.id, self.nozzle, self.pickableFootprintList
         )
 
     def __repr__(self):
-        return "Available Nozzle - Id: {}, Nozzle: {}, Pickable Footprints: {}\n".format(
+        return "Available Nozzle - Id: {}, Nozzle: {}, \nPickable Footprints: {}\n".format(
             self.id, self.nozzle, self.pickableFootprintList
         )
 

@@ -58,8 +58,6 @@ class XMLHandler(object):
 
 
     def getOriginValues(self) -> [float, float]:
-        x_val: float = 0.00
-        y_val: float = 0.00
         x_val = float(self._xmlRoot.find(XMLTags.Neoden.value).find(XMLTags.Origin.value).find(XMLTags.X.value).text)
         y_val = float(self._xmlRoot.find(XMLTags.Neoden.value).find(XMLTags.Origin.value).find(XMLTags.Y.value).text)
         return [x_val, y_val]
@@ -113,7 +111,7 @@ class XMLHandler(object):
             new_installed_nozzle = InstalledNozzle()
             new_installed_nozzle.id = int(installed_nozzle.attrib[XMLTags.Id.value])
             new_installed_nozzle.position = int(installed_nozzle.find(XMLTags.NozzleInstalledPosition.value).text)
-            new_installed_nozzle.nozzle.id = int(installed_nozzle.find(XMLTags.NozzleRefId.value).text)
+            new_installed_nozzle.avNozzle = AvailableNozzle(Nozzle(), int(installed_nozzle.find(XMLTags.NozzleRefId.value).text))
 
             new_installed_nozzles_list.append(new_installed_nozzle)
 
